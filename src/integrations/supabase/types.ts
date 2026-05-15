@@ -1472,8 +1472,8 @@ export type Database = {
           id: string
           issue_date: string | null
           issued_at: string | null
-          nfe_number: number | null
-          nfe_series: number | null
+          nfe_number: string | null
+          nfe_series: string | null
           notes: string | null
           number: number | null
           pdf_path: string | null
@@ -1504,8 +1504,8 @@ export type Database = {
           id?: string
           issue_date?: string | null
           issued_at?: string | null
-          nfe_number?: number | null
-          nfe_series?: number | null
+          nfe_number?: string | null
+          nfe_series?: string | null
           notes?: string | null
           number?: number | null
           pdf_path?: string | null
@@ -1536,8 +1536,8 @@ export type Database = {
           id?: string
           issue_date?: string | null
           issued_at?: string | null
-          nfe_number?: number | null
-          nfe_series?: number | null
+          nfe_number?: string | null
+          nfe_series?: string | null
           notes?: string | null
           number?: number | null
           pdf_path?: string | null
@@ -1594,6 +1594,7 @@ export type Database = {
           qty: number | null
           quantity: number | null
           total: number
+          total_line: number | null
           unit: string | null
           unit_cost: number
           unit_price: number | null
@@ -1613,6 +1614,7 @@ export type Database = {
           qty?: number | null
           quantity?: number | null
           total: number
+          total_line?: number | null
           unit?: string | null
           unit_cost: number
           unit_price?: number | null
@@ -1632,6 +1634,7 @@ export type Database = {
           qty?: number | null
           quantity?: number | null
           total?: number
+          total_line?: number | null
           unit?: string | null
           unit_cost?: number
           unit_price?: number | null
@@ -2602,40 +2605,49 @@ export type Database = {
       product_expiration_dates: {
         Row: {
           account_id: string | null
+          batch_label: string | null
           created_at: string
           expiration_date: string | null
           expires_at: string | null
+          fiscal_entry_id: string | null
           id: string
           lot: string | null
           product_id: string
           qty: number | null
           qty_on_hand: number | null
+          quantity: number | null
           store_id: string | null
           variant_id: string | null
         }
         Insert: {
           account_id?: string | null
+          batch_label?: string | null
           created_at?: string
           expiration_date?: string | null
           expires_at?: string | null
+          fiscal_entry_id?: string | null
           id?: string
           lot?: string | null
           product_id: string
           qty?: number | null
           qty_on_hand?: number | null
+          quantity?: number | null
           store_id?: string | null
           variant_id?: string | null
         }
         Update: {
           account_id?: string | null
+          batch_label?: string | null
           created_at?: string
           expiration_date?: string | null
           expires_at?: string | null
+          fiscal_entry_id?: string | null
           id?: string
           lot?: string | null
           product_id?: string
           qty?: number | null
           qty_on_hand?: number | null
+          quantity?: number | null
           store_id?: string | null
           variant_id?: string | null
         }
@@ -3110,10 +3122,10 @@ export type Database = {
           notes: string | null
           product_id: string
           purchase_order_id: string
-          qty: number
+          qty: number | null
           qty_ordered: number | null
           qty_received: number
-          total: number
+          total: number | null
           total_line: number | null
           unit_cost: number
           variant_id: string | null
@@ -3125,10 +3137,10 @@ export type Database = {
           notes?: string | null
           product_id: string
           purchase_order_id: string
-          qty: number
+          qty?: number | null
           qty_ordered?: number | null
           qty_received?: number
-          total: number
+          total?: number | null
           total_line?: number | null
           unit_cost: number
           variant_id?: string | null
@@ -3140,10 +3152,10 @@ export type Database = {
           notes?: string | null
           product_id?: string
           purchase_order_id?: string
-          qty?: number
+          qty?: number | null
           qty_ordered?: number | null
           qty_received?: number
-          total?: number
+          total?: number | null
           total_line?: number | null
           unit_cost?: number
           variant_id?: string | null
@@ -3276,7 +3288,7 @@ export type Database = {
           product_id: string
           qty: number
           quote_id: string
-          total: number
+          total: number | null
           total_line: number | null
           unit_price: number
           variant_id: string | null
@@ -3289,7 +3301,7 @@ export type Database = {
           product_id: string
           qty: number
           quote_id: string
-          total: number
+          total?: number | null
           total_line?: number | null
           unit_price: number
           variant_id?: string | null
@@ -3302,7 +3314,7 @@ export type Database = {
           product_id?: string
           qty?: number
           quote_id?: string
-          total?: number
+          total?: number | null
           total_line?: number | null
           unit_price?: number
           variant_id?: string | null
@@ -4507,7 +4519,14 @@ export type Database = {
         | "received"
         | "cancelled"
         | "requested"
-      quote_status: "open" | "accepted" | "converted" | "expired" | "cancelled"
+      quote_status:
+        | "open"
+        | "accepted"
+        | "converted"
+        | "expired"
+        | "cancelled"
+        | "draft"
+        | "sent"
       receivable_status: "open" | "partial" | "paid" | "overdue" | "cancelled"
       sale_status:
         | "draft"
@@ -4708,7 +4727,15 @@ export const Constants = {
         "cancelled",
         "requested",
       ],
-      quote_status: ["open", "accepted", "converted", "expired", "cancelled"],
+      quote_status: [
+        "open",
+        "accepted",
+        "converted",
+        "expired",
+        "cancelled",
+        "draft",
+        "sent",
+      ],
       receivable_status: ["open", "partial", "paid", "overdue", "cancelled"],
       sale_status: [
         "draft",
