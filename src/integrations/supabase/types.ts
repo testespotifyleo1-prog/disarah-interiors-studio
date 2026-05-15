@@ -20,7 +20,9 @@ export type Database = {
           created_at: string
           id: string
           menu_theme: string | null
+          modules: Json | null
           name: string
+          owner_pin: string | null
           owner_pin_hash: string | null
           updated_at: string
         }
@@ -29,7 +31,9 @@ export type Database = {
           created_at?: string
           id: string
           menu_theme?: string | null
+          modules?: Json | null
           name: string
+          owner_pin?: string | null
           owner_pin_hash?: string | null
           updated_at?: string
         }
@@ -38,7 +42,9 @@ export type Database = {
           created_at?: string
           id?: string
           menu_theme?: string | null
+          modules?: Json | null
           name?: string
+          owner_pin?: string | null
           owner_pin_hash?: string | null
           updated_at?: string
         }
@@ -48,6 +54,7 @@ export type Database = {
         Row: {
           account_id: string
           amount: number
+          category: string | null
           created_at: string
           description: string | null
           due_date: string
@@ -57,12 +64,15 @@ export type Database = {
           paid_at: string | null
           purchase_order_id: string | null
           status: Database["public"]["Enums"]["payable_status"]
+          store_id: string | null
           supplier_id: string | null
+          supplier_name: string | null
           updated_at: string
         }
         Insert: {
           account_id: string
           amount: number
+          category?: string | null
           created_at?: string
           description?: string | null
           due_date: string
@@ -72,12 +82,15 @@ export type Database = {
           paid_at?: string | null
           purchase_order_id?: string | null
           status?: Database["public"]["Enums"]["payable_status"]
+          store_id?: string | null
           supplier_id?: string | null
+          supplier_name?: string | null
           updated_at?: string
         }
         Update: {
           account_id?: string
           amount?: number
+          category?: string | null
           created_at?: string
           description?: string | null
           due_date?: string
@@ -87,7 +100,9 @@ export type Database = {
           paid_at?: string | null
           purchase_order_id?: string | null
           status?: Database["public"]["Enums"]["payable_status"]
+          store_id?: string | null
           supplier_id?: string | null
+          supplier_name?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -96,6 +111,13 @@ export type Database = {
             columns: ["account_id"]
             isOneToOne: false
             referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounts_payable_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
           {
@@ -1246,6 +1268,7 @@ export type Database = {
           authorized_at: string | null
           cancellation_reason: string | null
           cancelled_at: string | null
+          contingency_mode: boolean
           created_at: string
           created_by: string | null
           customer_id: string | null
@@ -1272,6 +1295,7 @@ export type Database = {
           authorized_at?: string | null
           cancellation_reason?: string | null
           cancelled_at?: string | null
+          contingency_mode?: boolean
           created_at?: string
           created_by?: string | null
           customer_id?: string | null
@@ -1298,6 +1322,7 @@ export type Database = {
           authorized_at?: string | null
           cancellation_reason?: string | null
           cancelled_at?: string | null
+          contingency_mode?: boolean
           created_at?: string
           created_by?: string | null
           customer_id?: string | null
@@ -1739,6 +1764,7 @@ export type Database = {
           id: string
           product_id: string
           qty: number
+          qty_on_hand: number | null
           reorder_point: number | null
           reserved_qty: number
           store_id: string
@@ -1750,6 +1776,7 @@ export type Database = {
           id?: string
           product_id: string
           qty?: number
+          qty_on_hand?: number | null
           reorder_point?: number | null
           reserved_qty?: number
           store_id: string
@@ -1761,6 +1788,7 @@ export type Database = {
           id?: string
           product_id?: string
           qty?: number
+          qty_on_hand?: number | null
           reorder_point?: number | null
           reserved_qty?: number
           store_id?: string
@@ -2408,35 +2436,41 @@ export type Database = {
       }
       product_expiration_dates: {
         Row: {
-          account_id: string
+          account_id: string | null
           created_at: string
-          expires_at: string
+          expiration_date: string | null
+          expires_at: string | null
           id: string
           lot: string | null
           product_id: string
-          qty: number
+          qty: number | null
+          qty_on_hand: number | null
           store_id: string | null
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
           created_at?: string
-          expires_at: string
+          expiration_date?: string | null
+          expires_at?: string | null
           id?: string
           lot?: string | null
           product_id: string
-          qty?: number
+          qty?: number | null
+          qty_on_hand?: number | null
           store_id?: string | null
           variant_id?: string | null
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
           created_at?: string
-          expires_at?: string
+          expiration_date?: string | null
+          expires_at?: string | null
           id?: string
           lot?: string | null
           product_id?: string
-          qty?: number
+          qty?: number | null
+          qty_on_hand?: number | null
           store_id?: string | null
           variant_id?: string | null
         }
@@ -2473,7 +2507,7 @@ export type Database = {
       }
       product_images: {
         Row: {
-          account_id: string
+          account_id: string | null
           created_at: string
           id: string
           product_id: string
@@ -2481,7 +2515,7 @@ export type Database = {
           url: string
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
           created_at?: string
           id?: string
           product_id: string
@@ -2489,7 +2523,7 @@ export type Database = {
           url: string
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
           created_at?: string
           id?: string
           product_id?: string
@@ -2515,36 +2549,51 @@ export type Database = {
       }
       product_presentations: {
         Row: {
-          account_id: string
+          account_id: string | null
+          conversion_factor: number | null
           created_at: string
-          factor: number
+          factor: number | null
+          gtin: string | null
           id: string
           is_active: boolean
+          is_purchase: boolean
+          is_sale: boolean
           name: string
           price: number | null
           product_id: string
+          purchase_unit_code: string | null
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
+          conversion_factor?: number | null
           created_at?: string
-          factor?: number
+          factor?: number | null
+          gtin?: string | null
           id?: string
           is_active?: boolean
+          is_purchase?: boolean
+          is_sale?: boolean
           name: string
           price?: number | null
           product_id: string
+          purchase_unit_code?: string | null
           updated_at?: string
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
+          conversion_factor?: number | null
           created_at?: string
-          factor?: number
+          factor?: number | null
+          gtin?: string | null
           id?: string
           is_active?: boolean
+          is_purchase?: boolean
+          is_sale?: boolean
           name?: string
           price?: number | null
           product_id?: string
+          purchase_unit_code?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -2566,33 +2615,39 @@ export type Database = {
       }
       product_price_tiers: {
         Row: {
-          account_id: string
+          account_id: string | null
           created_at: string
           id: string
           is_active: boolean
+          label: string | null
           min_qty: number
-          price: number
+          price: number | null
           product_id: string
+          unit_price: number | null
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
+          label?: string | null
           min_qty: number
-          price: number
+          price?: number | null
           product_id: string
+          unit_price?: number | null
           updated_at?: string
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
+          label?: string | null
           min_qty?: number
-          price?: number
+          price?: number | null
           product_id?: string
+          unit_price?: number | null
           updated_at?: string
         }
         Relationships: [
@@ -2614,27 +2669,30 @@ export type Database = {
       }
       product_variant_images: {
         Row: {
-          account_id: string
+          account_id: string | null
           created_at: string
           id: string
+          image_url: string | null
           sort_order: number | null
-          url: string
+          url: string | null
           variant_id: string
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
           sort_order?: number | null
-          url: string
+          url?: string | null
           variant_id: string
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
           sort_order?: number | null
-          url?: string
+          url?: string | null
           variant_id?: string
         }
         Relationships: [
@@ -2656,7 +2714,7 @@ export type Database = {
       }
       product_variants: {
         Row: {
-          account_id: string
+          account_id: string | null
           attributes: Json
           cost: number | null
           created_at: string
@@ -2669,7 +2727,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string | null
           attributes?: Json
           cost?: number | null
           created_at?: string
@@ -2682,7 +2740,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
-          account_id?: string
+          account_id?: string | null
           attributes?: Json
           cost?: number | null
           created_at?: string
@@ -2843,6 +2901,7 @@ export type Database = {
           created_at: string
           display_name: string | null
           email: string | null
+          full_name: string | null
           id: string
           phone: string | null
           updated_at: string
@@ -2853,6 +2912,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          full_name?: string | null
           id?: string
           phone?: string | null
           updated_at?: string
@@ -2863,6 +2923,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          full_name?: string | null
           id?: string
           phone?: string | null
           updated_at?: string
@@ -4169,6 +4230,7 @@ export type Database = {
         | "delivered"
         | "failed"
         | "cancelled"
+        | "assigned"
       fiscal_doc_status:
         | "pending"
         | "authorized"
@@ -4176,6 +4238,9 @@ export type Database = {
         | "cancelled"
         | "denied"
         | "contingency"
+        | "issued"
+        | "processing"
+        | "completed"
       fiscal_doc_type: "nfe" | "nfce" | "nfse" | "mdfe"
       inventory_movement_type:
         | "purchase"
@@ -4205,7 +4270,13 @@ export type Database = {
         | "cancelled"
       quote_status: "open" | "accepted" | "converted" | "expired" | "cancelled"
       receivable_status: "open" | "partial" | "paid" | "overdue" | "cancelled"
-      sale_status: "draft" | "held" | "paid" | "cancelled" | "returned"
+      sale_status:
+        | "draft"
+        | "held"
+        | "paid"
+        | "cancelled"
+        | "returned"
+        | "crediario"
       transfer_status: "draft" | "sent" | "received" | "cancelled"
     }
     CompositeTypes: {
@@ -4351,6 +4422,7 @@ export const Constants = {
         "delivered",
         "failed",
         "cancelled",
+        "assigned",
       ],
       fiscal_doc_status: [
         "pending",
@@ -4359,6 +4431,9 @@ export const Constants = {
         "cancelled",
         "denied",
         "contingency",
+        "issued",
+        "processing",
+        "completed",
       ],
       fiscal_doc_type: ["nfe", "nfce", "nfse", "mdfe"],
       inventory_movement_type: [
@@ -4392,7 +4467,14 @@ export const Constants = {
       ],
       quote_status: ["open", "accepted", "converted", "expired", "cancelled"],
       receivable_status: ["open", "partial", "paid", "overdue", "cancelled"],
-      sale_status: ["draft", "held", "paid", "cancelled", "returned"],
+      sale_status: [
+        "draft",
+        "held",
+        "paid",
+        "cancelled",
+        "returned",
+        "crediario",
+      ],
       transfer_status: ["draft", "sent", "received", "cancelled"],
     },
   },
