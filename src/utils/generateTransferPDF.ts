@@ -18,7 +18,7 @@ export function generateTransferPDF(transfer: any, items: any[], stores: any[]) 
 
   // Branding
   doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); doc.text('Typos! ERP', pw - m, y + 3, { align: 'right' });
+  doc.setTextColor(196, 94, 26); doc.text('Disarah Interiores', pw - m, y + 3, { align: 'right' });
   doc.setTextColor(0, 0, 0);
 
   // Title

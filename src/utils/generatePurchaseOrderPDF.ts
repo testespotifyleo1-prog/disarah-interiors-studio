@@ -18,7 +18,7 @@ export function generatePurchaseOrderPDF(order: any, items: any[]) {
   let y = 10;
 
   doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); doc.text('Typos! ERP', pw - m, y + 3, { align: 'right' });
+  doc.setTextColor(196, 94, 26); doc.text('Disarah Interiores', pw - m, y + 3, { align: 'right' });
   doc.setTextColor(0, 0, 0);
 
   doc.setFontSize(13); doc.text('PEDIDO DE COMPRA', pw / 2, y + 4, { align: 'center' });

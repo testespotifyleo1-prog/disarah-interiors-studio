@@ -52,7 +52,7 @@ export function AuthBrandPanel() {
         </div>
 
         <p className="mt-2 text-xs text-white/40 tracking-wide">
-          © {new Date().getFullYear()} Typos! ERP — Todos os direitos reservados
+          © {new Date().getFullYear()} Disarah Interiores — Sistema interno
         </p>
       </div>
     </section>

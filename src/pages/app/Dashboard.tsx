@@ -14,7 +14,7 @@ import { MonthFilter, getMonthRange } from '@/components/MonthFilter';
 import { isModuleEnabled } from '@/utils/accountModules';
 import PartyStoreDashboard from '@/components/dashboard/PartyStoreDashboard';
 import Last7DaysRevenueChart from '@/components/dashboard/Last7DaysRevenueChart';
-import WhatsNewCard from '@/components/dashboard/WhatsNewCard';
+
 
 interface DashboardStats {
   salesToday: number;
@@ -321,8 +321,6 @@ function DefaultDashboard() {
         </div>
       </div>
 
-      {/* What's New */}
-      <WhatsNewCard />
 
       {/* Stats Grid */}
       <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">

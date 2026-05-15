@@ -385,7 +385,7 @@ export default function Customers() {
                   />
                   <p className="text-[11px] text-muted-foreground">
                     {isModuleDisabled(currentAccount, 'email_marketing')
-                      ? 'Recurso de aniversário bloqueado para esta conta. Contate a equipe Typos para ativar.'
+                      ? 'Recurso de aniversário bloqueado para esta conta.'
                       : 'Usada para envio automático de mensagem de aniversário 🎂'}
                   </p>
                 </div>

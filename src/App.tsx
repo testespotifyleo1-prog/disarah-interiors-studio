@@ -7,14 +7,10 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { PlanProvider } from "@/contexts/PlanContext";
 
 // Pages
+import Index from "./pages/Index";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
-import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
-import LandingPage from "./pages/LandingPage";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
-import SelectPlan from "./pages/SelectPlan";
 import CheckoutReturn from "./pages/CheckoutReturn";
 import MercadoLivreCallback from "./pages/MercadoLivreCallback";
 import TrackOrder from "./pages/TrackOrder";
@@ -86,7 +82,6 @@ import ReplenishmentSuggestions from "./pages/app/ReplenishmentSuggestions";
 import Quotes from "./pages/app/Quotes";
 import NewQuote from "./pages/app/NewQuote";
 import QuoteDetail from "./pages/app/QuoteDetail";
-import MySubscription from "./pages/app/MySubscription";
 import AiSimulations from "./pages/app/AiSimulations";
 import EmailCampaigns from "./pages/app/EmailCampaigns";
 import Picking from "./pages/app/Picking";
@@ -95,7 +90,7 @@ import SalesGoals from "./pages/app/SalesGoals";
 import ReactivationCampaigns from "./pages/app/ReactivationCampaigns";
 import Developers from "./pages/app/Developers";
 import ApiConnectors from "./pages/app/ApiConnectors";
-import ApiDocs from "./pages/ApiDocs";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -107,21 +102,16 @@ const App = () => (
         <Sonner position="top-right" richColors closeButton expand visibleToasts={4} toastOptions={{ duration: 5000 }} />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Index />} />
             <Route path="/loja/:slug" element={<Storefront />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/superadmin" element={<SuperAdmin />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/termos" element={<Terms />} />
-            <Route path="/privacidade" element={<Privacy />} />
-            <Route path="/select-plan" element={<SelectPlan />} />
             <Route path="/checkout/return" element={<CheckoutReturn />} />
             <Route path="/meli/callback" element={<MercadoLivreCallback />} />
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
-            <Route path="/docs/api" element={<ApiDocs />} />
-            
+
             {/* App Routes */}
             <Route path="/app" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
@@ -153,7 +143,7 @@ const App = () => (
               <Route path="suppliers" element={<Suppliers />} />
               <Route path="suppliers/import" element={<ImportSuppliers />} />
               <Route path="activity-logs" element={<ActivityLogs />} />
-              
+
               <Route path="fiscal-returns" element={<FiscalReturns />} />
               <Route path="fiscal-entries" element={<FiscalEntries />} />
               <Route path="fiscal-entries/new" element={<NewFiscalEntry />} />
@@ -187,7 +177,6 @@ const App = () => (
               <Route path="quotes" element={<Quotes />} />
               <Route path="quotes/new" element={<NewQuote />} />
               <Route path="quotes/:id" element={<QuoteDetail />} />
-              <Route path="subscription" element={<MySubscription />} />
               <Route path="ai-simulations" element={<AiSimulations />} />
               <Route path="email-campaigns" element={<EmailCampaigns />} />
               <Route path="picking" element={<Picking />} />
@@ -197,7 +186,7 @@ const App = () => (
               <Route path="developers" element={<Developers />} />
               <Route path="api-connectors" element={<ApiConnectors />} />
             </Route>
-            
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

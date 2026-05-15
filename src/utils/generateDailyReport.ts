@@ -494,7 +494,7 @@ export async function generateDailyReportPDF(data: DailyReportData) {
   doc.setFontSize(7);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(140);
-  doc.text(`Relatório gerado em ${new Date().toLocaleString('pt-BR')} — Typos! ERP`, margin, doc.internal.pageSize.getHeight() - 8);
+  doc.text(`Relatório gerado em ${new Date().toLocaleString('pt-BR')} — Disarah Interiores`, margin, doc.internal.pageSize.getHeight() - 8);
   doc.setTextColor(0);
 
   // Page numbers

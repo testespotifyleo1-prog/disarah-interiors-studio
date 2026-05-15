@@ -192,7 +192,7 @@ export default function FiscalSettings() {
   const openFiscalSupport = () => {
     const storeName = stores.find((s) => s.id === selectedStoreId)?.name || currentStore?.name || '—';
     const subject = `Ajuda na configuração fiscal — ${storeName}`;
-    const content = `Olá, equipe Typos!\n\nPreciso de ajuda para configurar a emissão de notas fiscais (NF-e / NFC-e) para a loja "${storeName}".\n\n📋 Dados da conta:\n• ID da Conta: ${currentAccount?.id || '—'}\n• ID da Loja: ${selectedStoreId || '—'}\n• Nome da Loja: ${storeName}\n• Conta: ${currentAccount?.name || '—'}\n\n✅ Já tenho separado para agilizar:\n• Certificado Digital A1 (.pfx) e senha\n• Token CSC (Código de Segurança do Contribuinte) — para NFC-e/Cupom Fiscal\n• ID do CSC\n• Inscrição Estadual\n• Regime Tributário (Simples Nacional / Lucro Presumido / Real)\n• CNAE principal\n• Série e numeração inicial das notas\n\nPor favor, me orientem sobre o próximo passo para enviar esses dados de forma segura. Aguardo o atendimento!`;
+    const content = `Olá, suporte interno\n\nPreciso de ajuda para configurar a emissão de notas fiscais (NF-e / NFC-e) para a loja "${storeName}".\n\n📋 Dados da conta:\n• ID da Conta: ${currentAccount?.id || '—'}\n• ID da Loja: ${selectedStoreId || '—'}\n• Nome da Loja: ${storeName}\n• Conta: ${currentAccount?.name || '—'}\n\n✅ Já tenho separado para agilizar:\n• Certificado Digital A1 (.pfx) e senha\n• Token CSC (Código de Segurança do Contribuinte) — para NFC-e/Cupom Fiscal\n• ID do CSC\n• Inscrição Estadual\n• Regime Tributário (Simples Nacional / Lucro Presumido / Real)\n• CNAE principal\n• Série e numeração inicial das notas\n\nPor favor, me orientem sobre o próximo passo para enviar esses dados de forma segura. Aguardo o atendimento!`;
 
     window.dispatchEvent(
       new CustomEvent('typos:open-support', {
@@ -223,7 +223,7 @@ export default function FiscalSettings() {
                 </span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                A <strong className="text-foreground">equipe Typos!</strong> faz <strong className="text-foreground">todo o processo</strong> de integração fiscal para você.
+                A <strong className="text-foreground">suporte interno</strong> faz <strong className="text-foreground">todo o processo</strong> de integração fiscal para você.
                 Tenha em mãos: <strong className="text-foreground">Certificado Digital A1, Token CSC</strong> (para NFC-e/Cupom Fiscal),
                 Inscrição Estadual e Regime Tributário — assim agilizamos sua emissão de notas.
               </p>

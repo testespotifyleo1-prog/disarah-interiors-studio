@@ -83,11 +83,11 @@ async function drawProfessionalHeader(doc: jsPDF, sale: SaleWithDetails, title: 
   const margin = 12;
   let y = 10;
 
-  // ── "Typos! ERP" branding top-right
+  // ── "Disarah Interiores" branding top-right
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
   doc.setTextColor(196, 94, 26); // #C45E1A
-  doc.text('Typos! ERP', pageWidth - margin, y + 3, { align: 'right' });
+  doc.text('Disarah Interiores', pageWidth - margin, y + 3, { align: 'right' });
   doc.setTextColor(0, 0, 0);
 
   // ── Title centered
@@ -546,7 +546,7 @@ function drawDeclarationFooter(doc: jsPDF, y: number, customerName?: string) {
   const footerY = pageHeight - 8;
   doc.setFontSize(6);
   doc.setTextColor(160, 160, 160);
-  doc.text('Typos! ERP — Sistema de gestão', pageWidth / 2, footerY, { align: 'center' });
+  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
   doc.setTextColor(0, 0, 0);
 
   return y;
@@ -910,7 +910,7 @@ async function buildPDF(opts: GeneratePDFOptions): Promise<jsPDF> {
   const footerY = pageHeight - 8;
   doc.setFontSize(6);
   doc.setTextColor(160, 160, 160);
-  doc.text('Typos! ERP — Sistema de gestão', pageWidth / 2, footerY, { align: 'center' });
+  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
   doc.setTextColor(0, 0, 0);
 
   return doc;
