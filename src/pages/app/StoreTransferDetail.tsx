@@ -21,7 +21,7 @@ const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondar
   separated: { label: 'Separada', variant: 'default' },
   shipped: { label: 'Enviada', variant: 'default' },
   received: { label: 'Recebida', variant: 'default' },
-  canceled: { label: 'Cancelada', variant: 'destructive' },
+  cancelled: { label: 'Cancelada', variant: 'destructive' },
 };
 
 export default function StoreTransferDetail() {
@@ -95,7 +95,7 @@ export default function StoreTransferDetail() {
       }
 
       // If canceling after shipped, reverse inventory
-      if (newStatus === 'canceled' && transfer.status === 'shipped') {
+      if (newStatus === 'cancelled' && transfer.status === 'shipped') {
         for (const item of items) {
           const { data: inv } = await supabase.from('inventory')
             .select('id, qty_on_hand')
@@ -141,7 +141,7 @@ export default function StoreTransferDetail() {
   const canSeparate = transfer.status === 'requested' && canEdit;
   const canShip = (transfer.status === 'separated' || transfer.status === 'requested') && canEdit;
   const canReceive = transfer.status === 'shipped' && canEdit;
-  const canCancel = !['received', 'canceled'].includes(transfer.status) && canEdit;
+  const canCancel = !['received', 'cancelled'].includes(transfer.status) && canEdit;
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -252,7 +252,7 @@ export default function StoreTransferDetail() {
           <Textarea placeholder="Motivo do cancelamento..." value={cancelReason} onChange={e => setCancelReason(e.target.value)} />
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCancel(false)}>Voltar</Button>
-            <Button variant="destructive" onClick={() => updateStatus('canceled', { canceled_by: user!.id, canceled_at: new Date().toISOString(), cancel_reason: cancelReason || null })} disabled={acting}>
+            <Button variant="destructive" onClick={() => updateStatus('cancelled', { canceled_by: user!.id, canceled_at: new Date().toISOString(), cancel_reason: cancelReason || null })} disabled={acting}>
               {acting ? <Loader2 className="mr-1 h-4 w-4 animate-spin" /> : null} Confirmar Cancelamento
             </Button>
           </DialogFooter>

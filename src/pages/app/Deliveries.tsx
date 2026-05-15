@@ -22,7 +22,7 @@ const STATUS_LABELS: Record<DeliveryStatus, string> = {
   assigned: 'Atribuída',
   out_for_delivery: 'Em Rota',
   delivered: 'Entregue',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
 };
 
 const STATUS_COLORS: Record<DeliveryStatus, string> = {
@@ -30,7 +30,7 @@ const STATUS_COLORS: Record<DeliveryStatus, string> = {
   assigned: 'bg-blue-500',
   out_for_delivery: 'bg-purple-500',
   delivered: 'bg-green-500',
-  canceled: 'bg-red-500',
+  cancelled: 'bg-red-500',
 };
 
 export default function Deliveries() {
@@ -164,7 +164,7 @@ export default function Deliveries() {
         return <Truck className="h-4 w-4" />;
       case 'delivered':
         return <CheckCircle className="h-4 w-4" />;
-      case 'canceled':
+      case 'cancelled':
         return <XCircle className="h-4 w-4" />;
     }
   };
@@ -229,14 +229,14 @@ export default function Deliveries() {
             </div>
           </CardContent>
         </Card>
-        <Card className="cursor-pointer" onClick={() => setStatusFilter('canceled')}>
+        <Card className="cursor-pointer" onClick={() => setStatusFilter('cancelled')}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Canceladas</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {deliveries.filter(d => d.status === 'canceled').length}
+              {deliveries.filter(d => d.status === 'cancelled').length}
             </div>
           </CardContent>
         </Card>

@@ -2,13 +2,13 @@
 
 export type AccountRole = 'owner' | 'admin' | 'manager' | 'seller';
 export type StoreRole = 'admin' | 'manager' | 'seller';
-export type SaleStatus = 'draft' | 'open' | 'paid' | 'canceled' | 'crediario';
+export type SaleStatus = 'draft' | 'open' | 'paid' | 'cancelled' | 'crediario' | 'held' | 'returned';
 export type PaymentMethod = 'pix' | 'cash' | 'card' | 'crediario' | 'financeira' | 'store_credit';
 export type CardType = 'debit' | 'credit';
-export type CommissionStatus = 'pending' | 'paid' | 'canceled';
-export type DeliveryType = 'pickup' | 'delivery';
-export type DeliveryStatus = 'pending' | 'assigned' | 'out_for_delivery' | 'delivered' | 'canceled';
-export type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'canceled';
+export type CommissionStatus = 'pending' | 'paid' | 'cancelled';
+export type DeliveryType = string;
+export type DeliveryStatus = string;
+export type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'done' | 'cancelled';
 export type FiscalDocType = 'nfe' | 'nfce' | 'cupom' | 'nfse' | 'nfe_complementar';
 export type NfeioEnvironment = 'prod' | 'homolog';
 export type ImportJobStatus = 'pending' | 'processing' | 'completed' | 'failed';
@@ -287,13 +287,13 @@ export interface CreditOverrideRequest {
   store_id?: string | null;
   sale_id?: string | null;
   customer_id: string;
-  requested_by: string;
-  requested_at: string;
+  requested_by?: string;
+  requested_at?: string;
   current_limit: number;
-  used_balance: number;
-  sale_amount: number;
+  used_balance?: number;
+  sale_amount?: number;
   excess_amount: number;
-  status: string;
+  status?: string;
   approved_by?: string | null;
   approved_at?: string | null;
   denied_by?: string | null;

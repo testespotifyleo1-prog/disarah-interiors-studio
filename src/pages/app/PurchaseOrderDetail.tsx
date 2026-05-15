@@ -21,7 +21,7 @@ const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondar
   ordered: { label: 'Pedido ao Fornecedor', variant: 'default' },
   partial_received: { label: 'Recebido Parcial', variant: 'outline' },
   received: { label: 'Recebido', variant: 'default' },
-  canceled: { label: 'Cancelado', variant: 'destructive' },
+  cancelled: { label: 'Cancelado', variant: 'destructive' },
 };
 
 export default function PurchaseOrderDetail() {
@@ -96,7 +96,7 @@ export default function PurchaseOrderDetail() {
   const canApprove = order.status === 'requested' && canEdit;
   const canOrder = order.status === 'approved' && canEdit;
   const canReceive = ['ordered', 'partial_received'].includes(order.status) && canEdit;
-  const canCancel = !['received', 'canceled'].includes(order.status) && canEdit;
+  const canCancel = !['received', 'cancelled'].includes(order.status) && canEdit;
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -193,7 +193,7 @@ export default function PurchaseOrderDetail() {
           <Textarea placeholder="Motivo..." value={cancelReason} onChange={e => setCancelReason(e.target.value)} />
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCancel(false)}>Voltar</Button>
-            <Button variant="destructive" onClick={() => updateStatus('canceled', { canceled_by: user!.id, canceled_at: new Date().toISOString(), cancel_reason: cancelReason || null })} disabled={acting}>
+            <Button variant="destructive" onClick={() => updateStatus('cancelled', { canceled_by: user!.id, canceled_at: new Date().toISOString(), cancel_reason: cancelReason || null })} disabled={acting}>
               {acting ? <Loader2 className="mr-1 h-4 w-4 animate-spin" /> : null} Confirmar
             </Button>
           </DialogFooter>

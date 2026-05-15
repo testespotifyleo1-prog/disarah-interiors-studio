@@ -48,7 +48,7 @@ const statusColors: Record<SaleStatus, string> = {
   draft: 'bg-status-draft',
   open: 'bg-status-open',
   paid: 'bg-status-paid',
-  canceled: 'bg-status-canceled',
+  cancelled: 'bg-status-canceled',
   crediario: 'bg-orange-500',
 };
 
@@ -56,7 +56,7 @@ const statusLabels: Record<SaleStatus, string> = {
   draft: 'Rascunho',
   open: 'Aberta',
   paid: 'Paga',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
   crediario: 'Crediário',
 };
 
@@ -65,7 +65,7 @@ const deliveryStatusLabels: Record<DeliveryStatus, string> = {
   assigned: 'Atribuído',
   out_for_delivery: 'Em Entrega',
   delivered: 'Entregue',
-  canceled: 'Cancelado',
+  cancelled: 'Cancelado',
 };
 
 const cardBrands = [
@@ -747,7 +747,7 @@ export default function SaleDetail() {
                 const rawNotes = (sale as any).notes as string | null;
                 const cleanNotes = stripJpOrigin(rawNotes);
                 const isJp = hasJpOrigin(rawNotes);
-                const showJpToggle = isMirandaEFarias((sale as any).stores?.name) && sale.status !== 'canceled';
+                const showJpToggle = isMirandaEFarias((sale as any).stores?.name) && sale.status !== 'cancelled';
                 if (!cleanNotes && !showJpToggle) return null;
                 const toggleJp = async (next: boolean) => {
                   const newNotes = setJpOrigin(cleanNotes, next);
@@ -908,7 +908,7 @@ export default function SaleDetail() {
                         {crediarioInstallments.map((p) => {
                           const due = new Date(p.due_date + 'T12:00:00');
                           const isPaid = p.status === 'paid';
-                          const isCanceled = p.status === 'canceled';
+                          const isCanceled = p.status === 'cancelled';
                           const isOverdue = !isPaid && !isCanceled && due < hoje;
                           return (
                             <tr key={p.number} className="border-t">
@@ -1172,7 +1172,7 @@ export default function SaleDetail() {
           </Card>
 
           {/* Cancellation Info */}
-          {sale.status === 'canceled' && (
+          {sale.status === 'cancelled' && (
             <Card className="border-destructive/40">
               <CardHeader className="p-3 sm:p-6">
                 <CardTitle className="text-base flex items-center gap-2 text-destructive">
@@ -1221,7 +1221,7 @@ export default function SaleDetail() {
           )}
 
           {/* Edit Sale */}
-          {sale.status !== 'canceled' && canEdit && (
+          {sale.status !== 'cancelled' && canEdit && (
             <Card className="border-primary/30">
               <CardContent className="p-3 sm:p-6">
                 <Button
@@ -1247,7 +1247,7 @@ export default function SaleDetail() {
           )}
 
           {/* Cancel Sale - admin/owner only */}
-          {isOwnerOrAdmin && sale.status !== 'canceled' && (
+          {isOwnerOrAdmin && sale.status !== 'cancelled' && (
             <Card className="border-destructive/30">
               <CardContent className="p-3 sm:p-6">
                 <Button
@@ -1263,7 +1263,7 @@ export default function SaleDetail() {
           )}
 
           {/* Cancellation info */}
-          {sale.status === 'canceled' && (sale as any).canceled_at && (
+          {sale.status === 'cancelled' && (sale as any).canceled_at && (
             <Card className="border-destructive/30 bg-destructive/5">
               <CardContent className="p-3 sm:p-6 space-y-1 text-sm">
                 <p className="font-medium text-destructive">Venda Cancelada</p>

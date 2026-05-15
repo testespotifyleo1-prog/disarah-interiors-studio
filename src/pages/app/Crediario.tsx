@@ -276,7 +276,7 @@ export default function Crediario() {
 
   const getStatusBadge = (dueDate: string, status: string) => {
     if (status === 'paid') return <Badge className="bg-green-600 text-white text-xs">Pago</Badge>;
-    if (status === 'canceled') return <Badge variant="outline" className="text-xs">Cancelado</Badge>;
+    if (status === 'cancelled') return <Badge variant="outline" className="text-xs">Cancelado</Badge>;
     const days = getDaysOverdue(dueDate);
     if (days > 30) return <Badge className="bg-red-700 text-white text-xs">Atrasado {days}d</Badge>;
     if (days > 0) return <Badge className="bg-red-500 text-white text-xs">Atrasado {days}d</Badge>;

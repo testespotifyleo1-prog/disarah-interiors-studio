@@ -1563,7 +1563,7 @@ export default function PDV() {
                     <div key={s.id} className="border rounded-lg p-3 space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">#{s.sale_number || '—'}</span>
-                        <Badge variant={s.status === 'paid' ? 'default' : s.status === 'canceled' ? 'destructive' : 'secondary'} className="text-xs">
+                        <Badge variant={s.status === 'paid' ? 'default' : s.status === 'cancelled' ? 'destructive' : 'secondary'} className="text-xs">
                           {{ draft: 'Rascunho', open: 'Aberta', paid: 'Paga', canceled: 'Cancelada' }[s.status as string] || s.status}
                         </Badge>
                       </div>
