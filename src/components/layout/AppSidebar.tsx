@@ -101,15 +101,6 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    id: 'chat',
-    label: 'WhatsApp',
-    iconKey: 'chat',
-    items: [
-      { iconKey: 'chatList', label: 'Conversas', href: '/app/chat', roles: ['owner', 'admin', 'manager', 'seller'] },
-      { iconKey: 'chatbot', label: 'Config. Chatbot', href: '/app/chatbot-settings', roles: ['owner', 'admin'] },
-    ],
-  },
-  {
     id: 'fiscal',
     label: 'Fiscal',
     iconKey: 'fiscal',
@@ -121,15 +112,6 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'fiscalReturns', label: 'Devolução Cliente', href: '/app/fiscal-returns', roles: ['owner', 'admin'] },
       { iconKey: 'supplierReturns', label: 'Devolução Fornecedor', href: '/app/supplier-returns', roles: ['owner', 'admin'] },
       { iconKey: 'fiscalSettings', label: 'Ferramentas Avançadas', href: '/app/fiscal-extras', roles: ['owner', 'admin'] },
-    ],
-  },
-  {
-    id: 'sales_channels',
-    label: 'Canais de Venda',
-    iconKey: 'integrations',
-    items: [
-      { iconKey: 'ecommerce', label: 'Loja Online', href: '/app/ecommerce', roles: ['owner', 'admin'] },
-      { iconKey: 'integrationsItem', label: 'Marketplaces & Integrações', href: '/app/integrations', roles: ['owner', 'admin'] },
     ],
   },
   {
