@@ -29,14 +29,10 @@ interface MpConn {
   debit_fee_percent?: number;
 }
 
-import { isModuleDisabled } from '@/utils/accountModules';
-import IntegrationsBlocked from '@/components/IntegrationsBlocked';
-
 export default function MercadoPagoIntegration() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { currentAccount, currentStore } = useAuth();
-  if (isModuleDisabled(currentAccount, 'integrations')) return <IntegrationsBlocked />;
 
 
   const [loading, setLoading] = useState(true);
