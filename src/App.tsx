@@ -57,7 +57,7 @@ import Categories from "./pages/app/Categories";
 import CashRegisterSummary from "./pages/app/CashRegisterSummary";
 import MercadoPagoIntegration from "./pages/app/MercadoPagoIntegration";
 import StoreCredits from "./pages/app/StoreCredits";
-import SuperAdmin from "./pages/SuperAdmin";
+
 import Labels from "./pages/app/Labels";
 import ExpirationReport from "./pages/app/ExpirationReport";
 import StoreTransfers from "./pages/app/StoreTransfers";
