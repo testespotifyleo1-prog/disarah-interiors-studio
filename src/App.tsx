@@ -160,7 +160,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-        </PlanProvider>
+        
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
