@@ -1,0 +1,3 @@
+ALTER TABLE public.store_ecommerce_settings
+ADD COLUMN delivery_options jsonb DEFAULT '[{"id":"delivery","name":"Entrega","description":"Entrega no endereço informado","price":0,"is_active":true},{"id":"pickup","name":"Retirada na loja","description":"Retire seu pedido na loja","price":0,"is_active":true}]'::jsonb,
+ADD COLUMN payment_methods jsonb DEFAULT '[{"id":"pix","name":"PIX","icon":"💳","is_active":true},{"id":"card","name":"Cartão","icon":"💳","is_active":true},{"id":"cash","name":"Dinheiro","icon":"💵","is_active":true},{"id":"crediario","name":"Crediário","icon":"📋","is_active":false}]'::jsonb;

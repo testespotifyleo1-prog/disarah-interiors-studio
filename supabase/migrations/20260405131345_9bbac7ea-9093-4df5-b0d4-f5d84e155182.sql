@@ -1,0 +1,1 @@
+UPDATE store_ecommerce_settings SET logo_url = 'https://ietaxjtvtrfxtrkjvcso.supabase.co/storage/v1/object/public/store-assets/conecta-mix%2Flogo.png' WHERE id = 'ecbe8e72-92ed-45c5-ae2f-96a297b68a8a';

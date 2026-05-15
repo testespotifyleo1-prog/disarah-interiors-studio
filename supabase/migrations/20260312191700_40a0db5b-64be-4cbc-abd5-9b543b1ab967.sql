@@ -1,0 +1,1 @@
+ALTER TABLE public.nfeio_settings ALTER COLUMN webhook_secret DROP NOT NULL;

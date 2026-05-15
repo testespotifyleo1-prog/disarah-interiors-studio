@@ -1,0 +1,1 @@
+UPDATE public.sales SET created_at = now(), updated_at = now() WHERE created_at < (now() - interval '2 years');

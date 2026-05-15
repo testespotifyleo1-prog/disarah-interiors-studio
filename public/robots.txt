@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /app/
+Disallow: /superadmin
+Disallow: /onboarding
+Disallow: /reset-password
+Disallow: /checkout-return
+
+Sitemap: https://typoserp.com.br/sitemap.xml

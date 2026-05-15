@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  CRM + PDV Multi-Tenant
+  Design System: Corporativo Profissional
+  Colors in HSL format
+*/
+
+@layer base {
+  :root {
+    /* Corporate Blue Theme */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 17 89% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 17 89% 44%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar - Corporate Dark */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 17 89% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 17 89% 52%;
+
+    /* Status colors */
+    --status-draft: 210 40% 50%;
+    --status-open: 38 92% 50%;
+    --status-paid: 142 76% 36%;
+    --status-canceled: 0 84% 60%;
+    --status-pending: 38 92% 50%;
+    --status-assigned: 17 89% 52%;
+    --status-out-for-delivery: 262 83% 58%;
+    --status-delivered: 142 76% 36%;
+
+    /* Conecta Mix brand block */
+    --conecta-surface: 38 100% 97%;
+    --conecta-surface-strong: 40 88% 92%;
+    --conecta-ink: 15 55% 18%;
+    --conecta-accent: 17 89% 52%;
+    --conecta-border: 20 84% 70%;
+    --conecta-gold: 41 94% 58%;
+    --conecta-teal: 183 44% 46%;
+    --conecta-muted: 16 22% 34%;
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 17 89% 52%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 17 89% 52%;
+
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 17 89% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 12%;
+    --sidebar-ring: 17 89% 52%;
+
+    --conecta-surface: 38 100% 97%;
+    --conecta-surface-strong: 40 88% 92%;
+    --conecta-ink: 15 55% 18%;
+    --conecta-accent: 17 89% 52%;
+    --conecta-border: 20 84% 70%;
+    --conecta-gold: 41 94% 58%;
+    --conecta-teal: 183 44% 46%;
+    --conecta-muted: 16 22% 34%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .conecta-sheen {
+    animation: conecta-sheen 6.2s ease-in-out infinite;
+  }
+
+  .conecta-float {
+    animation: conecta-float 3.1s ease-in-out infinite;
+  }
+
+  .conecta-orbit {
+    animation: conecta-orbit 2.7s ease-in-out infinite;
+  }
+}
+
+@keyframes conecta-sheen {
+  0% {
+    transform: translateX(-170%) skewX(-18deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.65;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(360%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes conecta-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes conecta-orbit {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+/* Elegant sidebar scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.scrollbar-thin:hover {
+  scrollbar-color: hsl(var(--sidebar-border)) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9999px;
+  transition: background 0.3s;
+}
+.scrollbar-thin:hover::-webkit-scrollbar-thumb {
+  background: hsl(var(--sidebar-border));
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--sidebar-foreground) / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .conecta-sheen,
+  .conecta-float,
+  .conecta-orbit {
+    animation: none !important;
+  }
+}
+
+/* ===== WhatsApp-like chat backgrounds ===== */
+.wa-chat-bg {
+  background-color: #efeae2;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'><g fill='none' stroke='%23d9d2c7' stroke-width='1.2' opacity='0.55'><circle cx='30' cy='30' r='10'/><path d='M70 60 q15 -15 30 0 t30 0'/><path d='M150 30 l8 8 l-8 8 l-8 -8 z'/><circle cx='190' cy='80' r='6'/><path d='M40 130 q12 -10 24 0 t24 0'/><path d='M120 150 l6 6 l-6 6 l-6 -6 z'/><circle cx='180' cy='180' r='9'/><path d='M30 180 q10 -8 20 0'/><path d='M90 200 l5 5 l-5 5 l-5 -5 z'/></g></svg>");
+  background-repeat: repeat;
+}
+.dark .wa-chat-bg {
+  background-color: #0b141a;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'><g fill='none' stroke='%231f2c34' stroke-width='1.2' opacity='0.6'><circle cx='30' cy='30' r='10'/><path d='M70 60 q15 -15 30 0 t30 0'/><path d='M150 30 l8 8 l-8 8 l-8 -8 z'/><circle cx='190' cy='80' r='6'/><path d='M40 130 q12 -10 24 0 t24 0'/><path d='M120 150 l6 6 l-6 6 l-6 -6 z'/><circle cx='180' cy='180' r='9'/><path d='M30 180 q10 -8 20 0'/><path d='M90 200 l5 5 l-5 5 l-5 -5 z'/></g></svg>");
+}
+
+/* WhatsApp-like typing indicator (3 bouncing dots) */
+@keyframes wa-typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+.wa-typing-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: wa-typing-bounce 1.2s infinite ease-in-out;
+}
+.wa-typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.wa-typing-dot:nth-child(3) { animation-delay: 0.3s; }
