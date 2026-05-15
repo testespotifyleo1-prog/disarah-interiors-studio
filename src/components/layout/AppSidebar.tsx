@@ -52,16 +52,6 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'crediario', label: 'Crediário', href: '/app/crediario', roles: ['owner', 'admin', 'manager'] },
       { iconKey: 'storeCredits', label: 'Créditos de Loja', href: '/app/store-credits', roles: ['owner', 'admin', 'manager'] },
       { iconKey: 'customerReturns', label: 'Trocas & Garantias', href: '/app/customer-returns', roles: ['owner', 'admin', 'manager'] },
-      { iconKey: 'reactivation', label: 'Recompra (CRM Ativo)', href: '/app/reactivation-campaigns', roles: ['owner', 'admin', 'manager'] },
-    ],
-  },
-  {
-    id: 'marketing',
-    label: 'Marketing',
-    iconKey: 'marketing',
-    isNew: true,
-    items: [
-      { iconKey: 'emailCampaigns', label: 'Campanhas de Email', href: '/app/email-campaigns', roles: ['owner', 'admin', 'manager'] },
     ],
   },
   {
@@ -157,11 +147,6 @@ export function AppSidebar() {
   // Nota: 'assemblies' continua sendo escondido (comportamento legado).
   const ROUTE_MODULE_MAP: Record<string, ModuleType> = {
     '/app/crediario': 'crediario',
-    '/app/integrations': 'integrations',
-    '/app/email-campaigns': 'email_marketing',
-    '/app/ai-simulations': 'ai_features',
-    '/app/api-connectors': 'api_access',
-    '/app/developers': 'api_access',
   };
 
   const getBlockedInfo = (href: string): { blocked: boolean; message: string } => {

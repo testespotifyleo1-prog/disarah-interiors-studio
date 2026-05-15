@@ -24,7 +24,7 @@ import SaleDetail from "./pages/app/SaleDetail";
 import Products from "./pages/app/Products";
 import Inventory from "./pages/app/Inventory";
 import Customers from "./pages/app/Customers";
-import BirthdayCampaign from "./pages/app/BirthdayCampaign";
+
 import Sellers from "./pages/app/Sellers";
 import Finance from "./pages/app/Finance";
 import MyCommissions from "./pages/app/MyCommissions";
@@ -71,11 +71,9 @@ import Quotes from "./pages/app/Quotes";
 import NewQuote from "./pages/app/NewQuote";
 import QuoteDetail from "./pages/app/QuoteDetail";
 
-import EmailCampaigns from "./pages/app/EmailCampaigns";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
-import ReactivationCampaigns from "./pages/app/ReactivationCampaigns";
 import Developers from "./pages/app/Developers";
 
 const queryClient = new QueryClient();
@@ -111,7 +109,7 @@ const App = () => (
               <Route path="customers/import" element={<ImportCustomers />} />
               <Route path="inventory" element={<Inventory />} />
               <Route path="customers" element={<Customers />} />
-              <Route path="customers/birthday-campaign" element={<BirthdayCampaign />} />
+              
               <Route path="sellers" element={<Sellers />} />
               <Route path="finance" element={<Finance />} />
               <Route path="my-commissions" element={<MyCommissions />} />
@@ -154,11 +152,9 @@ const App = () => (
               <Route path="quotes/new" element={<NewQuote />} />
               <Route path="quotes/:id" element={<QuoteDetail />} />
               
-              <Route path="email-campaigns" element={<EmailCampaigns />} />
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
               <Route path="sales-goals" element={<SalesGoals />} />
-              <Route path="reactivation-campaigns" element={<ReactivationCampaigns />} />
               <Route path="developers" element={<Developers />} />
               <Route path="developers" element={<Developers />} />
             </Route>
