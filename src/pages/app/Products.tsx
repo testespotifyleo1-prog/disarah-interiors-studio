@@ -721,30 +721,10 @@ export default function Products() {
                 </span>
               </Badge>
             )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={bulkFiscalAi}
-              disabled={bulkFiscalRunning || bulkGenerating || aiBlocked}
-              title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-              className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-            >
-              <Settings2 className="mr-1 h-4 w-4" /> {selectedIds.size > 0 ? `Fiscal IA (${selectedIds.size})` : 'Fiscal IA (Todos)'}
-            </Button>
             {selectedIds.size > 0 && (
               <>
                 <Button variant="destructive" size="sm" onClick={() => setShowBulkDeleteConfirm(true)}>
                   <Trash2 className="mr-1 h-4 w-4" /> Excluir ({selectedIds.size})
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={bulkGenerateImages}
-                  disabled={bulkGenerating || aiBlocked}
-                  title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                  className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-                >
-                  <Sparkles className="mr-1 h-4 w-4" /> Gerar Imagens IA ({selectedIds.size})
                 </Button>
               </>
             )}
