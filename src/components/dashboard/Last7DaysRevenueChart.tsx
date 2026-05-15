@@ -43,7 +43,7 @@ export default function Last7DaysRevenueChart() {
           .lte('created_at', end.toISOString());
 
         if (userRole === 'seller' && user?.id) {
-          query = query.eq('seller_user_id', user.id);
+          query = query.eq('seller_id', user.id);
         }
 
         const { data: sales } = await query;

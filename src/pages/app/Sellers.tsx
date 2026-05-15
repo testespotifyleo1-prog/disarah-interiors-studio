@@ -102,7 +102,7 @@ export default function Sellers() {
       let sellersWithDetails = (memberships || []).map((m: any) => ({
         ...m,
         profiles: profiles.find((p: any) => p.user_id === m.user_id) || null,
-        commission_rule: rules?.find((r: any) => r.seller_user_id === m.user_id),
+        commission_rule: rules?.find((r: any) => r.seller_id === m.user_id),
         store_memberships: storeMemberships.filter((sm: any) => sm.user_id === m.user_id),
       }));
 
@@ -134,16 +134,16 @@ export default function Sellers() {
       // Load performance metrics (only for visible sellers)
       const visibleIds = sellersWithDetails.map((s: any) => s.user_id);
       if (visibleIds.length > 0) {
-        const { data: sales } = await supabase.from('sales').select('id, total, seller_user_id')
-          .eq('account_id', currentAccount.id).eq('status', 'paid').in('seller_user_id', visibleIds);
+        const { data: sales } = await supabase.from('sales').select('id, total, seller_id')
+          .eq('account_id', currentAccount.id).eq('status', 'paid').in('seller_id', visibleIds);
 
-        const { data: commissions } = await supabase.from('commissions').select('seller_user_id, value, status')
-          .in('seller_user_id', visibleIds);
+        const { data: commissions } = await supabase.from('commissions').select('seller_id, value, status')
+          .in('seller_id', visibleIds);
 
         const metricsMap: Record<string, SellerMetrics> = {};
         visibleIds.forEach(uid => {
-          const sellerSales = (sales || []).filter(s => s.seller_user_id === uid);
-          const sellerCommissions = (commissions || []).filter(c => c.seller_user_id === uid);
+          const sellerSales = (sales || []).filter(s => s.seller_id === uid);
+          const sellerCommissions = (commissions || []).filter(c => c.seller_id === uid);
           metricsMap[uid] = {
             user_id: uid,
             totalSales: sellerSales.length,
@@ -157,12 +157,12 @@ export default function Sellers() {
 
         // Load commission cycles
         const { data: cyclesData } = await supabase.from('commission_cycles').select('*')
-          .eq('account_id', currentAccount.id).in('seller_user_id', visibleIds)
+          .eq('account_id', currentAccount.id).in('seller_id', visibleIds)
           .order('created_at', { ascending: false });
         const cyclesMap: Record<string, CommissionCycle[]> = {};
         (cyclesData || []).forEach((c: any) => {
-          if (!cyclesMap[c.seller_user_id]) cyclesMap[c.seller_user_id] = [];
-          cyclesMap[c.seller_user_id].push(c);
+          if (!cyclesMap[c.seller_id]) cyclesMap[c.seller_id] = [];
+          cyclesMap[c.seller_id].push(c);
         });
         setCycles(cyclesMap);
       }
@@ -196,7 +196,7 @@ export default function Sellers() {
       if (existingRule) {
         await supabase.from('seller_commission_rules').update({ percent_default: percent }).eq('id', existingRule.id);
       } else {
-        await supabase.from('seller_commission_rules').insert({ account_id: currentAccount.id, seller_user_id: selectedSeller.user_id, percent_default: percent });
+        await supabase.from('seller_commission_rules').insert({ account_id: currentAccount.id, seller_id: selectedSeller.user_id, percent_default: percent });
       }
       await logActivity({ accountId: currentAccount.id, userId: user!.id, userName: user!.email, action: 'update', entityType: 'commission', details: { vendedor: selectedSeller.profiles?.full_name, percentual: percent } });
       toast({ title: `Comissão: ${percent}%` });
@@ -284,7 +284,7 @@ export default function Sellers() {
         // Create a closed cycle retroactively
         await supabase.from('commission_cycles').insert({
           account_id: currentAccount.id,
-          seller_user_id: sellerId,
+          seller_id: sellerId,
           started_at: payConfirmSeller.created_at,
           ended_at: now,
           total_commission: cycleCommissionTotal,
@@ -297,14 +297,14 @@ export default function Sellers() {
       // Create new open cycle
       await supabase.from('commission_cycles').insert({
         account_id: currentAccount.id,
-        seller_user_id: sellerId,
+        seller_id: sellerId,
         started_at: now,
         status: 'open',
       });
 
       // Mark all pending commissions as paid
       const { data: pendingCommissions } = await supabase.from('commissions')
-        .select('id').eq('seller_user_id', sellerId).eq('status', 'pending');
+        .select('id').eq('seller_id', sellerId).eq('status', 'pending');
       if (pendingCommissions && pendingCommissions.length > 0) {
         const ids = pendingCommissions.map(c => c.id);
         await supabase.from('commissions').update({ status: 'paid' }).in('id', ids);
@@ -324,7 +324,7 @@ export default function Sellers() {
     setResettingPwd(true);
     try {
       const response = await supabase.functions.invoke('reset-seller-password', {
-        body: { seller_user_id: resetPwdSeller.user_id, new_password: newPassword.trim(), account_id: currentAccount.id },
+        body: { seller_id: resetPwdSeller.user_id, new_password: newPassword.trim(), account_id: currentAccount.id },
       });
       if (response.error) throw new Error(response.error.message);
       if (response.data?.error) throw new Error(response.data.error);
@@ -356,7 +356,7 @@ export default function Sellers() {
         body: {
           action: 'update',
           account_id: currentAccount.id,
-          seller_user_id: editSeller.user_id,
+          seller_id: editSeller.user_id,
           full_name: editForm.full_name.trim(),
           email: editForm.email.trim(),
           role: editForm.role,

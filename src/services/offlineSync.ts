@@ -63,7 +63,7 @@ async function syncSingleSale(sale: OfflineSale): Promise<string> {
     .insert({
       account_id: sale.account_id,
       store_id: sale.store_id,
-      seller_user_id: sale.seller_user_id,
+      seller_id: sale.seller_id,
       customer_id: sale.customer_id || null,
       status: 'open',
       discount: sale.discount,

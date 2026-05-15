@@ -101,7 +101,7 @@ export default function PartyStoreDashboard() {
       let salesQ = supabase.from('sales').select('id, total')
         .eq('store_id', currentStore.id).in('status', ['paid', 'crediario'])
         .gte('created_at', startISO).lte('created_at', endISO);
-      if (isSeller) salesQ = salesQ.eq('seller_user_id', user.id);
+      if (isSeller) salesQ = salesQ.eq('seller_id', user.id);
       const { data: salesData } = await salesQ;
       const sc = salesData?.length || 0;
       const rev = salesData?.reduce((s, v) => s + Number(v.total), 0) || 0;
@@ -198,7 +198,7 @@ export default function PartyStoreDashboard() {
       // Recent sales
       let rq = supabase.from('sales').select('id, order_number, total, status, created_at, customers(name)')
         .eq('store_id', currentStore.id).order('created_at', { ascending: false }).limit(5);
-      if (isSeller) rq = rq.eq('seller_user_id', user.id);
+      if (isSeller) rq = rq.eq('seller_id', user.id);
       const { data: recentData } = await rq;
       setRecentSales(recentData || []);
 

@@ -14,7 +14,7 @@ import { Loader2, Plus, Trash2, TrendingUp, Percent } from 'lucide-react';
 interface Tier {
   id: string;
   account_id: string;
-  seller_user_id: string;
+  seller_id: string;
   tier_type: string;
   min_value: number;
   max_value: number | null;
@@ -49,7 +49,7 @@ export default function CommissionTiers() {
     setLoading(true);
 
     const [{ data: tiersData }, { data: memberships }] = await Promise.all([
-      supabase.from('commission_tiers').select('*').eq('account_id', currentAccount.id).eq('is_active', true).order('seller_user_id').order('min_value'),
+      supabase.from('commission_tiers').select('*').eq('account_id', currentAccount.id).eq('is_active', true).order('seller_id').order('min_value'),
       supabase.from('memberships').select('user_id').eq('account_id', currentAccount.id).eq('role', 'seller').eq('is_active', true),
     ]);
 
@@ -67,7 +67,7 @@ export default function CommissionTiers() {
     setSaving(true);
     const { error } = await supabase.from('commission_tiers').insert({
       account_id: currentAccount.id,
-      seller_user_id: selectedSeller,
+      seller_id: selectedSeller,
       tier_type: tierType,
       min_value: parseFloat(minValue) || 0,
       max_value: maxValue ? parseFloat(maxValue) : null,
@@ -96,8 +96,8 @@ export default function CommissionTiers() {
 
   // Group by seller
   const grouped = tiers.reduce((acc, t) => {
-    if (!acc[t.seller_user_id]) acc[t.seller_user_id] = [];
-    acc[t.seller_user_id].push(t);
+    if (!acc[t.seller_id]) acc[t.seller_id] = [];
+    acc[t.seller_id].push(t);
     return acc;
   }, {} as Record<string, Tier[]>);
 

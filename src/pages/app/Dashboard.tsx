@@ -147,10 +147,10 @@ function DefaultDashboard() {
       const computeFromPayments = async (fromISO: string, toISO: string) => {
         let q = supabase
           .from('payments')
-          .select('method, paid_value, card_fee_value, sale_id, sales!inner(store_id, seller_user_id)')
+          .select('method, paid_value, card_fee_value, sale_id, sales!inner(store_id, seller_id)')
           .eq('sales.store_id', currentStore.id)
           .gte('created_at', fromISO).lte('created_at', toISO);
-        if (isSeller) q = q.eq('sales.seller_user_id', user.id);
+        if (isSeller) q = q.eq('sales.seller_id', user.id);
         const { data } = await q;
         let revenue = 0, fees = 0;
         const saleIds = new Set<string>();
@@ -227,7 +227,7 @@ function DefaultDashboard() {
 
       let myCommissionsPending = 0, myCommissionsPaid = 0;
       if (isSeller) {
-        const { data: cd } = await supabase.from('commissions').select('value, status').eq('seller_user_id', user.id);
+        const { data: cd } = await supabase.from('commissions').select('value, status').eq('seller_id', user.id);
         if (cd) {
           myCommissionsPending = cd.filter(c => c.status === 'pending').reduce((s, c) => s + (c.value || 0), 0);
           myCommissionsPaid = cd.filter(c => c.status === 'paid').reduce((s, c) => s + (c.value || 0), 0);
@@ -238,7 +238,7 @@ function DefaultDashboard() {
 
       let recentQuery = supabase.from('sales').select('id, total, status, created_at, customers(name)')
         .eq('store_id', currentStore.id).order('created_at', { ascending: false }).limit(5);
-      if (isSeller) recentQuery = recentQuery.eq('seller_user_id', user.id);
+      if (isSeller) recentQuery = recentQuery.eq('seller_id', user.id);
       const { data: recentSalesData } = await recentQuery;
       setRecentSales(recentSalesData || []);
     } catch (error) { console.error('Error loading dashboard:', error); }

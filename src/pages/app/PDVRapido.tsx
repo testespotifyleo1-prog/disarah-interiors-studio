@@ -365,7 +365,7 @@ export default function PDVRapido() {
       .from('held_sales')
       .select('*')
       .eq('store_id', currentStore.id)
-      .eq('seller_user_id', user.id)
+      .eq('seller_id', user.id)
       .order('created_at', { ascending: true });
     if (data) {
       setHeldSales(data.map((h: any) => ({
@@ -388,7 +388,7 @@ export default function PDVRapido() {
     const { error } = await supabase.from('held_sales').insert({
       account_id: currentAccount.id,
       store_id: currentStore.id,
-      seller_user_id: user.id,
+      seller_id: user.id,
       cart_json: cart as any,
       customer_id: selectedCustomer || null,
       customer_name: customerName,
@@ -410,7 +410,7 @@ export default function PDVRapido() {
       await supabase.from('held_sales').insert({
         account_id: currentAccount.id,
         store_id: currentStore.id,
-        seller_user_id: user.id,
+        seller_id: user.id,
         cart_json: cart as any,
         customer_id: selectedCustomer || null,
         customer_name: swapName,
@@ -1150,7 +1150,7 @@ export default function PDVRapido() {
       }
 
       const { data: sale, error } = await supabase.from('sales').insert({
-        account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+        account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
         customer_id: finalCustomerId || null, status: 'open', discount, delivery_fee: 0, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
       }).select().single();
       if (error) throw error;

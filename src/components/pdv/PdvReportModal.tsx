@@ -52,14 +52,14 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
       // Fetch sales for this register period
       let query = supabase
         .from('sales')
-        .select('id, order_number, total, seller_user_id, created_at')
+        .select('id, order_number, total, seller_id, created_at')
         .eq('store_id', storeId)
         .eq('status', 'paid')
         .gte('created_at', openedAt)
         .order('created_at', { ascending: true });
 
       if (!isAdmin) {
-        query = query.eq('seller_user_id', userId);
+        query = query.eq('seller_id', userId);
       }
 
       const { data: sales } = await query;
@@ -80,7 +80,7 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
       }
 
       // Get unique seller IDs for names
-      const sellerIds = [...new Set(sales.map(s => s.seller_user_id))];
+      const sellerIds = [...new Set(sales.map(s => s.seller_id))];
       const { data: profiles } = await supabase.from('profiles').select('user_id, full_name').in('user_id', sellerIds);
       const profileMap: Record<string, string> = {};
       profiles?.forEach(p => { profileMap[p.user_id] = p.full_name || 'Vendedor'; });
@@ -104,7 +104,7 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
           order_number: s.order_number,
           total: s.total,
           created_at: s.created_at,
-          sellerName: profileMap[s.seller_user_id] || 'Vendedor',
+          sellerName: profileMap[s.seller_id] || 'Vendedor',
         })),
       });
     } catch {

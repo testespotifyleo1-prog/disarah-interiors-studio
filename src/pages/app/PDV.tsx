@@ -243,7 +243,7 @@ export default function PDV() {
 
   const loadDraftSales = async () => {
     if (!currentStore || !user) return;
-    const { data } = await supabase.from('sales').select('*').eq('store_id', currentStore.id).eq('seller_user_id', user.id).eq('status', 'draft').order('updated_at', { ascending: false });
+    const { data } = await supabase.from('sales').select('*').eq('store_id', currentStore.id).eq('seller_id', user.id).eq('status', 'draft').order('updated_at', { ascending: false });
     if (data) setDraftSales(data);
   };
 
@@ -339,7 +339,7 @@ export default function PDV() {
         await supabase.from('sale_items').delete().eq('sale_id', saleId);
       } else {
         const insertObj: any = {
-          account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+          account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
           customer_id: selectedCustomer || null, status: 'draft', discount, delivery_fee: deliveryFee, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
         };
         if (customCreated) insertObj.created_at = customCreated;
@@ -453,7 +453,7 @@ export default function PDV() {
       if (!saleId) {
         const _customCreated = buildCreatedAt();
         const _ins: any = {
-          account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+          account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
           customer_id: selectedCustomer, status: 'draft', discount, delivery_fee: deliveryFee, assembly_fee: assemblyFee, subtotal, total,
         };
         if (_customCreated) _ins.created_at = _customCreated;
@@ -599,7 +599,7 @@ export default function PDV() {
       const customCreated2 = buildCreatedAt();
       if (!saleId) {
         const insObj: any = {
-          account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+          account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
           customer_id: selectedCustomer || null, status: 'open', discount, delivery_fee: deliveryFee, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
           down_payment: downPayment, remaining_balance: remainingBalance, payment_on_delivery: partialMode,
         };
@@ -759,7 +759,7 @@ export default function PDV() {
       if (!saleId) {
         const _cc = buildCreatedAt();
         const _mpIns: any = {
-          account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+          account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
           customer_id: selectedCustomer || null, status: 'open',
           discount, delivery_fee: deliveryFee, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
         };

@@ -12,7 +12,7 @@ export interface OfflineSale {
   id: string; // local UUID
   account_id: string;
   store_id: string;
-  seller_user_id: string;
+  seller_id: string;
   seller_email: string;
   customer_id: string | null;
   customer_name: string | null;

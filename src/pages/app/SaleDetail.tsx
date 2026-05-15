@@ -153,11 +153,11 @@ export default function SaleDetail() {
     setSale(saleData as unknown as SaleWithDetails);
 
     // Load seller name
-    if ((saleData as any).seller_user_id) {
+    if ((saleData as any).seller_id) {
       const { data: profileData } = await supabase
         .from('profiles')
         .select('full_name')
-        .eq('user_id', (saleData as any).seller_user_id)
+        .eq('user_id', (saleData as any).seller_id)
         .maybeSingle();
       setSellerName(profileData?.full_name || '');
     }
@@ -586,7 +586,7 @@ export default function SaleDetail() {
   const payments = sale.payments || [];
   const delivery = sale.deliveries?.[0];
   const cardFeeValue = paymentMethod === 'card' ? (sale.total * cardFeePercent) / 100 : 0;
-  const isSeller = user?.id === sale.seller_user_id;
+  const isSeller = user?.id === sale.seller_id;
   const canMarkPaid = (sale.status === 'open' || sale.status === 'draft') && (canEdit || isSeller);
   const canEmitFiscal = sale.status === 'paid';
 

@@ -107,7 +107,7 @@ export default function Sales() {
     }
 
     if (userRole === 'seller' && user) {
-      query = query.eq('seller_user_id', user.id);
+      query = query.eq('seller_id', user.id);
     }
     if (statusFilter !== 'all' && ['draft', 'open', 'paid', 'canceled'].includes(statusFilter)) {
       query = query.eq('status', statusFilter as SaleStatus);
@@ -131,7 +131,7 @@ export default function Sales() {
     if (data) {
       setSales(data as unknown as SaleWithDetails[]);
       // Load seller names
-      const sellerIds = [...new Set((data as any[]).map(s => s.seller_user_id).filter(Boolean))];
+      const sellerIds = [...new Set((data as any[]).map(s => s.seller_id).filter(Boolean))];
       if (sellerIds.length > 0) {
         const { data: profiles } = await supabase
           .from('profiles')
@@ -454,7 +454,7 @@ export default function Sales() {
                         <span className="font-medium text-foreground">{formatCurrency(sale.total)}</span>
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Vendedor(a): {sellerNames[(sale as any).seller_user_id] || '—'}
+                        Vendedor(a): {sellerNames[(sale as any).seller_id] || '—'}
                       </div>
                     </div>
                   </Link>
@@ -482,7 +482,7 @@ export default function Sales() {
                         <td className="py-2 font-medium text-muted-foreground">#{(sale as any).order_number || '—'}</td>
                         <td className="py-2 whitespace-nowrap">{formatDate(sale.created_at)}</td>
                         <td className="py-2">{sale.customers?.name || 'Consumidor Final'}</td>
-                        <td className="py-2">{sellerNames[(sale as any).seller_user_id] || '—'}</td>
+                        <td className="py-2">{sellerNames[(sale as any).seller_id] || '—'}</td>
                         {showSource && (
                           <td className="py-2">
                             <Badge variant="outline" className={`text-xs ${(sale as any).source === 'woocommerce' ? 'border-purple-500 text-purple-600' : (sale as any).source === 'ecommerce' ? 'border-blue-500 text-blue-600' : 'border-muted-foreground'}`}>
