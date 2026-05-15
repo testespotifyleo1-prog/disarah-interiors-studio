@@ -82,7 +82,7 @@ import ReplenishmentSuggestions from "./pages/app/ReplenishmentSuggestions";
 import Quotes from "./pages/app/Quotes";
 import NewQuote from "./pages/app/NewQuote";
 import QuoteDetail from "./pages/app/QuoteDetail";
-import AiSimulations from "./pages/app/AiSimulations";
+
 import EmailCampaigns from "./pages/app/EmailCampaigns";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
