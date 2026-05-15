@@ -95,7 +95,6 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/superadmin" element={<SuperAdmin />} />
             
-            <Route path="/meli/callback" element={<MercadoLivreCallback />} />
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
 
