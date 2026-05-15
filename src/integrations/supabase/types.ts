@@ -913,6 +913,7 @@ export type Database = {
           address_json: Json | null
           birthday: string | null
           created_at: string
+          credit_authorized: boolean
           credit_limit: number
           doc: string | null
           doc_type: string | null
@@ -930,6 +931,7 @@ export type Database = {
           address_json?: Json | null
           birthday?: string | null
           created_at?: string
+          credit_authorized?: boolean
           credit_limit?: number
           doc?: string | null
           doc_type?: string | null
@@ -947,6 +949,7 @@ export type Database = {
           address_json?: Json | null
           birthday?: string | null
           created_at?: string
+          credit_authorized?: boolean
           credit_limit?: number
           doc?: string | null
           doc_type?: string | null
@@ -1623,6 +1626,7 @@ export type Database = {
         Row: {
           account_id: string
           api_key_secret_id: string | null
+          block_sale_without_fiscal_data: boolean
           certificate_expires_at: string | null
           certificate_uploaded: boolean
           company_id: string | null
@@ -1644,6 +1648,7 @@ export type Database = {
         Insert: {
           account_id: string
           api_key_secret_id?: string | null
+          block_sale_without_fiscal_data?: boolean
           certificate_expires_at?: string | null
           certificate_uploaded?: boolean
           company_id?: string | null
@@ -1665,6 +1670,7 @@ export type Database = {
         Update: {
           account_id?: string
           api_key_secret_id?: string | null
+          block_sale_without_fiscal_data?: boolean
           certificate_expires_at?: string | null
           certificate_uploaded?: boolean
           company_id?: string | null
@@ -2778,6 +2784,7 @@ export type Database = {
           cfop: string | null
           cofins_cst: string | null
           cost: number | null
+          cost_default: number
           cover_image_url: string | null
           created_at: string
           depth_cm: number | null
@@ -2788,6 +2795,7 @@ export type Database = {
           icms_aliquota: number | null
           icms_cst: string | null
           id: string
+          image_url: string | null
           ipi_cst: string | null
           is_active: boolean
           name: string
@@ -2814,6 +2822,7 @@ export type Database = {
           cfop?: string | null
           cofins_cst?: string | null
           cost?: number | null
+          cost_default?: number
           cover_image_url?: string | null
           created_at?: string
           depth_cm?: number | null
@@ -2824,6 +2833,7 @@ export type Database = {
           icms_aliquota?: number | null
           icms_cst?: string | null
           id?: string
+          image_url?: string | null
           ipi_cst?: string | null
           is_active?: boolean
           name: string
@@ -2850,6 +2860,7 @@ export type Database = {
           cfop?: string | null
           cofins_cst?: string | null
           cost?: number | null
+          cost_default?: number
           cover_image_url?: string | null
           created_at?: string
           depth_cm?: number | null
@@ -2860,6 +2871,7 @@ export type Database = {
           icms_aliquota?: number | null
           icms_cst?: string | null
           id?: string
+          image_url?: string | null
           ipi_cst?: string | null
           is_active?: boolean
           name?: string
@@ -2941,6 +2953,7 @@ export type Database = {
           qty: number
           qty_received: number
           total: number
+          total_line: number | null
           unit_cost: number
           variant_id: string | null
         }
@@ -2953,6 +2966,7 @@ export type Database = {
           qty: number
           qty_received?: number
           total: number
+          total_line?: number | null
           unit_cost: number
           variant_id?: string | null
         }
@@ -2965,6 +2979,7 @@ export type Database = {
           qty?: number
           qty_received?: number
           total?: number
+          total_line?: number | null
           unit_cost?: number
           variant_id?: string | null
         }
@@ -3079,6 +3094,7 @@ export type Database = {
           qty: number
           quote_id: string
           total: number
+          total_line: number | null
           unit_price: number
           variant_id: string | null
         }
@@ -3091,6 +3107,7 @@ export type Database = {
           qty: number
           quote_id: string
           total: number
+          total_line?: number | null
           unit_price: number
           variant_id?: string | null
         }
@@ -3103,6 +3120,7 @@ export type Database = {
           qty?: number
           quote_id?: string
           total?: number
+          total_line?: number | null
           unit_price?: number
           variant_id?: string | null
         }
@@ -3312,6 +3330,8 @@ export type Database = {
           qty: number
           sale_id: string
           total: number
+          total_line: number | null
+          unit_cost: number | null
           unit_price: number
           variant_id: string | null
         }
@@ -3325,6 +3345,8 @@ export type Database = {
           qty: number
           sale_id: string
           total: number
+          total_line?: number | null
+          unit_cost?: number | null
           unit_price: number
           variant_id?: string | null
         }
@@ -3338,6 +3360,8 @@ export type Database = {
           qty?: number
           sale_id?: string
           total?: number
+          total_line?: number | null
+          unit_cost?: number | null
           unit_price?: number
           variant_id?: string | null
         }
