@@ -1289,17 +1289,6 @@ export default function Products() {
                         }}
                       />
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => formData.name && (editingProduct ? generateAiImage(editingProduct.id, formData.name) : null)}
-                      disabled={generatingAiImage || !formData.name || aiBlocked}
-                      title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                      className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-                    >
-                      {generatingAiImage ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Sparkles className="h-4 w-4 mr-1" />}
-                      {generatingAiImage ? 'Gerando...' : 'Gerar com IA'}
-                    </Button>
                     {formData.image_url && (
                       <Button variant="ghost" size="sm" className="text-destructive text-xs" onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}>
                         Remover imagem
@@ -1308,11 +1297,6 @@ export default function Products() {
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">
-                💡 A IA gera uma foto realista baseada no nome do produto. Funciona melhor com nomes descritivos.
-                <br />
-                <span className="font-medium text-foreground">⚡ Será consumido 1 crédito de IA do seu saldo</span> (saldo atual: {aiTotalCredits}).
-              </p>
 
               {editingProduct && currentAccount ? (
                 <ProductImageGallery productId={editingProduct.id} accountId={currentAccount.id} maxImages={4} />
