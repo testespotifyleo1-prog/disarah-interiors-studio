@@ -5,9 +5,7 @@ import { AppHeader } from './AppHeader';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Loader2 } from 'lucide-react';
 import { SellerTips } from '@/components/SellerTips';
-import { SupportChatWidget } from '@/components/support/SupportChatWidget';
 import { useWhatsAppNotifications } from '@/hooks/useWhatsAppNotifications';
-import { AiCreditsGlobalListener } from '@/components/ai/AiCreditsGlobalListener';
 
 export function AppLayout() {
   const { user, loading, dataLoaded } = useAuth();
@@ -35,8 +33,6 @@ export function AppLayout() {
           </main>
         </SidebarInset>
         <SellerTips />
-        <SupportChatWidget />
-        <AiCreditsGlobalListener />
         </div>
       </div>
     </SidebarProvider>

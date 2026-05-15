@@ -177,7 +177,7 @@ const App = () => (
               <Route path="quotes" element={<Quotes />} />
               <Route path="quotes/new" element={<NewQuote />} />
               <Route path="quotes/:id" element={<QuoteDetail />} />
-              <Route path="ai-simulations" element={<AiSimulations />} />
+              
               <Route path="email-campaigns" element={<EmailCampaigns />} />
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
