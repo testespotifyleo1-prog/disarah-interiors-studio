@@ -24,7 +24,7 @@ import SaleDetail from "./pages/app/SaleDetail";
 import Products from "./pages/app/Products";
 import Inventory from "./pages/app/Inventory";
 import Customers from "./pages/app/Customers";
-import BirthdayCampaign from "./pages/app/BirthdayCampaign";
+
 import Sellers from "./pages/app/Sellers";
 import Finance from "./pages/app/Finance";
 import MyCommissions from "./pages/app/MyCommissions";
