@@ -107,7 +107,7 @@ export default function NewQuote() {
     try {
       const { data: quote, error } = await supabase.from('quotes').insert({
         account_id: currentAccount!.id, store_id: storeId, customer_id: customerId || null,
-        seller_user_id: user!.id, status: asDraft ? 'draft' : 'sent',
+        seller_id: user!.id, status: asDraft ? 'draft' : 'sent',
         valid_until: validUntil || null, subtotal, discount, delivery_fee: deliveryFee, assembly_fee: assemblyFee, total,
         notes: notes || null,
       }).select().single();

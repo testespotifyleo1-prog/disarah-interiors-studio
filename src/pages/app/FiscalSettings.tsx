@@ -55,7 +55,7 @@ export default function FiscalSettings() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('nfeio_settings')
+        .from('focus_nfe_settings')
         .select('*')
         .eq('store_id', selectedStoreId)
         .maybeSingle();
@@ -116,13 +116,13 @@ export default function FiscalSettings() {
       };
       if (settings) {
         const { error } = await supabase
-          .from('nfeio_settings')
+          .from('focus_nfe_settings')
           .update(payload)
           .eq('id', settings.id);
         if (error) throw error;
       } else {
         const { error } = await supabase
-          .from('nfeio_settings')
+          .from('focus_nfe_settings')
           .insert({ store_id: selectedStoreId, webhook_secret: '', ...payload });
         if (error) throw error;
       }

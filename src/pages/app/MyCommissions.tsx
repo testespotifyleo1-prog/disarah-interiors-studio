@@ -53,7 +53,7 @@ export default function MyCommissions() {
       const { data, error } = await supabase
         .from('commissions')
         .select('*, sales(id, total, created_at)')
-        .eq('seller_user_id', user.id)
+        .eq('seller_id', user.id)
         .gte('created_at', startISO)
         .lte('created_at', endISO)
         .order('created_at', { ascending: false });

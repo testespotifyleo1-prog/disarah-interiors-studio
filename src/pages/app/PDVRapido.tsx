@@ -322,7 +322,7 @@ export default function PDVRapido() {
   const fc = (v: number) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
 
   // Ecommerce order notifications
-  const [ecommerceAlert, setEcommerceAlert] = useState<{ order_number: number; total: number; customer: string } | null>(null);
+  const [ecommerceAlert, setEcommerceAlert] = useState<{ sale_number: number; total: number; customer: string } | null>(null);
   const [saleNotes, setSaleNotes] = useState(() => loadPersistedCart().notes);
   const [isJpOrigin, setIsJpOrigin] = useState(false);
   const showJpToggle = isMirandaEFarias(currentStore?.name);
@@ -365,7 +365,7 @@ export default function PDVRapido() {
       .from('held_sales')
       .select('*')
       .eq('store_id', currentStore.id)
-      .eq('seller_user_id', user.id)
+      .eq('seller_id', user.id)
       .order('created_at', { ascending: true });
     if (data) {
       setHeldSales(data.map((h: any) => ({
@@ -388,7 +388,7 @@ export default function PDVRapido() {
     const { error } = await supabase.from('held_sales').insert({
       account_id: currentAccount.id,
       store_id: currentStore.id,
-      seller_user_id: user.id,
+      seller_id: user.id,
       cart_json: cart as any,
       customer_id: selectedCustomer || null,
       customer_name: customerName,
@@ -410,7 +410,7 @@ export default function PDVRapido() {
       await supabase.from('held_sales').insert({
         account_id: currentAccount.id,
         store_id: currentStore.id,
-        seller_user_id: user.id,
+        seller_id: user.id,
         cart_json: cart as any,
         customer_id: selectedCustomer || null,
         customer_name: swapName,
@@ -518,8 +518,8 @@ export default function PDVRapido() {
           const { data: cust } = await supabase.from('customers').select('name').eq('id', sale.customer_id).maybeSingle();
           if (cust) customerName = cust.name;
         }
-        setEcommerceAlert({ order_number: sale.order_number, total: sale.total, customer: customerName });
-        toast({ title: '🛒 Novo pedido online!', description: `Pedido #${sale.order_number} - ${customerName}` });
+        setEcommerceAlert({ sale_number: sale.sale_number, total: sale.total, customer: customerName });
+        toast({ title: '🛒 Novo pedido online!', description: `Pedido #${sale.sale_number} - ${customerName}` });
         // Notification stays until admin manually dismisses it
       })
       .subscribe();
@@ -1150,7 +1150,7 @@ export default function PDVRapido() {
       }
 
       const { data: sale, error } = await supabase.from('sales').insert({
-        account_id: currentAccount.id, store_id: currentStore.id, seller_user_id: user.id,
+        account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
         customer_id: finalCustomerId || null, status: 'open', discount, delivery_fee: 0, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
       }).select().single();
       if (error) throw error;
@@ -1405,7 +1405,7 @@ export default function PDVRapido() {
         <div className="bg-emerald-500 text-white px-4 py-3 flex items-center gap-3 animate-in slide-in-from-top">
           <ShoppingCart className="h-5 w-5 flex-shrink-0" />
           <div className="flex-1">
-            <p className="font-bold text-sm">🛒 Novo Pedido Online #{ecommerceAlert.order_number}</p>
+            <p className="font-bold text-sm">🛒 Novo Pedido Online #{ecommerceAlert.sale_number}</p>
             <p className="text-xs opacity-90">{ecommerceAlert.customer} • {fc(ecommerceAlert.total)}</p>
           </div>
           <button onClick={() => setEcommerceAlert(null)} className="p-1 hover:bg-white/20 rounded"><X className="h-4 w-4" /></button>

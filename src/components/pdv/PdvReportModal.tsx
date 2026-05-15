@@ -29,7 +29,7 @@ interface SaleSummary {
   totalCrediario: number;
   totalFinanceira: number;
   totalStoreCredit: number;
-  sales: { id: string; order_number: number | null; total: number; created_at: string; sellerName: string }[];
+  sales: { id: string; sale_number: number | null; total: number; created_at: string; sellerName: string }[];
 }
 
 export default function PdvReportModal({ open, onOpenChange, storeId, storeName, accountId, userId, userRole, cashRegister }: PdvReportModalProps) {
@@ -52,14 +52,14 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
       // Fetch sales for this register period
       let query = supabase
         .from('sales')
-        .select('id, order_number, total, seller_user_id, created_at')
+        .select('id, sale_number, total, seller_id, created_at')
         .eq('store_id', storeId)
         .eq('status', 'paid')
         .gte('created_at', openedAt)
         .order('created_at', { ascending: true });
 
       if (!isAdmin) {
-        query = query.eq('seller_user_id', userId);
+        query = query.eq('seller_id', userId);
       }
 
       const { data: sales } = await query;
@@ -80,7 +80,7 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
       }
 
       // Get unique seller IDs for names
-      const sellerIds = [...new Set(sales.map(s => s.seller_user_id))];
+      const sellerIds = [...new Set(sales.map(s => s.seller_id))];
       const { data: profiles } = await supabase.from('profiles').select('user_id, full_name').in('user_id', sellerIds);
       const profileMap: Record<string, string> = {};
       profiles?.forEach(p => { profileMap[p.user_id] = p.full_name || 'Vendedor'; });
@@ -101,10 +101,10 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
         totalCash, totalCard, totalPix, totalCrediario, totalFinanceira, totalStoreCredit,
         sales: sales.map(s => ({
           id: s.id,
-          order_number: s.order_number,
+          sale_number: s.sale_number,
           total: s.total,
           created_at: s.created_at,
-          sellerName: profileMap[s.seller_user_id] || 'Vendedor',
+          sellerName: profileMap[s.seller_id] || 'Vendedor',
         })),
       });
     } catch {
@@ -204,7 +204,7 @@ export default function PdvReportModal({ open, onOpenChange, storeId, storeName,
                   {summary.sales.map(s => (
                     <div key={s.id} className="flex items-center justify-between text-xs py-1 border-b border-dashed last:border-0">
                       <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">#{s.order_number || '—'}</Badge>
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">#{s.sale_number || '—'}</Badge>
                         <span className="text-muted-foreground">
                           {new Date(s.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                         </span>

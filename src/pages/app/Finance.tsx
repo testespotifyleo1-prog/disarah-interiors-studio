@@ -33,7 +33,7 @@ interface CommissionWithSale extends Commission {
   sales?: Sale & { profiles?: { full_name: string }; customers?: { name: string } | null };
   seller_name?: string;
   customer_name?: string;
-  order_number?: number | null;
+  sale_number?: number | null;
 }
 
 const categories = ['geral', 'aluguel', 'salários', 'fornecedor', 'marketing', 'utilidades', 'manutenção', 'outros'];
@@ -122,7 +122,7 @@ export default function Finance() {
     try {
       if (isSeller) {
         const { data } = await supabase.from('commissions').select('*, sales(id, total, created_at)')
-          .eq('seller_user_id', user.id)
+          .eq('seller_id', user.id)
           .gte('created_at', startISO).lte('created_at', endISO)
           .order('created_at', { ascending: false });
         setCommissions((data || []) as CommissionWithSale[]);
@@ -211,7 +211,7 @@ export default function Finance() {
           while (true) {
             let q = supabase
               .from('commissions')
-              .select('*, sales!inner(id, total, order_number, customer_id, created_at, account_id, store_id, customers(name))')
+              .select('*, sales!inner(id, total, sale_number, customer_id, created_at, account_id, store_id, customers(name))')
               .eq('sales.account_id', currentAccount.id)
               .gte('created_at', startISO)
               .lte('created_at', endISO)
@@ -232,7 +232,7 @@ export default function Finance() {
         else if (isManager) fc = fc.filter((c: any) => allowedStoreIds.includes(c.sales?.store_id));
 
         // Enrich with seller name
-        const sellerIds = Array.from(new Set(fc.map((c: any) => c.seller_user_id).filter(Boolean)));
+        const sellerIds = Array.from(new Set(fc.map((c: any) => c.seller_id).filter(Boolean)));
         let nameMap: Record<string, string> = {};
         if (sellerIds.length > 0) {
           const { data: profs } = await supabase.from('profiles').select('user_id, full_name').in('user_id', sellerIds);
@@ -240,9 +240,9 @@ export default function Finance() {
         }
         const enriched = fc.map((c: any) => ({
           ...c,
-          seller_name: nameMap[c.seller_user_id] || 'Vendedor',
+          seller_name: nameMap[c.seller_id] || 'Vendedor',
           customer_name: c.sales?.customers?.name || 'Consumidor',
-          order_number: c.sales?.order_number ?? null,
+          sale_number: c.sales?.sale_number ?? null,
         }));
         setCommissions(enriched as CommissionWithSale[]);
         setComissoesPendentes(enriched.filter(c => c.status === 'pending').reduce((s, c) => s + (c.value || 0), 0));
@@ -463,7 +463,7 @@ export default function Finance() {
       const { data: sale, error: saleErr } = await supabase.from('sales').insert({
         account_id: currentAccount.id,
         store_id: storeId,
-        seller_user_id: user.id,
+        seller_id: user.id,
         status: 'paid',
         source: 'manual_entry',
         subtotal: amt,
@@ -801,7 +801,7 @@ export default function Finance() {
                   <SelectTrigger className="w-[200px] h-8 text-xs"><SelectValue placeholder="Vendedor" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Todos vendedores</SelectItem>
-                    {Array.from(new Map(commissions.map(c => [c.seller_user_id, c.seller_name || 'Vendedor'])).entries()).map(([id, name]) => (
+                    {Array.from(new Map(commissions.map(c => [c.seller_id, c.seller_name || 'Vendedor'])).entries()).map(([id, name]) => (
                       <SelectItem key={id} value={id}>{name}</SelectItem>
                     ))}
                   </SelectContent>
@@ -826,7 +826,7 @@ export default function Finance() {
 
               {commissions.length === 0 ? <p className="text-center text-muted-foreground py-8 text-sm">Nenhuma comissão no período</p> : (() => {
                 const filtered = commissions.filter(c =>
-                  (commissionSellerFilter === 'all' || c.seller_user_id === commissionSellerFilter) &&
+                  (commissionSellerFilter === 'all' || c.seller_id === commissionSellerFilter) &&
                   (commissionStatusFilter === 'all' || c.status === commissionStatusFilter)
                 );
                 return (
@@ -841,7 +841,7 @@ export default function Finance() {
                       const groups = new Map<string, { id: string; name: string; pending: number; paid: number; count: number }>();
                       commissions.forEach(c => {
                         if (commissionStatusFilter !== 'all' && c.status !== commissionStatusFilter) return;
-                        const key = c.seller_user_id;
+                        const key = c.seller_id;
                         const cur = groups.get(key) || { id: key, name: c.seller_name || 'Vendedor', pending: 0, paid: 0, count: 0 };
                         if (c.status === 'paid') cur.paid += c.value || 0;
                         else if (c.status === 'pending') cur.pending += c.value || 0;
@@ -893,7 +893,7 @@ export default function Finance() {
                             <div className="min-w-0 flex-1">
                               <p className="text-sm font-medium truncate">{c.seller_name || 'Vendedor'}</p>
                               <p className="text-xs text-muted-foreground truncate">
-                                {c.order_number ? <Link to={`/app/sales/${c.sale_id}`} className="text-primary hover:underline font-medium">Pedido #{c.order_number}</Link> : <span className="font-mono">#{c.sale_id.slice(0, 8)}</span>}
+                                {c.sale_number ? <Link to={`/app/sales/${c.sale_id}`} className="text-primary hover:underline font-medium">Pedido #{c.sale_number}</Link> : <span className="font-mono">#{c.sale_id.slice(0, 8)}</span>}
                                 {c.customer_name && <> • {c.customer_name}</>}
                               </p>
                               <p className="text-xs text-muted-foreground">

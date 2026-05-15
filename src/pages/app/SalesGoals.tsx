@@ -57,7 +57,7 @@ export default function SalesGoals() {
       .eq('account_id', currentAccount.id)
       .order('period_end', { ascending: false });
     // Sellers só visualizam suas metas (ou metas de loja/conta sem seller específico que os incluam é responsabilidade da gestão; aqui mostramos só as próprias)
-    if (!isManager && user?.id) q = q.eq('seller_user_id', user.id);
+    if (!isManager && user?.id) q = q.eq('seller_id', user.id);
     const { data } = await q;
     setGoals(data || []); setLoading(false);
   };
@@ -97,7 +97,7 @@ export default function SalesGoals() {
             const target = Number(g.target_amount || 0);
             const achieved = Number(g.achieved_amount || 0);
             const pct = target ? Math.min(100, Math.round((achieved / target) * 100)) : 0;
-            const sellerName = sellers?.find((s: any) => s.user_id === g.seller_user_id)?.name;
+            const sellerName = sellers?.find((s: any) => s.user_id === g.seller_id)?.name;
             const storeName = stores?.find((s: any) => s.id === g.store_id)?.name;
             const finished = pct >= 100;
             return (
@@ -107,7 +107,7 @@ export default function SalesGoals() {
                     <div>
                       <p className="font-semibold flex items-center gap-2">
                         {finished && <Trophy className="h-4 w-4 text-yellow-500" />}
-                        {g.scope === 'seller' ? `Vendedor: ${sellerName || (g.seller_user_id === user?.id ? 'Você' : '—')}` : g.scope === 'store' ? `Loja: ${storeName || '—'}` : 'Conta inteira'}
+                        {g.scope === 'seller' ? `Vendedor: ${sellerName || (g.seller_id === user?.id ? 'Você' : '—')}` : g.scope === 'store' ? `Loja: ${storeName || '—'}` : 'Conta inteira'}
                       </p>
                       <p className="text-xs text-muted-foreground">{new Date(g.period_start).toLocaleDateString('pt-BR')} → {new Date(g.period_end).toLocaleDateString('pt-BR')}</p>
                     </div>
@@ -157,7 +157,7 @@ function GoalDialog({ open, onClose, onSaved, accountId, stores, sellers }: any)
       account_id: accountId,
       scope,
       store_id: scope === 'account' ? null : (storeId || null),
-      seller_user_id: scope === 'seller' ? (sellerUserId || null) : null,
+      seller_id: scope === 'seller' ? (sellerUserId || null) : null,
       target_amount: Number(target),
       bonus_amount: Number(bonus || 0),
       period_start: start, period_end: end,

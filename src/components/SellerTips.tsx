@@ -30,7 +30,7 @@ export function SellerTips() {
     if (!user || !currentStore) return;
     const today = new Date().toISOString().split('T')[0];
     const { data } = await supabase.from('sales').select('id, total')
-      .eq('store_id', currentStore.id).eq('seller_user_id', user.id)
+      .eq('store_id', currentStore.id).eq('seller_id', user.id)
       .eq('status', 'paid').gte('created_at', today);
     setMySalesToday(data?.length || 0);
     setMyRevenueToday(data?.reduce((s, d) => s + Number(d.total), 0) || 0);

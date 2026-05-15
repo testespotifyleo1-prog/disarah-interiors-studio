@@ -59,7 +59,7 @@ export default function Sales() {
   const [installmentReceipts, setInstallmentReceipts] = useState<Array<{
     id: string; sale_id: string; created_at: string; paid_value: number;
     method: string; notes: string | null; customer_name: string | null;
-    order_number: number | null;
+    sale_number: number | null;
   }>>([]);
 
   // Debounce search query for global search
@@ -96,7 +96,7 @@ export default function Sales() {
       const q = debouncedSearch;
       const isNumeric = /^\d+$/.test(q);
       if (isNumeric) {
-        query = query.eq('order_number', Number(q));
+        query = query.eq('sale_number', Number(q));
       } else {
         // non-numeric: try sale uuid exact match if it looks like one, otherwise skip here (customer name handled below)
         const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(q);
@@ -107,7 +107,7 @@ export default function Sales() {
     }
 
     if (userRole === 'seller' && user) {
-      query = query.eq('seller_user_id', user.id);
+      query = query.eq('seller_id', user.id);
     }
     if (statusFilter !== 'all' && ['draft', 'open', 'paid', 'canceled'].includes(statusFilter)) {
       query = query.eq('status', statusFilter as SaleStatus);
@@ -131,7 +131,7 @@ export default function Sales() {
     if (data) {
       setSales(data as unknown as SaleWithDetails[]);
       // Load seller names
-      const sellerIds = [...new Set((data as any[]).map(s => s.seller_user_id).filter(Boolean))];
+      const sellerIds = [...new Set((data as any[]).map(s => s.seller_id).filter(Boolean))];
       if (sellerIds.length > 0) {
         const { data: profiles } = await supabase
           .from('profiles')
@@ -182,7 +182,7 @@ export default function Sales() {
     if (!isGlobalSearch) {
       const { data: pays } = await supabase
         .from('payments')
-        .select('id, sale_id, paid_value, method, notes, created_at, sales!inner(id, store_id, order_number, customer_id, customers(name))')
+        .select('id, sale_id, paid_value, method, notes, created_at, sales!inner(id, store_id, sale_number, customer_id, customers(name))')
         .eq('sales.store_id', currentStore.id)
         .ilike('notes', 'Recebimento Crediário%')
         .gte('created_at', startISO).lte('created_at', endISO)
@@ -196,7 +196,7 @@ export default function Sales() {
         method: p.method,
         notes: p.notes,
         customer_name: p.sales?.customers?.name || null,
-        order_number: p.sales?.order_number ?? null,
+        sale_number: p.sales?.sale_number ?? null,
       }));
       setInstallmentReceipts(enriched);
     } else {
@@ -222,7 +222,7 @@ export default function Sales() {
     }
     if (!searchQuery.trim()) return true;
     const q = searchQuery.trim().toLowerCase();
-    const orderNum = String((sale as any).order_number || '');
+    const orderNum = String((sale as any).sale_number || '');
     // Numeric => exact match on order number (precision)
     if (/^\d+$/.test(q)) {
       return orderNum === q || sale.id.toLowerCase().includes(q);
@@ -341,7 +341,7 @@ export default function Sales() {
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {formatDate(r.created_at)} • {methodLabel}
-                          {r.order_number ? ` • Venda #${r.order_number}` : ''}
+                          {r.sale_number ? ` • Venda #${r.sale_number}` : ''}
                         </p>
                       </div>
                       <span className="text-sm font-semibold text-green-700 whitespace-nowrap">
@@ -412,7 +412,7 @@ export default function Sales() {
                     <div className="border rounded-lg p-3 hover:bg-accent transition-colors">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-sm font-medium">
-                          <span className="text-muted-foreground mr-1">#{(sale as any).order_number || '—'}</span>
+                          <span className="text-muted-foreground mr-1">#{(sale as any).sale_number || '—'}</span>
                           {sale.customers?.name || 'Consumidor Final'}
                         </span>
                         <div className="flex items-center gap-1">
@@ -454,7 +454,7 @@ export default function Sales() {
                         <span className="font-medium text-foreground">{formatCurrency(sale.total)}</span>
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Vendedor(a): {sellerNames[(sale as any).seller_user_id] || '—'}
+                        Vendedor(a): {sellerNames[(sale as any).seller_id] || '—'}
                       </div>
                     </div>
                   </Link>
@@ -479,10 +479,10 @@ export default function Sales() {
                   <tbody>
                     {pagedSales.map(sale => (
                       <tr key={sale.id} className="border-b last:border-0 hover:bg-muted/50">
-                        <td className="py-2 font-medium text-muted-foreground">#{(sale as any).order_number || '—'}</td>
+                        <td className="py-2 font-medium text-muted-foreground">#{(sale as any).sale_number || '—'}</td>
                         <td className="py-2 whitespace-nowrap">{formatDate(sale.created_at)}</td>
                         <td className="py-2">{sale.customers?.name || 'Consumidor Final'}</td>
-                        <td className="py-2">{sellerNames[(sale as any).seller_user_id] || '—'}</td>
+                        <td className="py-2">{sellerNames[(sale as any).seller_id] || '—'}</td>
                         {showSource && (
                           <td className="py-2">
                             <Badge variant="outline" className={`text-xs ${(sale as any).source === 'woocommerce' ? 'border-purple-500 text-purple-600' : (sale as any).source === 'ecommerce' ? 'border-blue-500 text-blue-600' : 'border-muted-foreground'}`}>

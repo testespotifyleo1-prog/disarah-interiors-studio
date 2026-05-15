@@ -67,7 +67,7 @@ export default function QuoteDetail() {
       const { data: sale, error: se } = await supabase.from('sales').insert({
         account_id: currentAccount!.id,
         store_id: quote.store_id,
-        seller_user_id: quote.seller_user_id,
+        seller_id: quote.seller_id,
         customer_id: quote.customer_id,
         status: 'draft',
         subtotal: quote.subtotal,

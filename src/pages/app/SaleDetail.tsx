@@ -153,11 +153,11 @@ export default function SaleDetail() {
     setSale(saleData as unknown as SaleWithDetails);
 
     // Load seller name
-    if ((saleData as any).seller_user_id) {
+    if ((saleData as any).seller_id) {
       const { data: profileData } = await supabase
         .from('profiles')
         .select('full_name')
-        .eq('user_id', (saleData as any).seller_user_id)
+        .eq('user_id', (saleData as any).seller_id)
         .maybeSingle();
       setSellerName(profileData?.full_name || '');
     }
@@ -586,7 +586,7 @@ export default function SaleDetail() {
   const payments = sale.payments || [];
   const delivery = sale.deliveries?.[0];
   const cardFeeValue = paymentMethod === 'card' ? (sale.total * cardFeePercent) / 100 : 0;
-  const isSeller = user?.id === sale.seller_user_id;
+  const isSeller = user?.id === sale.seller_id;
   const canMarkPaid = (sale.status === 'open' || sale.status === 'draft') && (canEdit || isSeller);
   const canEmitFiscal = sale.status === 'paid';
 
@@ -600,7 +600,7 @@ export default function SaleDetail() {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl font-bold text-foreground">
-              Pedido #{(sale as any).order_number || '—'}
+              Pedido #{(sale as any).sale_number || '—'}
             </h1>
             <Badge className={`${statusColors[sale.status]} text-white`}>
               {statusLabels[sale.status]}
@@ -1126,7 +1126,7 @@ export default function SaleDetail() {
           <Card>
             <CardHeader className="p-3 sm:p-6"><CardTitle className="text-base">Informações do Pedido</CardTitle></CardHeader>
             <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0 space-y-1.5 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">Nº Pedido</span><span className="font-medium">#{(sale as any).order_number || '—'}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Nº Pedido</span><span className="font-medium">#{(sale as any).sale_number || '—'}</span></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Status</span><Badge className={`${statusColors[sale.status]} text-white`}>{statusLabels[sale.status]}</Badge></div>
               <div className="flex justify-between"><span className="text-muted-foreground">Loja</span><span className="font-medium">{(sale as any).stores?.name}</span></div>
               {(sale as any).stores?.cnpj && <div className="flex justify-between"><span className="text-muted-foreground">CNPJ</span><span className="text-xs">{(sale as any).stores.cnpj}</span></div>}

@@ -101,9 +101,9 @@ export interface Sale {
   id: string;
   account_id: string;
   store_id: string;
-  seller_user_id: string;
+  seller_id: string;
   customer_id?: string;
-  order_number?: number | null;
+  sale_number?: number | null;
   status: SaleStatus;
   subtotal: number;
   discount: number;
@@ -143,7 +143,7 @@ export interface Payment {
 export interface SellerCommissionRule {
   id: string;
   account_id: string;
-  seller_user_id: string;
+  seller_id: string;
   percent_default: number;
   is_active: boolean;
   created_at: string;
@@ -152,7 +152,7 @@ export interface SellerCommissionRule {
 export interface Commission {
   id: string;
   sale_id: string;
-  seller_user_id: string;
+  seller_id: string;
   percent: number;
   value: number;
   status: CommissionStatus;
@@ -307,7 +307,7 @@ export interface CreditOverrideRequest {
 export interface CommissionCycle {
   id: string;
   account_id: string;
-  seller_user_id: string;
+  seller_id: string;
   started_at: string;
   ended_at?: string | null;
   total_commission: number;

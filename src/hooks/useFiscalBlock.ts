@@ -17,7 +17,7 @@ export function useFiscalBlock(storeId: string | undefined) {
     let alive = true;
     (async () => {
       const { data } = await supabase
-        .from('nfeio_settings')
+        .from('focus_nfe_settings')
         .select('block_sale_without_fiscal_data, is_active')
         .eq('store_id', storeId)
         .maybeSingle();

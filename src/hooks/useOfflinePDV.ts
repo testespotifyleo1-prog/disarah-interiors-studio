@@ -112,7 +112,7 @@ export function useOfflinePDV({ accountId, storeId, userId, userEmail }: UseOffl
       id: crypto.randomUUID(),
       account_id: accountId,
       store_id: storeId,
-      seller_user_id: userId,
+      seller_id: userId,
       seller_email: userEmail || '',
       customer_id: params.customerId,
       customer_name: params.customerName,
