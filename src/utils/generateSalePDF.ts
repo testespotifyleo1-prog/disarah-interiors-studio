@@ -202,7 +202,7 @@ function drawFieldRow(doc: jsPDF, fields: { label: string; value: string; x: num
 function drawOrderInfoSection(doc: jsPDF, sale: SaleWithDetails, y: number, sellerName?: string) {
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 12;
-  const orderNumber = String((sale as any).order_number || sale.id.substring(0, 8).toUpperCase());
+  const orderNumber = String((sale as any).sale_number || sale.id.substring(0, 8).toUpperCase());
 
   y += 3;
   // Número and Data on same line
@@ -604,7 +604,7 @@ function buildCupomOnDoc(doc: jsPDF, sale: SaleWithDetails, accessKey: string | 
   const leftText = (t: string, yy: number, s = fs) => { doc.setFontSize(s); doc.text(t, margin, yy); };
   const rightText = (t: string, yy: number, s = fs) => { doc.setFontSize(s); doc.text(t, width - margin, yy, { align: 'right' }); };
   const dashes = (yy: number) => { doc.setFontSize(fsSmall); doc.text('-'.repeat(52), width / 2, yy, { align: 'center' }); };
-  const orderNumber = String((sale as any).order_number || sale.id.substring(0, 8).toUpperCase());
+  const orderNumber = String((sale as any).sale_number || sale.id.substring(0, 8).toUpperCase());
   void accessKey;
 
   if (sale.stores) {

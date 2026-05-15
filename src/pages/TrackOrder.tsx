@@ -16,7 +16,7 @@ interface TrackingData {
   finished_at: string | null;
   created_at: string;
   updated_at: string;
-  order_number: number | null;
+  sale_number: number | null;
   store_name: string | null;
   store_slug: string | null;
   items: { product_name: string; qty_required: number; qty_picked: number }[];
@@ -99,7 +99,7 @@ export default function TrackOrder() {
           </h1>
           <p className="text-muted-foreground">
             {data.store_name && <>Loja: <span className="font-semibold text-foreground">{data.store_name}</span> · </>}
-            Pedido <span className="font-mono font-semibold text-foreground">#{data.order_number ?? '—'}</span>
+            Pedido <span className="font-mono font-semibold text-foreground">#{data.sale_number ?? '—'}</span>
           </p>
         </div>
 

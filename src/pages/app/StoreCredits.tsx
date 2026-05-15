@@ -30,7 +30,7 @@ interface StoreCredit {
   used_in_sale_id: string | null;
   customer_name_manual: string | null;
   customers?: { name: string } | null;
-  sales?: { order_number: number } | null;
+  sales?: { sale_number: number } | null;
 }
 
 export default function StoreCredits() {
@@ -59,7 +59,7 @@ export default function StoreCredits() {
     try {
       let query = (supabase as any)
         .from('store_credits')
-        .select('*, customers(name), sales!store_credits_sale_id_fkey(order_number)')
+        .select('*, customers(name), sales!store_credits_sale_id_fkey(sale_number)')
         .eq('account_id', currentAccount.id)
         .eq('store_id', currentStore.id)
         .order('created_at', { ascending: false });
@@ -86,7 +86,7 @@ export default function StoreCredits() {
     if (!search.trim()) return true;
     const s = search.toLowerCase();
     const customerName = c.customers?.name || c.customer_name_manual || '';
-    const orderNum = c.sales?.order_number ? `#${c.sales.order_number}` : '';
+    const orderNum = c.sales?.sale_number ? `#${c.sales.sale_number}` : '';
     return customerName.toLowerCase().includes(s)
       || orderNum.includes(s)
       || c.reason.toLowerCase().includes(s)
@@ -211,8 +211,8 @@ export default function StoreCredits() {
                         <span className="font-bold text-sm">{customerName}</span>
                         {getStatusBadge(credit.status)}
                       </div>
-                      {credit.sales?.order_number && (
-                        <p className="text-xs text-muted-foreground">Pedido #{credit.sales.order_number}</p>
+                      {credit.sales?.sale_number && (
+                        <p className="text-xs text-muted-foreground">Pedido #{credit.sales.sale_number}</p>
                       )}
                       <p className="text-xs text-muted-foreground">{credit.reason}</p>
                       <p className="text-[10px] text-muted-foreground">

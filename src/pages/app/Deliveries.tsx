@@ -63,7 +63,7 @@ export default function Deliveries() {
       // Load deliveries
       let deliveriesQuery = supabase
         .from('deliveries')
-        .select('*, drivers(name, phone), sales(order_number, total, remaining_balance, payment_on_delivery, down_payment)')
+        .select('*, drivers(name, phone), sales(sale_number, total, remaining_balance, payment_on_delivery, down_payment)')
         .eq('account_id', currentAccount.id)
         .order('created_at', { ascending: false });
 
@@ -266,7 +266,7 @@ export default function Deliveries() {
                 </TableRow>
               ) : (
                 filteredDeliveries.map((delivery) => {
-                  const saleInfo = (delivery as any).sales as { order_number?: number; total?: number; remaining_balance?: number; payment_on_delivery?: boolean; down_payment?: number } | null;
+                  const saleInfo = (delivery as any).sales as { sale_number?: number; total?: number; remaining_balance?: number; payment_on_delivery?: boolean; down_payment?: number } | null;
                   const remaining = Number(saleInfo?.remaining_balance || 0);
                   const isPaymentOnDelivery = !!saleInfo?.payment_on_delivery && remaining > 0;
                   return (
@@ -275,7 +275,7 @@ export default function Deliveries() {
                         {format(new Date(delivery.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                       </TableCell>
                       <TableCell className="font-mono text-xs">
-                        {saleInfo?.order_number ? `#${saleInfo.order_number}` : `${delivery.sale_id.slice(0, 8)}...`}
+                        {saleInfo?.sale_number ? `#${saleInfo.sale_number}` : `${delivery.sale_id.slice(0, 8)}...`}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">

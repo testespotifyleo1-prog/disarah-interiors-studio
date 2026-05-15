@@ -191,14 +191,14 @@ export default function PdvOperationsModal({ open, onOpenChange, cashRegisterId 
 
       let data: any = null;
 
-      // 1. Try by order_number first
+      // 1. Try by sale_number first
       if (!isNaN(orderNum) && orderNum > 0) {
         const { data: byOrder, error } = await supabase
           .from('sales')
           .select('*, customers(*), sale_items(*, products(*))')
           .eq('account_id', currentAccount.id)
           .eq('status', 'paid')
-          .eq('order_number', orderNum)
+          .eq('sale_number', orderNum)
           .limit(1)
           .maybeSingle();
         if (error) throw error;
@@ -279,7 +279,7 @@ export default function PdvOperationsModal({ open, onOpenChange, cashRegisterId 
         original_amount: Math.round(creditTotal * 100) / 100,
         remaining_amount: Math.round(creditTotal * 100) / 100,
         reason: devReason.trim() || 'devolução',
-        notes: `Devolução do pedido #${foundSale.order_number}` + (!foundSale.customer_id ? ` — Cliente: ${customerLabel}` : ''),
+        notes: `Devolução do pedido #${foundSale.sale_number}` + (!foundSale.customer_id ? ` — Cliente: ${customerLabel}` : ''),
         created_by: user.id,
         customer_name_manual: !foundSale.customer_id ? customerLabel : null,
       });
@@ -315,7 +315,7 @@ export default function PdvOperationsModal({ open, onOpenChange, cashRegisterId 
         accountId: currentAccount.id, userId: user.id, userName: user.email,
         action: 'create', entityType: 'store_credit',
         details: {
-          venda: foundSale.order_number,
+          venda: foundSale.sale_number,
           cliente: customerLabel,
           valor_credito: Math.round(creditTotal * 100) / 100,
           itens_devolvidos: Object.keys(selectedItems).length,
@@ -483,7 +483,7 @@ export default function PdvOperationsModal({ open, onOpenChange, cashRegisterId 
                   {/* Sale info */}
                   <div className="rounded-lg border bg-muted/30 p-3 space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-sm">Pedido #{foundSale.order_number}</span>
+                      <span className="font-bold text-sm">Pedido #{foundSale.sale_number}</span>
                       <Badge variant="secondary" className="text-xs">{fc(foundSale.total)}</Badge>
                     </div>
                     {foundSale.customers && (
@@ -557,7 +557,7 @@ export default function PdvOperationsModal({ open, onOpenChange, cashRegisterId 
                     <div className="rounded-lg border-2 border-orange-400 bg-orange-50 dark:bg-orange-950/30 p-3 text-center">
                       <p className="text-xs text-muted-foreground uppercase font-semibold">Crédito para o cliente</p>
                       <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{fc(creditTotal)}</p>
-                      <p className="text-[10px] text-muted-foreground">Vinculado ao pedido #{foundSale.order_number}</p>
+                      <p className="text-[10px] text-muted-foreground">Vinculado ao pedido #{foundSale.sale_number}</p>
                     </div>
                   )}
 

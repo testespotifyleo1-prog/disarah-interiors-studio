@@ -379,7 +379,7 @@ export default function FiscalReturns() {
     const accessKey = normalizeDigits(doc.access_key || '');
     const providerId = (doc.provider_id || '').toLowerCase();
     const nfeNumber = String(doc.nfe_number || '').toLowerCase();
-    const saleOrderNumber = String(doc.sales?.order_number || '').toLowerCase();
+    const saleOrderNumber = String(doc.sales?.sale_number || '').toLowerCase();
 
     return customerName.includes(q)
       || (!!qDigits && accessKey.includes(qDigits))

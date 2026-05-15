@@ -34,7 +34,7 @@ export async function generateDailyReportPDF(data: DailyReportData) {
   // Fetch detailed sales for the period (inclui manual_entry para somar pagamentos)
   const { data: salesAll } = await supabase
     .from('sales')
-    .select('id, order_number, total, status, source, customer_id, seller_id, created_at, discount, delivery_fee, subtotal, notes')
+    .select('id, sale_number, total, status, source, customer_id, seller_id, created_at, discount, delivery_fee, subtotal, notes')
     .eq('store_id', storeId)
     .eq('status', 'paid')
     .gte('created_at', openedAt)
@@ -466,7 +466,7 @@ export async function generateDailyReportPDF(data: DailyReportData) {
         return `${label} ${fc(Number(p.paid_value))}`;
       }).join(' + ');
       return [
-        `#${s.order_number || '—'}`,
+        `#${s.sale_number || '—'}`,
         new Date(s.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         s.customer_id ? (customerMap[s.customer_id] || '—') : 'Consumidor',
         sellerMap[s.seller_id] || '—',

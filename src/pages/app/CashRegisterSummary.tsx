@@ -34,8 +34,8 @@ export default function CashRegisterSummary() {
   const [register, setRegister] = useState<any>(null);
   const [closedRegisters, setClosedRegisters] = useState<any[]>([]);
   const [summary, setSummary] = useState<RegisterSummary | null>(null);
-  const [crediarioReceipts, setCrediarioReceipts] = useState<Array<{ id: string; method: string; paid_value: number; created_at: string; notes: string | null; sale_id: string; customer_name: string | null; order_number: number | null }>>([]);
-  const [manualEntries, setManualEntries] = useState<Array<{ id: string; method: string; paid_value: number; created_at: string; notes: string | null; sale_notes: string | null; order_number: number | null }>>([]);
+  const [crediarioReceipts, setCrediarioReceipts] = useState<Array<{ id: string; method: string; paid_value: number; created_at: string; notes: string | null; sale_id: string; customer_name: string | null; sale_number: number | null }>>([]);
+  const [manualEntries, setManualEntries] = useState<Array<{ id: string; method: string; paid_value: number; created_at: string; notes: string | null; sale_notes: string | null; sale_number: number | null }>>([]);
   const [showClose, setShowClose] = useState(false);
   const [showOpen, setShowOpen] = useState(false);
   const [closingAmount, setClosingAmount] = useState('');
@@ -132,7 +132,7 @@ export default function CashRegisterSummary() {
       const saleIds = Array.from(new Set(credReceipts.map(p => p.sale_id))).filter(Boolean);
       const { data: salesInfo } = await supabase
         .from('sales')
-        .select('id, order_number, customer_id, customers(name)')
+        .select('id, sale_number, customer_id, customers(name)')
         .in('id', saleIds);
       const saleMap = new Map<string, any>();
       for (const s of (salesInfo || []) as any[]) saleMap.set(s.id, s);
@@ -145,7 +145,7 @@ export default function CashRegisterSummary() {
         notes: p.notes,
         sale_id: p.sale_id,
         customer_name: saleMap.get(p.sale_id)?.customers?.name || null,
-        order_number: saleMap.get(p.sale_id)?.order_number ?? null,
+        sale_number: saleMap.get(p.sale_id)?.sale_number ?? null,
       })));
     } else {
       setCrediarioReceipts([]);
@@ -154,7 +154,7 @@ export default function CashRegisterSummary() {
     // Recebimentos Manuais (entradas avulsas) lançadas neste caixa
     const { data: manualSales } = await supabase
       .from('sales')
-      .select('id, order_number, notes, created_at')
+      .select('id, sale_number, notes, created_at')
       .eq('store_id', currentStore.id)
       .eq('source', 'manual_entry')
       .gte('created_at', openedAt);
@@ -174,7 +174,7 @@ export default function CashRegisterSummary() {
         created_at: p.created_at,
         notes: p.notes,
         sale_notes: saleMap.get(p.sale_id)?.notes || null,
-        order_number: saleMap.get(p.sale_id)?.order_number ?? null,
+        sale_number: saleMap.get(p.sale_id)?.sale_number ?? null,
       })));
     } else {
       setManualEntries([]);
@@ -446,7 +446,7 @@ export default function CashRegisterSummary() {
                               <div className="flex flex-col">
                                 <span className="font-medium">
                                   {r.customer_name || 'Cliente'}
-                                  {r.order_number ? ` · Venda #${r.order_number}` : ''}
+                                  {r.sale_number ? ` · Venda #${r.sale_number}` : ''}
                                 </span>
                                 <span className="text-xs text-muted-foreground">{r.notes}</span>
                                 <span className="text-[11px] text-muted-foreground">Recebido às {time} · {methodLabel}</span>
@@ -481,7 +481,7 @@ export default function CashRegisterSummary() {
                             <div key={r.id} className="flex items-center justify-between rounded-lg border p-3 text-sm">
                               <div className="flex flex-col">
                                 <span className="font-medium">{desc}</span>
-                                <span className="text-[11px] text-muted-foreground">Lançado às {time} · {methodLabel}{r.order_number ? ` · #${r.order_number}` : ''}</span>
+                                <span className="text-[11px] text-muted-foreground">Lançado às {time} · {methodLabel}{r.sale_number ? ` · #${r.sale_number}` : ''}</span>
                               </div>
                               <span className="font-bold text-blue-600">{fc(r.paid_value)}</span>
                             </div>

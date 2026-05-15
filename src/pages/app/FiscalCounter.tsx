@@ -33,7 +33,7 @@ export default function FiscalCounter() {
 
     let query = supabase
       .from('fiscal_documents')
-      .select('id, sale_id, type, status, created_at, nfe_number, access_key, sales!inner(total, order_number, status, created_at)')
+      .select('id, sale_id, type, status, created_at, nfe_number, access_key, sales!inner(total, sale_number, status, created_at)')
       .in('status', ['processing', 'issued', 'completed', 'authorized'])
       // Filtra pelo mês da VENDA (alinha com a tela de Vendas)
       .gte('sales.created_at', startISO)
@@ -159,7 +159,7 @@ export default function FiscalCounter() {
                             {d.type === 'nfe' ? 'NF-e' : 'NFC-e'} {d.nfe_number ? `#${d.nfe_number}` : ''}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            Pedido #{d.sales?.order_number || '—'} • {new Date(d.created_at).toLocaleDateString('pt-BR')}
+                            Pedido #{d.sales?.sale_number || '—'} • {new Date(d.created_at).toLocaleDateString('pt-BR')}
                           </p>
                         </div>
                       </div>

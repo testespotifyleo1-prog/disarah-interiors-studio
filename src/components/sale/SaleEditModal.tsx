@@ -354,7 +354,7 @@ export default function SaleEditModal({ open, onOpenChange, sale, onSaved }: Sal
               customer_id: customerId,
               sale_id: sale.id,
               category: 'crediário',
-              description: `Crediário venda #${(sale as any).order_number || sale.id.substring(0, 8)} (${i + 1}/${installmentsCount})`,
+              description: `Crediário venda #${(sale as any).sale_number || sale.id.substring(0, 8)} (${i + 1}/${installmentsCount})`,
               amount: installmentValue,
               due_date: format(due, 'yyyy-MM-dd'),
               installment_number: i + 1,
@@ -426,7 +426,7 @@ export default function SaleEditModal({ open, onOpenChange, sale, onSaved }: Sal
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Editar Venda #{(sale as any).order_number || '—'}</DialogTitle>
+          <DialogTitle>Editar Venda #{(sale as any).sale_number || '—'}</DialogTitle>
           <DialogDescription>Altere itens, quantidades, preços, cliente e valores.</DialogDescription>
         </DialogHeader>
 

@@ -103,7 +103,7 @@ export interface Sale {
   store_id: string;
   seller_id: string;
   customer_id?: string;
-  order_number?: number | null;
+  sale_number?: number | null;
   status: SaleStatus;
   subtotal: number;
   discount: number;

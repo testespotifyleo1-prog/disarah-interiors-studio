@@ -69,7 +69,7 @@ function renderMoneyRow(label: string, value: string, extraClass = '') {
 }
 
 export function buildThermalReceiptHtml(sale: SaleWithDetails) {
-  const orderNumber = String((sale as any).order_number || sale.id.slice(0, 8).toUpperCase());
+  const orderNumber = String((sale as any).sale_number || sale.id.slice(0, 8).toUpperCase());
   const saleDate = new Date(sale.created_at).toLocaleString('pt-BR');
   const printedAt = new Date().toLocaleString('pt-BR');
   const storeName = normalizeText(sale.stores?.name, 'LOJA');
