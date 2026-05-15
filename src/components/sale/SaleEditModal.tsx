@@ -705,7 +705,7 @@ export default function SaleEditModal({ open, onOpenChange, sale, onSaved }: Sal
           )}
 
           {/* Payments section — for non-canceled sales */}
-          {sale.status !== 'canceled' && (
+          {sale.status !== 'cancelled' && (
             <div className="space-y-2 rounded-lg border-2 border-dashed border-primary/30 p-3">
               <div className="flex items-center justify-between">
                 <Label className="text-sm font-semibold flex items-center gap-1.5">

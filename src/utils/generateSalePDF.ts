@@ -850,7 +850,7 @@ async function buildPDF(opts: GeneratePDFOptions): Promise<jsPDF> {
       const due = new Date(i.due_date + 'T12:00:00');
       let statusLabel = 'Em aberto';
       if (i.status === 'paid') statusLabel = 'Paga';
-      else if (i.status === 'canceled') statusLabel = 'Cancelada';
+      else if (i.status === 'cancelled') statusLabel = 'Cancelada';
       else if (due < hojeRef) statusLabel = 'Vencida';
       const row = [
         `${i.number}/${qtd}`,

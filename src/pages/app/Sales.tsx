@@ -109,7 +109,7 @@ export default function Sales() {
     if (userRole === 'seller' && user) {
       query = query.eq('seller_id', user.id);
     }
-    if (statusFilter !== 'all' && ['draft', 'open', 'paid', 'canceled'].includes(statusFilter)) {
+    if (statusFilter !== 'all' && ['draft', 'open', 'paid', 'cancelled'].includes(statusFilter)) {
       query = query.eq('status', statusFilter as SaleStatus);
     }
     let { data } = await query;
@@ -166,7 +166,7 @@ export default function Sales() {
 
         if (counted.has(`${fd.sale_id}_${fd.type}`)) continue;
         counted.add(`${fd.sale_id}_${fd.type}`);
-        if (sale.status === 'canceled') continue;
+        if (sale.status === 'cancelled') continue;
         if (fd.type === 'nfe') { nfeC++; nfeT += sale.total || 0; }
         else if (fd.type === 'nfce' || fd.type === 'cupom') { nfceC++; nfceT += sale.total || 0; }
       }
@@ -233,7 +233,7 @@ export default function Sales() {
   const jpSummary = useMemo(() => {
     if (!showJpFilter) return { count: 0, total: 0 };
     return sales.reduce(
-      (acc, s) => hasJpOrigin((s as any).notes) && s.status !== 'canceled'
+      (acc, s) => hasJpOrigin((s as any).notes) && s.status !== 'cancelled'
         ? { count: acc.count + 1, total: acc.total + Number(s.total || 0) }
         : acc,
       { count: 0, total: 0 }
@@ -438,7 +438,7 @@ export default function Sales() {
                           <Badge className={`${statusColors[sale.status]} text-white text-xs`}>
                             {statusLabels[sale.status]}
                           </Badge>
-                          {sale.status !== 'canceled' && sale.status !== 'draft' && (
+                          {sale.status !== 'cancelled' && sale.status !== 'draft' && (
                             fiscalBySale[sale.id]?.nfe ? (
                               <Badge className="bg-primary text-primary-foreground text-xs" title="NF-e emitida"><FileText className="h-3 w-3 mr-1" />NF-e</Badge>
                             ) : fiscalBySale[sale.id]?.nfce ? (
@@ -507,7 +507,7 @@ export default function Sales() {
                               <Badge className="bg-orange-500 text-white" title="Venda da JP Móveis (faturada aqui temporariamente)">JP</Badge>
                             )}
                             <Badge className={`${statusColors[sale.status]} text-white`}>{statusLabels[sale.status]}</Badge>
-                            {sale.status !== 'canceled' && sale.status !== 'draft' && (
+                            {sale.status !== 'cancelled' && sale.status !== 'draft' && (
                               fiscalBySale[sale.id]?.nfe ? (
                                 <Badge className="bg-primary text-primary-foreground" title="NF-e emitida"><FileText className="h-3 w-3 mr-1" />NF-e</Badge>
                               ) : fiscalBySale[sale.id]?.nfce ? (

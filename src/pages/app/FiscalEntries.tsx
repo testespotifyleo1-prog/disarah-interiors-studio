@@ -79,7 +79,7 @@ export default function FiscalEntries() {
         .eq('id', entryId)
         .single();
 
-      if (!entry || entry.status === 'canceled') throw new Error('Entrada já cancelada ou não encontrada');
+      if (!entry || entry.status === 'cancelled') throw new Error('Entrada já cancelada ou não encontrada');
 
       // Reverse stock if was confirmed
       if (entry.status === 'confirmed' && items) {
@@ -106,7 +106,7 @@ export default function FiscalEntries() {
       // Cancel accounts payable linked
       const { error: apError } = await supabase
         .from('accounts_payable')
-        .update({ status: 'canceled' })
+        .update({ status: 'cancelled' })
         .eq('account_id', currentAccount!.id)
         .like('notes', `fiscal_entry:${entryId}%`);
       
@@ -115,7 +115,7 @@ export default function FiscalEntries() {
       // Mark entry as canceled
       await supabase
         .from('fiscal_entries')
-        .update({ status: 'canceled', canceled_at: new Date().toISOString(), canceled_by: user.id })
+        .update({ status: 'cancelled', canceled_at: new Date().toISOString(), canceled_by: user.id })
         .eq('id', entryId);
 
       await logActivity({

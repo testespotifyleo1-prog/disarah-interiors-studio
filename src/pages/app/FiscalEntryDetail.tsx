@@ -165,7 +165,7 @@ export default function FiscalEntryDetail() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-bold">{fc(ap.amount)}</p>
-                  <Badge variant={ap.status === 'open' ? 'default' : ap.status === 'canceled' ? 'secondary' : 'outline'} className="text-xs">
+                  <Badge variant={ap.status === 'open' ? 'default' : ap.status === 'cancelled' ? 'secondary' : 'outline'} className="text-xs">
                     {ap.status === 'open' ? 'Aberto' : ap.status === 'paid' ? 'Pago' : 'Cancelado'}
                   </Badge>
                 </div>

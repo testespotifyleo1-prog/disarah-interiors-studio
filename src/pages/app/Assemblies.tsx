@@ -15,7 +15,7 @@ import { Loader2, Wrench, Clock, CheckCircle, XCircle, CalendarDays, Edit2 } fro
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'canceled';
+type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
 
 interface Assembly {
   id: string;

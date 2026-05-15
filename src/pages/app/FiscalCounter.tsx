@@ -62,7 +62,7 @@ export default function FiscalCounter() {
 
     let nc = 0, nt = 0, ncc = 0, nct = 0;
     for (const fd of dedup) {
-      if (fd.sales?.status === 'canceled') continue;
+      if (fd.sales?.status === 'cancelled') continue;
       const total = Number(fd.sales?.total || 0);
       if (fd.type === 'nfe') { nc++; nt += total; }
       else if (fd.type === 'nfce' || fd.type === 'cupom') { ncc++; nct += total; }
