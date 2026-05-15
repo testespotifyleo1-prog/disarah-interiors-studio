@@ -267,6 +267,7 @@ export type Database = {
           is_active: boolean
           name: string
           phone: string | null
+          store_id: string | null
           updated_at: string
         }
         Insert: {
@@ -277,6 +278,7 @@ export type Database = {
           is_active?: boolean
           name: string
           phone?: string | null
+          store_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -287,6 +289,7 @@ export type Database = {
           is_active?: boolean
           name?: string
           phone?: string | null
+          store_id?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -1167,6 +1170,7 @@ export type Database = {
           is_active: boolean
           name: string
           phone: string | null
+          store_id: string | null
           updated_at: string
           vehicle_plate: string | null
         }
@@ -1178,6 +1182,7 @@ export type Database = {
           is_active?: boolean
           name: string
           phone?: string | null
+          store_id?: string | null
           updated_at?: string
           vehicle_plate?: string | null
         }
@@ -1189,6 +1194,7 @@ export type Database = {
           is_active?: boolean
           name?: string
           phone?: string | null
+          store_id?: string | null
           updated_at?: string
           vehicle_plate?: string | null
         }
@@ -1664,6 +1670,7 @@ export type Database = {
       fiscal_xml_backups: {
         Row: {
           account_id: string
+          backed_up_at: string | null
           created_at: string
           fiscal_document_id: string | null
           id: string
@@ -1672,6 +1679,7 @@ export type Database = {
         }
         Insert: {
           account_id?: string
+          backed_up_at?: string | null
           created_at?: string
           fiscal_document_id?: string | null
           id?: string
@@ -1680,6 +1688,7 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          backed_up_at?: string | null
           created_at?: string
           fiscal_document_id?: string | null
           id?: string
@@ -1706,6 +1715,7 @@ export type Database = {
       focus_nfe_settings: {
         Row: {
           account_id: string
+          api_key: string | null
           api_key_secret_id: string | null
           block_sale_without_fiscal_data: boolean
           certificate_expires_at: string | null
@@ -1728,6 +1738,7 @@ export type Database = {
         }
         Insert: {
           account_id?: string
+          api_key?: string | null
           api_key_secret_id?: string | null
           block_sale_without_fiscal_data?: boolean
           certificate_expires_at?: string | null
@@ -1750,6 +1761,7 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          api_key?: string | null
           api_key_secret_id?: string | null
           block_sale_without_fiscal_data?: boolean
           certificate_expires_at?: string | null
@@ -1848,7 +1860,9 @@ export type Database = {
       inventory: {
         Row: {
           account_id: string
+          expiration_date: string | null
           id: string
+          min_qty: number | null
           product_id: string
           qty: number
           qty_on_hand: number | null
@@ -1860,7 +1874,9 @@ export type Database = {
         }
         Insert: {
           account_id?: string
+          expiration_date?: string | null
           id?: string
+          min_qty?: number | null
           product_id: string
           qty?: number
           qty_on_hand?: number | null
@@ -1872,7 +1888,9 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          expiration_date?: string | null
           id?: string
+          min_qty?: number | null
           product_id?: string
           qty?: number
           qty_on_hand?: number | null
@@ -2270,6 +2288,7 @@ export type Database = {
           manifest_protocol: string | null
           manifested_at: string | null
           raw_payload: Json | null
+          status: string
           store_id: string
           total_amount: number | null
           updated_at: string
@@ -2286,6 +2305,7 @@ export type Database = {
           manifest_protocol?: string | null
           manifested_at?: string | null
           raw_payload?: Json | null
+          status?: string
           store_id: string
           total_amount?: number | null
           updated_at?: string
@@ -2302,6 +2322,7 @@ export type Database = {
           manifest_protocol?: string | null
           manifested_at?: string | null
           raw_payload?: Json | null
+          status?: string
           store_id?: string
           total_amount?: number | null
           updated_at?: string
@@ -4219,7 +4240,9 @@ export type Database = {
       suppliers: {
         Row: {
           account_id: string
+          address_json: Json | null
           city: string | null
+          cnpj: string | null
           complement: string | null
           created_at: string
           district: string | null
@@ -4235,12 +4258,15 @@ export type Database = {
           phone: string | null
           state: string | null
           street: string | null
+          trade_name: string | null
           updated_at: string
           zip: string | null
         }
         Insert: {
           account_id?: string
+          address_json?: Json | null
           city?: string | null
+          cnpj?: string | null
           complement?: string | null
           created_at?: string
           district?: string | null
@@ -4256,12 +4282,15 @@ export type Database = {
           phone?: string | null
           state?: string | null
           street?: string | null
+          trade_name?: string | null
           updated_at?: string
           zip?: string | null
         }
         Update: {
           account_id?: string
+          address_json?: Json | null
           city?: string | null
+          cnpj?: string | null
           complement?: string | null
           created_at?: string
           district?: string | null
@@ -4277,6 +4306,7 @@ export type Database = {
           phone?: string | null
           state?: string | null
           street?: string | null
+          trade_name?: string | null
           updated_at?: string
           zip?: string | null
         }
@@ -4352,6 +4382,7 @@ export type Database = {
         | "in_progress"
         | "done"
         | "cancelled"
+        | "completed"
       business_type: "interiores" | "generico"
       cash_register_status: "open" | "closed"
       delivery_status:
@@ -4545,6 +4576,7 @@ export const Constants = {
         "in_progress",
         "done",
         "cancelled",
+        "completed",
       ],
       business_type: ["interiores", "generico"],
       cash_register_status: ["open", "closed"],
