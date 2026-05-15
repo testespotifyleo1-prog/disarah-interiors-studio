@@ -8,7 +8,7 @@ import { usePlan } from '@/contexts/PlanContext';
 import { ROUTE_FEATURE_MAP, GROUP_FEATURE_MAP, PlanFeature } from '@/utils/planFeatures';
 import { useState, useMemo } from 'react';
 import { getMenuIcons, type MenuTheme } from '@/utils/menuIcons';
-import { useWhatsAppUnreadCount } from '@/hooks/useWhatsAppNotifications';
+
 import {
   Sidebar,
   SidebarContent,
