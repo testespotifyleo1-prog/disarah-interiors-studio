@@ -287,13 +287,13 @@ export interface CreditOverrideRequest {
   store_id?: string | null;
   sale_id?: string | null;
   customer_id: string;
-  requested_by: string;
-  requested_at: string;
+  requested_by?: string;
+  requested_at?: string;
   current_limit: number;
-  used_balance: number;
-  sale_amount: number;
+  used_balance?: number;
+  sale_amount?: number;
   excess_amount: number;
-  status: string;
+  status?: string;
   approved_by?: string | null;
   approved_at?: string | null;
   denied_by?: string | null;
