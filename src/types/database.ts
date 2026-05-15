@@ -2,13 +2,13 @@
 
 export type AccountRole = 'owner' | 'admin' | 'manager' | 'seller';
 export type StoreRole = 'admin' | 'manager' | 'seller';
-export type SaleStatus = 'draft' | 'open' | 'paid' | 'cancelled' | 'crediario';
+export type SaleStatus = 'draft' | 'open' | 'paid' | 'cancelled' | 'crediario' | 'held' | 'returned';
 export type PaymentMethod = 'pix' | 'cash' | 'card' | 'crediario' | 'financeira' | 'store_credit';
 export type CardType = 'debit' | 'credit';
 export type CommissionStatus = 'pending' | 'paid' | 'cancelled';
-export type DeliveryType = 'pickup' | 'delivery';
-export type DeliveryStatus = 'pending' | 'assigned' | 'out_for_delivery' | 'delivered' | 'cancelled';
-export type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
+export type DeliveryType = string;
+export type DeliveryStatus = string;
+export type AssemblyStatus = 'pending' | 'scheduled' | 'in_progress' | 'completed' | 'done' | 'cancelled';
 export type FiscalDocType = 'nfe' | 'nfce' | 'cupom' | 'nfse' | 'nfe_complementar';
 export type NfeioEnvironment = 'prod' | 'homolog';
 export type ImportJobStatus = 'pending' | 'processing' | 'completed' | 'failed';
