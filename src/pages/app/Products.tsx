@@ -1010,54 +1010,7 @@ export default function Products() {
 
             {/* TAB FISCAL */}
             <TabsContent value="fiscal" className="space-y-4 mt-4">
-              <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Dados fiscais para emissão de NF-e / NFC-e</p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={validateFiscalWithAi}
-                  disabled={validatingFiscal || !formData.name || aiBlocked}
-                  title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                  className={`gap-2 text-xs ${aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}`}
-                >
-                  {validatingFiscal ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />}
-                  {validatingFiscal ? 'Analisando...' : 'Preencher com IA'}
-                </Button>
-              </div>
-
-              {/* AI Result Panel */}
-              {fiscalAiResult && (
-                <div className={`rounded-lg border p-3 text-sm space-y-2 ${fiscalAiResult.ambiguous ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/30' : 'border-green-300 bg-green-50 dark:bg-green-950/30'}`}>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1">
-                      {fiscalAiResult.ambiguous ? (
-                        <p className="font-medium text-amber-700 dark:text-amber-400">⚠️ {fiscalAiResult.warning || 'Produto não interpretável pela IA. Preencha manualmente.'}</p>
-                      ) : (
-                        <>
-                          <p className="font-medium text-green-700 dark:text-green-400">✅ Sugestão pronta</p>
-                          <p className="text-xs text-muted-foreground mt-1">{fiscalAiResult.explanation}</p>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {Object.entries(fiscalAiResult.suggestions || {}).map(([k, v]) => (
-                              v ? <Badge key={k} variant="secondary" className="text-[10px]">{k}: {String(v)}</Badge> : null
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex gap-1 shrink-0">
-                      {!fiscalAiResult.ambiguous && (
-                        <Button type="button" size="sm" onClick={applyFiscalSuggestions} className="gap-1 text-xs h-7">
-                          <Sparkles className="h-3 w-3" /> Aplicar
-                        </Button>
-                      )}
-                      <Button type="button" variant="ghost" size="sm" onClick={() => setFiscalAiResult(null)} className="h-7 w-7 p-0">
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <p className="text-xs text-muted-foreground">Dados fiscais para emissão de NF-e / NFC-e</p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>NCM</Label>
