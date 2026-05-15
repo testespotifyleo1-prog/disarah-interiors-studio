@@ -136,7 +136,7 @@ export function AppSidebar() {
   const { hasFeature } = usePlan();
   const menuTheme = ((currentAccount as any)?.menu_theme as MenuTheme) || 'party';
   const icons = useMemo(() => getMenuIcons(menuTheme), [menuTheme]);
-  const waUnread = useWhatsAppUnreadCount();
+  const waUnread = 0;
   const [expandedGroups, setExpandedGroups] = useState<string[]>(() => {
     // Auto-expand the group containing the current route
     const active = menuGroups.find(g => g.items.some(i => location.pathname === i.href));
