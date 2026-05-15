@@ -1,15 +1,6 @@
-// IDs de contas que não utilizam certos módulos (flags legadas hardcoded)
-// MANTIDO para 100% compatibilidade com lógica anterior.
-const DISABLED_MODULES: Record<string, string[]> = {
-  // Ponto da Festa - loja de artigos para festas
-  '2480b8ae-c3a4-4a39-ad76-e6b41013f25e': ['assemblies', 'auto_delivery', 'seller_no_edit_products', 'hide_card_details_pdv'],
-  // TOP FESTAS / Conecta Mix Top Festas
-  '794d95b6-15e2-4ada-8aea-32998477f235': ['assemblies', 'auto_delivery', 'seller_no_edit_products', 'hide_card_details_pdv'],
-  // Disarah Interiores + Depósito (recursos de IA, crediário, marketplaces, e-mail marketing e API bloqueados)
-  '383878d2-142b-4df6-94ce-875f6458413e': ['ai_features', 'crediario', 'integrations', 'email_marketing', 'api_access'],
-  // DISARAH (segunda conta - Depósito da Empresa)
-  '2a8b5291-4820-49e0-8943-e6ce7056708e': ['ai_features', 'crediario', 'integrations', 'email_marketing', 'api_access'],
-};
+// Single-tenant ERP (Disarah Interiores): no per-account module gating.
+// Empty map keeps the API surface but disables nothing.
+const DISABLED_MODULES: Record<string, string[]> = {};
 
 /** Mensagem padrão exibida quando um recurso de IA está bloqueado para a conta. */
 export const AI_BLOCKED_MESSAGE =

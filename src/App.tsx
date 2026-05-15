@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { PlanProvider } from "@/contexts/PlanContext";
+
 
 // Pages
 import Index from "./pages/Index";
@@ -57,7 +57,7 @@ import Categories from "./pages/app/Categories";
 import CashRegisterSummary from "./pages/app/CashRegisterSummary";
 import MercadoPagoIntegration from "./pages/app/MercadoPagoIntegration";
 import StoreCredits from "./pages/app/StoreCredits";
-import SuperAdmin from "./pages/SuperAdmin";
+
 import Labels from "./pages/app/Labels";
 import ExpirationReport from "./pages/app/ExpirationReport";
 import StoreTransfers from "./pages/app/StoreTransfers";
@@ -82,7 +82,6 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <PlanProvider>
         <Toaster />
         <Sonner position="top-right" richColors closeButton expand visibleToasts={4} toastOptions={{ duration: 5000 }} />
         <BrowserRouter>
@@ -91,7 +90,6 @@ const App = () => (
             
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/superadmin" element={<SuperAdmin />} />
             
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
@@ -162,7 +160,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-        </PlanProvider>
+        
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
