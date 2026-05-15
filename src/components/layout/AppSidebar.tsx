@@ -146,10 +146,7 @@ export function AppSidebar() {
   // Items mantidos visíveis mas bloqueados (com cadeado/tooltip) quando módulo desabilitado.
   // Nota: 'assemblies' continua sendo escondido (comportamento legado).
   const ROUTE_MODULE_MAP: Record<string, ModuleType> = {
-  const ROUTE_MODULE_MAP: Record<string, ModuleType> = {
     '/app/crediario': 'crediario',
-  };
-    '/app/developers': 'api_access',
   };
 
   const getBlockedInfo = (href: string): { blocked: boolean; message: string } => {
