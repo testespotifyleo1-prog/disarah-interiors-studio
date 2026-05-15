@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { isModuleDisabled, isAiBlocked, AI_BLOCKED_MESSAGE, MODULE_BLOCKED_MESSAGE, type ModuleType } from '@/utils/accountModules';
 import { usePlan } from '@/contexts/PlanContext';
-import { ROUTE_FEATURE_MAP, GROUP_FEATURE_MAP, PlanFeature } from '@/utils/planFeatures';
+
 import { useState, useMemo } from 'react';
 import { getMenuIcons, type MenuTheme } from '@/utils/menuIcons';
 
@@ -109,12 +109,10 @@ const menuGroups: MenuGroup[] = [
     label: 'Configurações',
     iconKey: 'settings',
     items: [
-      { iconKey: 'subscription', label: 'Minha Assinatura', href: '/app/subscription', roles: ['owner', 'admin'] },
       { iconKey: 'stores', label: 'Lojas', href: '/app/stores', roles: ['owner', 'admin'] },
       { iconKey: 'businessType', label: 'Tipo de Negócio', href: '/app/settings/business-type', roles: ['owner', 'admin'] },
       { iconKey: 'pin', label: 'PIN de Autorização', href: '/app/settings/pin', roles: ['owner', 'manager'] },
       { iconKey: 'activityLogs', label: 'Log de Atividades', href: '/app/activity-logs', roles: ['owner', 'admin'] },
-      { iconKey: 'developers', label: 'Desenvolvedores (API)', href: '/app/developers', roles: ['owner', 'admin'] },
       { iconKey: 'reset', label: 'Resetar Dados', href: '/app/settings/reset', roles: ['owner'] },
     ],
   },
@@ -123,7 +121,7 @@ const menuGroups: MenuGroup[] = [
 export function AppSidebar() {
   const location = useLocation();
   const { currentAccount, userRole, signOut } = useAuth();
-  const { hasFeature } = usePlan();
+  const hasFeature = (_f: string) => true;
   const menuTheme = ((currentAccount as any)?.menu_theme as MenuTheme) || 'party';
   const icons = useMemo(() => getMenuIcons(menuTheme), [menuTheme]);
   const waUnread = 0;
@@ -163,20 +161,12 @@ export function AppSidebar() {
       // Assemblies continuam ocultos (comportamento legado para contas sem montagem).
       if ((href.includes('assembl') || href.includes('montag')) && isModuleDisabled(currentAccount, 'assemblies')) return false;
 
-      // Plan-based feature gating
-      const requiredFeature = ROUTE_FEATURE_MAP[href];
-      if (requiredFeature && !hasFeature(requiredFeature)) return false;
+      // Plan-based feature gating removed (single-tenant: full access)
 
       return true;
     });
 
   const visibleGroups = menuGroups
-    .filter(g => {
-      // Plan-based group gating
-      const groupFeatures = GROUP_FEATURE_MAP[g.id];
-      if (groupFeatures && !groupFeatures.some(f => hasFeature(f))) return false;
-      return true;
-    })
     .map(g => {
       const roleFiltered = filterByRole(g.items);
       // Apply search filter on item label (and group label as fallback match)
@@ -248,9 +238,6 @@ export function AppSidebar() {
             {quickActions
               .filter(item => {
                 if (item.href === '/app/pdv' && isModuleDisabled(currentAccount?.id, 'pdv_standard')) return false;
-                // Plan-based gating for quick actions
-                const requiredFeature = ROUTE_FEATURE_MAP[item.href];
-                if (requiredFeature && !hasFeature(requiredFeature)) return false;
                 return true;
               })
               .map((item) => {

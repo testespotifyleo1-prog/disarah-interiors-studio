@@ -202,14 +202,7 @@ function PickingDetail({ order, onClose, onChanged, userId, isManager, accountId
     setTimeout(() => inputRef.current?.focus(), 100);
   }, [order?.id]);
 
-  useEffect(() => {
-    if (!storeId) return;
-    (async () => {
-      const { data } = await supabase.from('chatbot_settings').select('tracking_message_template').eq('store_id', storeId).maybeSingle();
-      const tpl = (data as any)?.tracking_message_template;
-      if (tpl) setWaTemplate(tpl);
-    })();
-  }, [storeId]);
+  // chatbot_settings removed (WhatsApp feature deleted) — tracking template stays in default state
 
   if (!order) return null;
 

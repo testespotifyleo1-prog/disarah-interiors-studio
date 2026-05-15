@@ -696,14 +696,7 @@ export default function PDV() {
         details: { total, payments: paymentEntries.map(e => ({ method: e.method, amount: e.amount })), customer: selectedCustomerObj?.name || null },
       });
 
-      // Redeem coupon if applied
-      if (couponApplied && selectedCustomer && currentAccount && saleId) {
-        const { error: redErr } = await supabase.rpc('redeem_birthday_coupon', {
-          _code: couponApplied.code, _account_id: currentAccount.id,
-          _customer_id: selectedCustomer, _sale_id: saleId,
-        });
-        if (redErr) console.warn('Falha ao marcar cupom como usado:', redErr.message);
-      }
+      // Birthday coupon redemption removed (single-tenant cleanup)
 
       toast({ title: 'Venda finalizada com sucesso!' });
       resetAll();
@@ -714,24 +707,7 @@ export default function PDV() {
   };
 
   const applyCoupon = async () => {
-    const code = couponCode.trim().toUpperCase();
-    if (!code) { toast({ variant: 'destructive', title: 'Informe o código do cupom' }); return; }
-    if (!selectedCustomer) { toast({ variant: 'destructive', title: 'Selecione o cliente vinculado ao cupom' }); return; }
-    if (!currentAccount) return;
-    setCouponValidating(true);
-    try {
-      const { data, error } = await supabase.rpc('validate_birthday_coupon', {
-        _code: code, _account_id: currentAccount.id, _customer_id: selectedCustomer, _subtotal: subtotal,
-      });
-      if (error) throw error;
-      const c: any = data;
-      const amount = Number(c.discount_amount || 0);
-      setCouponApplied({ code: c.code, discount: amount, description: c.description });
-      setDiscount(amount);
-      toast({ title: 'Cupom aplicado', description: `Desconto de ${fc(amount)}` });
-    } catch (e: any) {
-      toast({ variant: 'destructive', title: 'Cupom inválido', description: e.message });
-    } finally { setCouponValidating(false); }
+    toast({ variant: 'destructive', title: 'Cupons indisponíveis', description: 'Funcionalidade desativada.' });
   };
   const clearCoupon = () => {
     if (couponApplied) setDiscount(0);
