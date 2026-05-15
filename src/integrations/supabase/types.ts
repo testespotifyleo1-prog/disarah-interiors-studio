@@ -133,6 +133,7 @@ export type Database = {
         Row: {
           account_id: string
           amount: number
+          category: string | null
           created_at: string
           customer_id: string | null
           description: string | null
@@ -152,6 +153,7 @@ export type Database = {
         Insert: {
           account_id?: string
           amount: number
+          category?: string | null
           created_at?: string
           customer_id?: string | null
           description?: string | null
@@ -171,6 +173,7 @@ export type Database = {
         Update: {
           account_id?: string
           amount?: number
+          category?: string | null
           created_at?: string
           customer_id?: string | null
           description?: string | null
@@ -441,6 +444,7 @@ export type Database = {
         Row: {
           account_id: string
           closed_at: string | null
+          closed_by: string | null
           closing_amount: number | null
           difference: number | null
           expected_amount: number | null
@@ -452,10 +456,15 @@ export type Database = {
           operator_id: string | null
           status: Database["public"]["Enums"]["cash_register_status"]
           store_id: string
+          total_card: number | null
+          total_cash: number | null
+          total_pix: number | null
+          total_sales: number | null
         }
         Insert: {
           account_id?: string
           closed_at?: string | null
+          closed_by?: string | null
           closing_amount?: number | null
           difference?: number | null
           expected_amount?: number | null
@@ -467,10 +476,15 @@ export type Database = {
           operator_id?: string | null
           status?: Database["public"]["Enums"]["cash_register_status"]
           store_id: string
+          total_card?: number | null
+          total_cash?: number | null
+          total_pix?: number | null
+          total_sales?: number | null
         }
         Update: {
           account_id?: string
           closed_at?: string | null
+          closed_by?: string | null
           closing_amount?: number | null
           difference?: number | null
           expected_amount?: number | null
@@ -482,6 +496,10 @@ export type Database = {
           operator_id?: string | null
           status?: Database["public"]["Enums"]["cash_register_status"]
           store_id?: string
+          total_card?: number | null
+          total_cash?: number | null
+          total_pix?: number | null
+          total_sales?: number | null
         }
         Relationships: [
           {
@@ -735,10 +753,15 @@ export type Database = {
           approved_at: string | null
           approved_by: string | null
           created_at: string
+          current_limit: number | null
           customer_id: string
+          excess_amount: number | null
           id: string
           reason: string | null
           requested_by: string | null
+          sale_amount: number | null
+          status: string | null
+          used_balance: number | null
         }
         Insert: {
           account_id?: string
@@ -747,10 +770,15 @@ export type Database = {
           approved_at?: string | null
           approved_by?: string | null
           created_at?: string
+          current_limit?: number | null
           customer_id: string
+          excess_amount?: number | null
           id?: string
           reason?: string | null
           requested_by?: string | null
+          sale_amount?: number | null
+          status?: string | null
+          used_balance?: number | null
         }
         Update: {
           account_id?: string
@@ -759,10 +787,15 @@ export type Database = {
           approved_at?: string | null
           approved_by?: string | null
           created_at?: string
+          current_limit?: number | null
           customer_id?: string
+          excess_amount?: number | null
           id?: string
           reason?: string | null
           requested_by?: string | null
+          sale_amount?: number | null
+          status?: string | null
+          used_balance?: number | null
         }
         Relationships: [
           {
@@ -1007,8 +1040,10 @@ export type Database = {
           created_at: string
           customer_id: string | null
           delivered_at: string | null
+          delivery_type: string
           district: string | null
           driver_id: string | null
+          eta_at: string | null
           freight: number
           id: string
           notes: string | null
@@ -1034,8 +1069,10 @@ export type Database = {
           created_at?: string
           customer_id?: string | null
           delivered_at?: string | null
+          delivery_type?: string
           district?: string | null
           driver_id?: string | null
+          eta_at?: string | null
           freight?: number
           id?: string
           notes?: string | null
@@ -1061,8 +1098,10 @@ export type Database = {
           created_at?: string
           customer_id?: string | null
           delivered_at?: string | null
+          delivery_type?: string
           district?: string | null
           driver_id?: string | null
+          eta_at?: string | null
           freight?: number
           id?: string
           notes?: string | null
@@ -1484,7 +1523,8 @@ export type Database = {
           id: string
           ncm: string | null
           product_id: string | null
-          qty: number
+          qty: number | null
+          quantity: number | null
           total: number
           unit: string | null
           unit_cost: number
@@ -1498,7 +1538,8 @@ export type Database = {
           id?: string
           ncm?: string | null
           product_id?: string | null
-          qty: number
+          qty?: number | null
+          quantity?: number | null
           total: number
           unit?: string | null
           unit_cost: number
@@ -1512,7 +1553,8 @@ export type Database = {
           id?: string
           ncm?: string | null
           product_id?: string | null
-          qty?: number
+          qty?: number | null
+          quantity?: number | null
           total?: number
           unit?: string | null
           unit_cost?: number
@@ -4230,7 +4272,7 @@ export type Database = {
         Returns: number
       }
       get_focus_nfe_api_key: { Args: { p_store_id: string }; Returns: string }
-      get_public_tracking: { Args: { token: string }; Returns: Json }
+      get_public_tracking: { Args: { _token: string }; Returns: Json }
       has_account_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -4312,6 +4354,8 @@ export type Database = {
         | "transfer"
         | "mp_pix"
         | "mp_point"
+        | "card"
+        | "financeira"
       purchase_order_status:
         | "draft"
         | "sent"
@@ -4507,6 +4551,8 @@ export const Constants = {
         "transfer",
         "mp_pix",
         "mp_point",
+        "card",
+        "financeira",
       ],
       purchase_order_status: [
         "draft",
