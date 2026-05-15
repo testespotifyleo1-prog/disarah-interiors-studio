@@ -107,7 +107,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/superadmin" element={<SuperAdmin />} />
-            <Route path="/checkout/return" element={<CheckoutReturn />} />
+            
             <Route path="/meli/callback" element={<MercadoLivreCallback />} />
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
