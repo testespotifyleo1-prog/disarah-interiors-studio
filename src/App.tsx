@@ -152,11 +152,9 @@ const App = () => (
               <Route path="quotes/new" element={<NewQuote />} />
               <Route path="quotes/:id" element={<QuoteDetail />} />
               
-              <Route path="email-campaigns" element={<EmailCampaigns />} />
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
               <Route path="sales-goals" element={<SalesGoals />} />
-              <Route path="reactivation-campaigns" element={<ReactivationCampaigns />} />
               <Route path="developers" element={<Developers />} />
               <Route path="developers" element={<Developers />} />
             </Route>
