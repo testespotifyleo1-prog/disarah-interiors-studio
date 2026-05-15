@@ -321,8 +321,6 @@ function DefaultDashboard() {
         </div>
       </div>
 
-      {/* What's New */}
-      <WhatsNewCard />
 
       {/* Stats Grid */}
       <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
