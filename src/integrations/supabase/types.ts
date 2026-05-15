@@ -1593,10 +1593,10 @@ export type Database = {
           product_id: string | null
           qty: number | null
           quantity: number | null
-          total: number
+          total: number | null
           total_line: number | null
           unit: string | null
-          unit_cost: number
+          unit_cost: number | null
           unit_price: number | null
           xml_code: string | null
         }
@@ -1613,10 +1613,10 @@ export type Database = {
           product_id?: string | null
           qty?: number | null
           quantity?: number | null
-          total: number
+          total?: number | null
           total_line?: number | null
           unit?: string | null
-          unit_cost: number
+          unit_cost?: number | null
           unit_price?: number | null
           xml_code?: string | null
         }
@@ -1633,10 +1633,10 @@ export type Database = {
           product_id?: string | null
           qty?: number | null
           quantity?: number | null
-          total?: number
+          total?: number | null
           total_line?: number | null
           unit?: string | null
-          unit_cost?: number
+          unit_cost?: number | null
           unit_price?: number | null
           xml_code?: string | null
         }
@@ -3910,6 +3910,7 @@ export type Database = {
           created_at: string
           id: string
           is_active: boolean
+          manager_pin: string | null
           store_id: string
           updated_at: string
           user_id: string
@@ -3919,6 +3920,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          manager_pin?: string | null
           store_id: string
           updated_at?: string
           user_id: string
@@ -3928,6 +3930,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          manager_pin?: string | null
           store_id?: string
           updated_at?: string
           user_id?: string
@@ -3955,9 +3958,11 @@ export type Database = {
           created_at: string
           id: string
           product_id: string
-          qty: number
+          qty: number | null
           qty_received: number
-          store_transfer_id: string
+          qty_requested: number | null
+          store_transfer_id: string | null
+          transfer_id: string | null
           unit_cost: number | null
           variant_id: string | null
         }
@@ -3966,9 +3971,11 @@ export type Database = {
           created_at?: string
           id?: string
           product_id: string
-          qty: number
+          qty?: number | null
           qty_received?: number
-          store_transfer_id: string
+          qty_requested?: number | null
+          store_transfer_id?: string | null
+          transfer_id?: string | null
           unit_cost?: number | null
           variant_id?: string | null
         }
@@ -3977,9 +3984,11 @@ export type Database = {
           created_at?: string
           id?: string
           product_id?: string
-          qty?: number
+          qty?: number | null
           qty_received?: number
-          store_transfer_id?: string
+          qty_requested?: number | null
+          store_transfer_id?: string | null
+          transfer_id?: string | null
           unit_cost?: number | null
           variant_id?: string | null
         }
