@@ -12,7 +12,6 @@ import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
-import MercadoLivreCallback from "./pages/MercadoLivreCallback";
 import TrackOrder from "./pages/TrackOrder";
 
 // App Pages
