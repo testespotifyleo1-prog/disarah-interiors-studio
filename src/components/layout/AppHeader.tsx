@@ -86,9 +86,6 @@ export function AppHeader() {
           </DropdownMenu>
         )}
 
-        {/* Notifications bell (support tickets needing attention) */}
-        <SupportNotificationBell />
-
         {/* User Info */}
         <div className="flex items-center gap-3">
           {userRole && (
