@@ -186,34 +186,8 @@ export default function Products() {
     }
   };
 
-  const generateAiImage = async (productId: string, productName: string) => {
-    if (!currentAccount) return;
-    setGeneratingAiImage(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('generate-product-image', {
-        body: { product_id: productId, product_name: productName, account_id: currentAccount.id },
-      });
-      // Sem créditos → abre dialog de compra
-      const errMsg = (error as any)?.message || data?.error;
-      const isInsufficient =
-        (data?.error === 'insufficient_credits') ||
-        (typeof errMsg === 'string' && /insufficient_credits|sem cr[eé]ditos/i.test(errMsg)) ||
-        ((error as any)?.context?.status === 402);
-      if (isInsufficient) {
-        toast({ variant: 'destructive', title: 'Sem créditos de IA', description: 'Compre um pacote para continuar gerando imagens.' });
-        setShowBuyCredits(true);
-        return;
-      }
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      if (data?.image_url) {
-        setFormData(prev => ({ ...prev, image_url: data.image_url }));
-        toast({ title: 'Imagem gerada com IA!', description: '1 crédito de IA foi consumido.' });
-        refreshAiBalance();
-      }
-    } catch (err: any) {
-      toast({ variant: 'destructive', title: 'Erro ao gerar imagem', description: err.message });
-    } finally { setGeneratingAiImage(false); }
+  const generateAiImage = async (_productId: string, _productName: string) => {
+    toast({ variant: 'destructive', title: 'Recurso removido', description: 'Geração de imagens por IA foi desativada.' });
   };
 
   const validateFiscalWithAi = async () => {
