@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import type { Plan, PlanFeature } from '@/utils/planFeatures';
+type PlanFeature = string;
+type Plan = { id: string; name: string };
 
 interface PlanContextType {
   plan: Plan | null;

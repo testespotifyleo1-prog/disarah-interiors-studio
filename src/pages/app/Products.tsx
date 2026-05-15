@@ -752,25 +752,7 @@ export default function Products() {
                 <Label>Descrição</Label>
                 <Textarea value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Descrição do produto para loja online" rows={3} />
               </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-primary" />
-                  Treinamento IA (chatbot WhatsApp)
-                </Label>
-                <Textarea
-                  value={formData.ai_training}
-                  onChange={e => setFormData({ ...formData, ai_training: e.target.value })}
-                  rows={4}
-                  placeholder={`Ensine o chatbot a falar deste produto. Exemplo:
-- Produto premium, ideal para festa de aniversário infantil.
-- Rende cerca de 20 docinhos por embalagem.
-- Combina com forminha n°5.
-- Cliente costuma perguntar se vai ao freezer: vai sim, até 30 dias.`}
-                />
-                <p className="text-[11px] text-muted-foreground">
-                  Quanto mais detalhes você der aqui, mais o chatbot responde com confiança sobre este produto.
-                </p>
-              </div>
+              {/* Bloco de treinamento de IA / chatbot WhatsApp removido (single-tenant cleanup) */}
             </TabsContent>
 
             {/* TAB FISCAL */}

@@ -84,14 +84,8 @@ export default function Categories() {
       }
     }
 
-    // Load images from ecommerce settings
-    const { data: ecomData } = await supabase
-      .from('store_ecommerce_settings')
-      .select('categories')
-      .eq('account_id', currentAccount.id)
-      .limit(1)
-      .maybeSingle();
-    const storedCats: { name: string; icon_url?: string }[] = Array.isArray(ecomData?.categories) ? ecomData.categories as any : [];
+    // Category icons from store_ecommerce_settings removed (e-commerce feature deleted)
+    const storedCats: { name: string; icon_url?: string }[] = [];
     const imageMap: Record<string, string> = {};
     storedCats.forEach(c => { if (c.icon_url) imageMap[c.name] = c.icon_url; });
 
@@ -182,30 +176,9 @@ export default function Categories() {
     }
   };
 
-  const saveCategoryImage = async (catName: string, imageUrl: string) => {
-    if (!currentAccount) return;
-    const { data: ecomData } = await supabase.from('store_ecommerce_settings')
-      .select('id, categories').eq('account_id', currentAccount.id).limit(1).maybeSingle();
-    const cats: any[] = Array.isArray(ecomData?.categories) ? [...(ecomData!.categories as any)] : [];
-    const idx = cats.findIndex((c: any) => c.name === catName || (editingName && c.name === editingName));
-    if (idx >= 0) cats[idx] = { ...cats[idx], name: catName, icon_url: imageUrl || undefined };
-    else cats.push({ id: catName, name: catName, icon_url: imageUrl || undefined });
-    if (ecomData?.id) {
-      await supabase.from('store_ecommerce_settings').update({ categories: cats }).eq('id', ecomData.id);
-      return;
-    }
-    // Need a store + slug to create the row
-    const { data: store } = await supabase.from('stores')
-      .select('id, name').eq('account_id', currentAccount.id).eq('is_active', true).limit(1).maybeSingle();
-    if (!store) return;
-    const baseSlug = (store.name || 'loja').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'loja';
-    const slug = `${baseSlug}-${currentAccount.id.slice(0, 6)}`;
-    await supabase.from('store_ecommerce_settings').insert([{
-      account_id: currentAccount.id,
-      store_id: store.id,
-      slug,
-      categories: cats,
-    }]);
+  const saveCategoryImage = async (_catName: string, _imageUrl: string) => {
+    // store_ecommerce_settings removed — category image persistence disabled
+    return;
   };
 
   const handleDelete = async () => {
