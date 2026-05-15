@@ -889,6 +889,7 @@ export type Database = {
           fiscal_document_id: string | null
           id: string
           reason: string | null
+          requested_at: string | null
           sale_id: string | null
           status: string
           store_id: string
@@ -903,6 +904,7 @@ export type Database = {
           fiscal_document_id?: string | null
           id?: string
           reason?: string | null
+          requested_at?: string | null
           sale_id?: string | null
           status?: string
           store_id: string
@@ -917,6 +919,7 @@ export type Database = {
           fiscal_document_id?: string | null
           id?: string
           reason?: string | null
+          requested_at?: string | null
           sale_id?: string | null
           status?: string
           store_id?: string
@@ -1344,6 +1347,7 @@ export type Database = {
           number: number | null
           pdf_url: string | null
           protocol: string | null
+          purpose: string
           raw_payload: Json | null
           raw_response: Json | null
           rejection_reason: string | null
@@ -1371,6 +1375,7 @@ export type Database = {
           number?: number | null
           pdf_url?: string | null
           protocol?: string | null
+          purpose?: string
           raw_payload?: Json | null
           raw_response?: Json | null
           rejection_reason?: string | null
@@ -1398,6 +1403,7 @@ export type Database = {
           number?: number | null
           pdf_url?: string | null
           protocol?: string | null
+          purpose?: string
           raw_payload?: Json | null
           raw_response?: Json | null
           rejection_reason?: string | null
@@ -1444,6 +1450,9 @@ export type Database = {
         Row: {
           access_key: string | null
           account_id: string
+          cancel_reason: string | null
+          canceled_at: string | null
+          canceled_by: string | null
           created_at: string
           id: string
           issued_at: string | null
@@ -1460,6 +1469,9 @@ export type Database = {
         Insert: {
           access_key?: string | null
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           id?: string
           issued_at?: string | null
@@ -1476,6 +1488,9 @@ export type Database = {
         Update: {
           access_key?: string | null
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           id?: string
           issued_at?: string | null
@@ -3083,6 +3098,9 @@ export type Database = {
       purchase_orders: {
         Row: {
           account_id: string
+          cancel_reason: string | null
+          canceled_at: string | null
+          canceled_by: string | null
           created_at: string
           created_by: string | null
           expected_at: string | null
@@ -3098,6 +3116,9 @@ export type Database = {
         }
         Insert: {
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           created_by?: string | null
           expected_at?: string | null
@@ -3113,6 +3134,9 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           created_by?: string | null
           expected_at?: string | null
@@ -3466,6 +3490,8 @@ export type Database = {
         Row: {
           account_id: string
           assembly_fee: number
+          cancel_reason: string | null
+          canceled_at: string | null
           cancelled_at: string | null
           cancelled_reason: string | null
           created_at: string
@@ -3491,6 +3517,8 @@ export type Database = {
         Insert: {
           account_id?: string
           assembly_fee?: number
+          cancel_reason?: string | null
+          canceled_at?: string | null
           cancelled_at?: string | null
           cancelled_reason?: string | null
           created_at?: string
@@ -3516,6 +3544,8 @@ export type Database = {
         Update: {
           account_id?: string
           assembly_fee?: number
+          cancel_reason?: string | null
+          canceled_at?: string | null
           cancelled_at?: string | null
           cancelled_reason?: string | null
           created_at?: string
@@ -3882,6 +3912,9 @@ export type Database = {
       store_transfers: {
         Row: {
           account_id: string
+          cancel_reason: string | null
+          canceled_at: string | null
+          canceled_by: string | null
           created_at: string
           created_by: string | null
           dest_store_id: string
@@ -3896,6 +3929,9 @@ export type Database = {
         }
         Insert: {
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           created_by?: string | null
           dest_store_id: string
@@ -3910,6 +3946,9 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          cancel_reason?: string | null
+          canceled_at?: string | null
+          canceled_by?: string | null
           created_at?: string
           created_by?: string | null
           dest_store_id?: string
