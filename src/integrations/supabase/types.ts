@@ -1057,6 +1057,8 @@ export type Database = {
           proof_photo_url: string | null
           sale_id: string | null
           scheduled_at: string | null
+          scheduled_date: string | null
+          scheduled_time: string | null
           state: string | null
           status: Database["public"]["Enums"]["delivery_status"]
           store_id: string
@@ -1086,6 +1088,8 @@ export type Database = {
           proof_photo_url?: string | null
           sale_id?: string | null
           scheduled_at?: string | null
+          scheduled_date?: string | null
+          scheduled_time?: string | null
           state?: string | null
           status?: Database["public"]["Enums"]["delivery_status"]
           store_id: string
@@ -1115,6 +1119,8 @@ export type Database = {
           proof_photo_url?: string | null
           sale_id?: string | null
           scheduled_at?: string | null
+          scheduled_date?: string | null
+          scheduled_time?: string | null
           state?: string | null
           status?: Database["public"]["Enums"]["delivery_status"]
           store_id?: string
@@ -1459,17 +1465,30 @@ export type Database = {
           cancel_reason: string | null
           canceled_at: string | null
           canceled_by: string | null
+          confirmed_at: string | null
+          confirmed_by: string | null
           created_at: string
+          created_by: string | null
           id: string
+          issue_date: string | null
           issued_at: string | null
+          nfe_number: number | null
+          nfe_series: number | null
+          notes: string | null
           number: number | null
+          pdf_path: string | null
           raw_payload: Json | null
           series: number | null
           status: string
           store_id: string
           supplier_id: string | null
           total_amount: number | null
+          total_discount: number | null
+          total_freight: number | null
+          total_nfe: number | null
+          total_products: number | null
           updated_at: string
+          xml_path: string | null
           xml_url: string | null
         }
         Insert: {
@@ -1478,17 +1497,30 @@ export type Database = {
           cancel_reason?: string | null
           canceled_at?: string | null
           canceled_by?: string | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
           created_at?: string
+          created_by?: string | null
           id?: string
+          issue_date?: string | null
           issued_at?: string | null
+          nfe_number?: number | null
+          nfe_series?: number | null
+          notes?: string | null
           number?: number | null
+          pdf_path?: string | null
           raw_payload?: Json | null
           series?: number | null
           status?: string
           store_id: string
           supplier_id?: string | null
           total_amount?: number | null
+          total_discount?: number | null
+          total_freight?: number | null
+          total_nfe?: number | null
+          total_products?: number | null
           updated_at?: string
+          xml_path?: string | null
           xml_url?: string | null
         }
         Update: {
@@ -1497,17 +1529,30 @@ export type Database = {
           cancel_reason?: string | null
           canceled_at?: string | null
           canceled_by?: string | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
           created_at?: string
+          created_by?: string | null
           id?: string
+          issue_date?: string | null
           issued_at?: string | null
+          nfe_number?: number | null
+          nfe_series?: number | null
+          notes?: string | null
           number?: number | null
+          pdf_path?: string | null
           raw_payload?: Json | null
           series?: number | null
           status?: string
           store_id?: string
           supplier_id?: string | null
           total_amount?: number | null
+          total_discount?: number | null
+          total_freight?: number | null
+          total_nfe?: number | null
+          total_products?: number | null
           updated_at?: string
+          xml_path?: string | null
           xml_url?: string | null
         }
         Relationships: [
@@ -1539,9 +1584,11 @@ export type Database = {
           account_id: string
           cfop: string | null
           created_at: string
+          created_product: boolean | null
           description: string | null
           fiscal_entry_id: string
           id: string
+          matched: boolean | null
           ncm: string | null
           product_id: string | null
           qty: number | null
@@ -1549,14 +1596,18 @@ export type Database = {
           total: number
           unit: string | null
           unit_cost: number
+          unit_price: number | null
+          xml_code: string | null
         }
         Insert: {
           account_id?: string
           cfop?: string | null
           created_at?: string
+          created_product?: boolean | null
           description?: string | null
           fiscal_entry_id: string
           id?: string
+          matched?: boolean | null
           ncm?: string | null
           product_id?: string | null
           qty?: number | null
@@ -1564,14 +1615,18 @@ export type Database = {
           total: number
           unit?: string | null
           unit_cost: number
+          unit_price?: number | null
+          xml_code?: string | null
         }
         Update: {
           account_id?: string
           cfop?: string | null
           created_at?: string
+          created_product?: boolean | null
           description?: string | null
           fiscal_entry_id?: string
           id?: string
+          matched?: boolean | null
           ncm?: string | null
           product_id?: string | null
           qty?: number | null
@@ -1579,6 +1634,8 @@ export type Database = {
           total?: number
           unit?: string | null
           unit_cost?: number
+          unit_price?: number | null
+          xml_code?: string | null
         }
         Relationships: [
           {
@@ -3050,9 +3107,11 @@ export type Database = {
           account_id: string
           created_at: string
           id: string
+          notes: string | null
           product_id: string
           purchase_order_id: string
           qty: number
+          qty_ordered: number | null
           qty_received: number
           total: number
           total_line: number | null
@@ -3063,9 +3122,11 @@ export type Database = {
           account_id?: string
           created_at?: string
           id?: string
+          notes?: string | null
           product_id: string
           purchase_order_id: string
           qty: number
+          qty_ordered?: number | null
           qty_received?: number
           total: number
           total_line?: number | null
@@ -3076,9 +3137,11 @@ export type Database = {
           account_id?: string
           created_at?: string
           id?: string
+          notes?: string | null
           product_id?: string
           purchase_order_id?: string
           qty?: number
+          qty_ordered?: number | null
           qty_received?: number
           total?: number
           total_line?: number | null
@@ -3125,14 +3188,17 @@ export type Database = {
           created_at: string
           created_by: string | null
           expected_at: string | null
+          expected_delivery_date: string | null
           id: string
           notes: string | null
           order_number: number | null
           received_at: string | null
           status: Database["public"]["Enums"]["purchase_order_status"]
           store_id: string
+          subtotal: number | null
           supplier_id: string
           total: number
+          type: string | null
           updated_at: string
         }
         Insert: {
@@ -3143,14 +3209,17 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           expected_at?: string | null
+          expected_delivery_date?: string | null
           id?: string
           notes?: string | null
           order_number?: number | null
           received_at?: string | null
           status?: Database["public"]["Enums"]["purchase_order_status"]
           store_id: string
+          subtotal?: number | null
           supplier_id: string
           total?: number
+          type?: string | null
           updated_at?: string
         }
         Update: {
@@ -3161,14 +3230,17 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           expected_at?: string | null
+          expected_delivery_date?: string | null
           id?: string
           notes?: string | null
           order_number?: number | null
           received_at?: string | null
           status?: Database["public"]["Enums"]["purchase_order_status"]
           store_id?: string
+          subtotal?: number | null
           supplier_id?: string
           total?: number
+          type?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -4335,7 +4407,9 @@ export type Database = {
       }
       current_account_id: { Args: never; Returns: string }
       current_store_id: { Args: never; Returns: string }
-      generate_next_sku: { Args: { prefix?: string }; Returns: string }
+      generate_next_sku:
+        | { Args: { _account_id?: string; prefix?: string }; Returns: string }
+        | { Args: { prefix?: string }; Returns: string }
       get_customer_used_credit: {
         Args: { customer_id: string }
         Returns: number
@@ -4432,6 +4506,7 @@ export type Database = {
         | "partial"
         | "received"
         | "cancelled"
+        | "requested"
       quote_status: "open" | "accepted" | "converted" | "expired" | "cancelled"
       receivable_status: "open" | "partial" | "paid" | "overdue" | "cancelled"
       sale_status:
@@ -4631,6 +4706,7 @@ export const Constants = {
         "partial",
         "received",
         "cancelled",
+        "requested",
       ],
       quote_status: ["open", "accepted", "converted", "expired", "cancelled"],
       receivable_status: ["open", "partial", "paid", "overdue", "cancelled"],
