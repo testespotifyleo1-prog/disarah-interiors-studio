@@ -17,8 +17,6 @@ import magaluLogo from '@/assets/logos/magalu-official.png';
 import melhorEnvioLogo from '@/assets/logos/melhor-envio-official.png';
 import uberDirectLogo from '@/assets/logos/uber-direct-official.png';
 import { ShopeeLogo, MercadoLivreLogo } from '@/components/brand/BrandLogos';
-import { PlanManagement } from '@/components/admin/PlanManagement';
-import { PlansEditor } from '@/components/admin/PlansEditor';
 import { SupportDashboard } from '@/components/admin/SupportDashboard';
 import { SupportActionRulesManager } from '@/components/admin/SupportActionRulesManager';
 import { PixPaymentsManagement } from '@/components/admin/PixPaymentsManagement';
@@ -28,9 +26,12 @@ import { AmazonCredentials } from '@/components/admin/AmazonCredentials';
 import { MagaluCredentials } from '@/components/admin/MagaluCredentials';
 import { MelhorEnvioCredentials } from '@/components/admin/MelhorEnvioCredentials';
 import { UberDirectCredentials } from '@/components/admin/UberDirectCredentials';
-import { AiSimulationManagement } from '@/components/admin/AiSimulationManagement';
 import { InstagramLogo, FacebookLogo, LinkedInLogo } from '@/components/brand/BrandLogos';
-import { startImpersonation } from '@/lib/impersonate';
+// SaaS plan management, AI simulation admin, and impersonation removed (single-tenant build)
+const PlanManagement: any = () => null;
+const PlansEditor: any = () => null;
+const AiSimulationManagement: any = () => null;
+const startImpersonation = async (..._args: any[]) => { throw new Error('Impersonation disabled'); };
 
 interface StoreWithSettings {
   id: string;

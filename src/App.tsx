@@ -11,7 +11,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
-import CheckoutReturn from "./pages/CheckoutReturn";
+
 import MercadoLivreCallback from "./pages/MercadoLivreCallback";
 import TrackOrder from "./pages/TrackOrder";
 
@@ -82,7 +82,7 @@ import ReplenishmentSuggestions from "./pages/app/ReplenishmentSuggestions";
 import Quotes from "./pages/app/Quotes";
 import NewQuote from "./pages/app/NewQuote";
 import QuoteDetail from "./pages/app/QuoteDetail";
-import AiSimulations from "./pages/app/AiSimulations";
+
 import EmailCampaigns from "./pages/app/EmailCampaigns";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
@@ -107,7 +107,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/superadmin" element={<SuperAdmin />} />
-            <Route path="/checkout/return" element={<CheckoutReturn />} />
+            
             <Route path="/meli/callback" element={<MercadoLivreCallback />} />
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
@@ -177,7 +177,7 @@ const App = () => (
               <Route path="quotes" element={<Quotes />} />
               <Route path="quotes/new" element={<NewQuote />} />
               <Route path="quotes/:id" element={<QuoteDetail />} />
-              <Route path="ai-simulations" element={<AiSimulations />} />
+              
               <Route path="email-campaigns" element={<EmailCampaigns />} />
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />

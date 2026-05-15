@@ -29,10 +29,11 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Search, Plus, Pencil, Upload, Loader2, Copy, Trash2, CheckSquare, Image, Settings2, Package, Sparkles, DollarSign, CalendarClock, X, Wand2 } from "lucide-react";
-import AiSimulationDialog from "@/components/ai/AiSimulationDialog";
-import { useAiSimulationEnabled } from "@/hooks/useAiSimulationEnabled";
-import { BuyAiCreditsDialog } from "@/components/ai/BuyAiCreditsDialog";
-import { useAiCreditBalance } from "@/hooks/useAiCreditBalance";
+// AI features removed (single-tenant build)
+const AiSimulationDialog: any = () => null;
+const BuyAiCreditsDialog: any = () => null;
+const useAiSimulationEnabled = () => ({ enabled: false });
+const useAiCreditBalance = () => ({ balance: { plan_credits: 0, purchased_credits: 0 }, refresh: () => {} });
 import NcmLookup from "@/components/NcmLookup";
 import ProductVariants from "@/components/ProductVariants";
 import ProductPresentations from "@/components/ProductPresentations";
