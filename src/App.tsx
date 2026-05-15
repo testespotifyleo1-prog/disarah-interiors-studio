@@ -74,7 +74,7 @@ import QuoteDetail from "./pages/app/QuoteDetail";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
-import Developers from "./pages/app/Developers";
+
 
 const queryClient = new QueryClient();
 
@@ -153,8 +153,6 @@ const App = () => (
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
               <Route path="sales-goals" element={<SalesGoals />} />
-              <Route path="developers" element={<Developers />} />
-              <Route path="developers" element={<Developers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
