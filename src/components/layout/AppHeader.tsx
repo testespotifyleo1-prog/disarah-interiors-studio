@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Badge } from '@/components/ui/badge';
-import { SupportNotificationBell } from '@/components/notifications/SupportNotificationBell';
+
 
 const roleLabels: Record<string, string> = {
   owner: 'Proprietário',
