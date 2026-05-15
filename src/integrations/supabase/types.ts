@@ -70,7 +70,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           category?: string | null
           created_at?: string
@@ -147,7 +147,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           created_at?: string
           customer_id?: string | null
@@ -215,7 +215,7 @@ export type Database = {
           user_name: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           action: string
           created_at?: string
           details?: Json | null
@@ -258,7 +258,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           doc?: string | null
           id?: string
@@ -305,7 +305,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           assembler_id?: string | null
           created_at?: string
           customer_id?: string | null
@@ -386,7 +386,7 @@ export type Database = {
           type: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           cash_register_id: string
           created_at?: string
@@ -438,7 +438,7 @@ export type Database = {
           store_id: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           closed_at?: string | null
           closing_amount?: number | null
           difference?: number | null
@@ -495,7 +495,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           is_active?: boolean
@@ -547,7 +547,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           period_end: string
@@ -596,7 +596,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           commission_percent?: number | null
           created_at?: string
           goal_percent_max?: number | null
@@ -651,7 +651,7 @@ export type Database = {
           value: number | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount?: number | null
           base_amount: number
           commission_cycle_id?: string | null
@@ -720,7 +720,7 @@ export type Database = {
           requested_by: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           approved?: boolean | null
           approved_at?: string | null
@@ -778,7 +778,7 @@ export type Database = {
           zip: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           city?: string | null
           complement?: string | null
           created_at?: string
@@ -842,7 +842,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           customer_id?: string | null
@@ -927,7 +927,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           address_json?: Json | null
           birthday?: string | null
           created_at?: string
@@ -1001,7 +1001,7 @@ export type Database = {
           zip: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           address_json?: Json | null
           city?: string | null
           complement?: string | null
@@ -1105,7 +1105,7 @@ export type Database = {
           vehicle_plate: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           doc?: string | null
           id?: string
@@ -1224,7 +1224,7 @@ export type Database = {
           status: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           correction_text: string
           created_at?: string
           created_by?: string | null
@@ -1294,7 +1294,7 @@ export type Database = {
         }
         Insert: {
           access_key?: string | null
-          account_id: string
+          account_id?: string
           authorized_at?: string | null
           cancellation_reason?: string | null
           cancelled_at?: string | null
@@ -1396,7 +1396,7 @@ export type Database = {
         }
         Insert: {
           access_key?: string | null
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           issued_at?: string | null
@@ -1466,7 +1466,7 @@ export type Database = {
           unit_cost: number
         }
         Insert: {
-          account_id: string
+          account_id?: string
           cfop?: string | null
           created_at?: string
           description?: string | null
@@ -1534,7 +1534,7 @@ export type Database = {
           store_id: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           doc_type: Database["public"]["Enums"]["fiscal_doc_type"]
@@ -1590,7 +1590,7 @@ export type Database = {
           storage_path: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           fiscal_document_id?: string | null
           id?: string
@@ -1646,7 +1646,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           api_key_secret_id?: string | null
           block_sale_without_fiscal_data?: boolean
           certificate_expires_at?: string | null
@@ -1719,7 +1719,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           cart_snapshot: Json
           created_at?: string
           customer_id?: string | null
@@ -1778,7 +1778,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           id?: string
           product_id: string
           qty?: number
@@ -1849,7 +1849,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           id?: string
@@ -1940,7 +1940,7 @@ export type Database = {
         }
         Insert: {
           access_key?: string | null
-          account_id: string
+          account_id?: string
           authorized_at?: string | null
           cancellation_reason?: string | null
           cancelled_at?: string | null
@@ -2022,7 +2022,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           is_active?: boolean
@@ -2064,7 +2064,7 @@ export type Database = {
         }
         Insert: {
           access_token: string
-          account_id: string
+          account_id?: string
           created_at?: string
           expires_at?: string | null
           id?: string
@@ -2121,7 +2121,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           created_at?: string
           external_reference?: string | null
@@ -2195,7 +2195,7 @@ export type Database = {
         }
         Insert: {
           access_key: string
-          account_id: string
+          account_id?: string
           created_at?: string
           emitter_cnpj?: string | null
           emitter_name?: string | null
@@ -2263,7 +2263,7 @@ export type Database = {
           sale_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount?: number | null
           authorization_code?: string | null
           brand?: string | null
@@ -2329,7 +2329,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           picking_order_id: string
@@ -2393,7 +2393,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           finished_at?: string | null
           id?: string
@@ -2815,7 +2815,7 @@ export type Database = {
           width_cm: number | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           brand?: string | null
           category?: string | null
           cest?: string | null
@@ -2958,7 +2958,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           product_id: string
@@ -3031,7 +3031,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           expected_at?: string | null
@@ -3099,7 +3099,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           discount?: number
           id?: string
@@ -3176,7 +3176,7 @@ export type Database = {
           valid_until: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           assembly_fee?: number
           converted_sale_id?: string | null
           created_at?: string
@@ -3258,7 +3258,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           customer_return_id: string
           id?: string
@@ -3336,7 +3336,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           cost_at_sale?: number | null
           created_at?: string
           discount?: number
@@ -3423,7 +3423,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           assembly_fee?: number
           cancelled_at?: string | null
           cancelled_reason?: string | null
@@ -3511,7 +3511,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           notes?: string | null
@@ -3563,7 +3563,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           current_amount?: number
           id?: string
           percent?: number
@@ -3608,7 +3608,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           base_percent?: number | null
           category?: string | null
           created_at?: string
@@ -3654,7 +3654,7 @@ export type Database = {
           used_amount: number
         }
         Insert: {
-          account_id: string
+          account_id?: string
           amount: number
           created_at?: string
           customer_id: string
@@ -3714,7 +3714,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           is_active?: boolean
@@ -3761,7 +3761,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           product_id: string
@@ -3829,7 +3829,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           dest_store_id: string
@@ -3910,7 +3910,7 @@ export type Database = {
           zip: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           address_json?: Json | null
           city?: string | null
           cnae?: string | null
@@ -3988,7 +3988,7 @@ export type Database = {
           variant_id: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           id?: string
           product_id: string
@@ -4055,7 +4055,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          account_id: string
+          account_id?: string
           created_at?: string
           created_by?: string | null
           fiscal_document_id?: string | null
@@ -4134,7 +4134,7 @@ export type Database = {
           zip: string | null
         }
         Insert: {
-          account_id: string
+          account_id?: string
           city?: string | null
           complement?: string | null
           created_at?: string
