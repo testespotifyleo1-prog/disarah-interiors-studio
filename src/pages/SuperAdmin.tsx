@@ -20,12 +20,12 @@ import { ShopeeLogo, MercadoLivreLogo } from '@/components/brand/BrandLogos';
 import { SupportDashboard } from '@/components/admin/SupportDashboard';
 import { SupportActionRulesManager } from '@/components/admin/SupportActionRulesManager';
 import { PixPaymentsManagement } from '@/components/admin/PixPaymentsManagement';
-import { ShopeeCredentials } from '@/components/admin/ShopeeCredentials';
-import { MercadoLivreCredentials } from '@/components/admin/MercadoLivreCredentials';
-import { AmazonCredentials } from '@/components/admin/AmazonCredentials';
-import { MagaluCredentials } from '@/components/admin/MagaluCredentials';
-import { MelhorEnvioCredentials } from '@/components/admin/MelhorEnvioCredentials';
-import { UberDirectCredentials } from '@/components/admin/UberDirectCredentials';
+const ShopeeCredentials: any = () => null;
+const MercadoLivreCredentials: any = () => null;
+const AmazonCredentials: any = () => null;
+const MagaluCredentials: any = () => null;
+const MelhorEnvioCredentials: any = () => null;
+const UberDirectCredentials: any = () => null;
 import { InstagramLogo, FacebookLogo, LinkedInLogo } from '@/components/brand/BrandLogos';
 // SaaS plan management, AI simulation admin, and impersonation removed (single-tenant build)
 const PlanManagement: any = () => null;

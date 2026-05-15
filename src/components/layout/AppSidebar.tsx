@@ -8,7 +8,7 @@ import { usePlan } from '@/contexts/PlanContext';
 import { ROUTE_FEATURE_MAP, GROUP_FEATURE_MAP, PlanFeature } from '@/utils/planFeatures';
 import { useState, useMemo } from 'react';
 import { getMenuIcons, type MenuTheme } from '@/utils/menuIcons';
-import { useWhatsAppUnreadCount } from '@/hooks/useWhatsAppNotifications';
+
 import {
   Sidebar,
   SidebarContent,
@@ -101,15 +101,6 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    id: 'chat',
-    label: 'WhatsApp',
-    iconKey: 'chat',
-    items: [
-      { iconKey: 'chatList', label: 'Conversas', href: '/app/chat', roles: ['owner', 'admin', 'manager', 'seller'] },
-      { iconKey: 'chatbot', label: 'Config. Chatbot', href: '/app/chatbot-settings', roles: ['owner', 'admin'] },
-    ],
-  },
-  {
     id: 'fiscal',
     label: 'Fiscal',
     iconKey: 'fiscal',
@@ -124,15 +115,6 @@ const menuGroups: MenuGroup[] = [
     ],
   },
   {
-    id: 'sales_channels',
-    label: 'Canais de Venda',
-    iconKey: 'integrations',
-    items: [
-      { iconKey: 'ecommerce', label: 'Loja Online', href: '/app/ecommerce', roles: ['owner', 'admin'] },
-      { iconKey: 'integrationsItem', label: 'Marketplaces & Integrações', href: '/app/integrations', roles: ['owner', 'admin'] },
-    ],
-  },
-  {
     id: 'settings',
     label: 'Configurações',
     iconKey: 'settings',
@@ -142,7 +124,6 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'businessType', label: 'Tipo de Negócio', href: '/app/settings/business-type', roles: ['owner', 'admin'] },
       { iconKey: 'pin', label: 'PIN de Autorização', href: '/app/settings/pin', roles: ['owner', 'manager'] },
       { iconKey: 'activityLogs', label: 'Log de Atividades', href: '/app/activity-logs', roles: ['owner', 'admin'] },
-      { iconKey: 'apiConnectors', label: 'Conectores via API', href: '/app/api-connectors', roles: ['owner', 'admin'] },
       { iconKey: 'developers', label: 'Desenvolvedores (API)', href: '/app/developers', roles: ['owner', 'admin'] },
       { iconKey: 'reset', label: 'Resetar Dados', href: '/app/settings/reset', roles: ['owner'] },
     ],
@@ -155,7 +136,7 @@ export function AppSidebar() {
   const { hasFeature } = usePlan();
   const menuTheme = ((currentAccount as any)?.menu_theme as MenuTheme) || 'party';
   const icons = useMemo(() => getMenuIcons(menuTheme), [menuTheme]);
-  const waUnread = useWhatsAppUnreadCount();
+  const waUnread = 0;
   const [expandedGroups, setExpandedGroups] = useState<string[]>(() => {
     // Auto-expand the group containing the current route
     const active = menuGroups.find(g => g.items.some(i => location.pathname === i.href));
