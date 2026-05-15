@@ -186,237 +186,22 @@ export default function Products() {
     }
   };
 
-  const generateAiImage = async (productId: string, productName: string) => {
-    if (!currentAccount) return;
-    setGeneratingAiImage(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('generate-product-image', {
-        body: { product_id: productId, product_name: productName, account_id: currentAccount.id },
-      });
-      // Sem créditos → abre dialog de compra
-      const errMsg = (error as any)?.message || data?.error;
-      const isInsufficient =
-        (data?.error === 'insufficient_credits') ||
-        (typeof errMsg === 'string' && /insufficient_credits|sem cr[eé]ditos/i.test(errMsg)) ||
-        ((error as any)?.context?.status === 402);
-      if (isInsufficient) {
-        toast({ variant: 'destructive', title: 'Sem créditos de IA', description: 'Compre um pacote para continuar gerando imagens.' });
-        setShowBuyCredits(true);
-        return;
-      }
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      if (data?.image_url) {
-        setFormData(prev => ({ ...prev, image_url: data.image_url }));
-        toast({ title: 'Imagem gerada com IA!', description: '1 crédito de IA foi consumido.' });
-        refreshAiBalance();
-      }
-    } catch (err: any) {
-      toast({ variant: 'destructive', title: 'Erro ao gerar imagem', description: err.message });
-    } finally { setGeneratingAiImage(false); }
+  const generateAiImage = async (_productId: string, _productName: string) => {
+    toast({ variant: 'destructive', title: 'Recurso removido', description: 'Geração de imagens por IA foi desativada.' });
   };
 
   const validateFiscalWithAi = async () => {
-    if (!formData.name || formData.name.trim().length < 2) {
-      toast({ variant: 'destructive', title: 'Nome obrigatório', description: 'Digite o nome do produto antes de validar com IA.' });
-      return;
-    }
-    setValidatingFiscal(true);
-    setFiscalAiResult(null);
-    try {
-      const { data, error } = await supabase.functions.invoke('validate-fiscal-fields', {
-        body: {
-          product_name: formData.name,
-          unit: formData.unit,
-          current_fields: {
-            ncm: formData.ncm,
-            cest: formData.cest,
-            cfop_default: formData.cfop_default,
-            csosn: formData.csosn,
-            cst_icms: formData.cst_icms,
-            cst_pis: formData.cst_pis,
-            cst_cofins: formData.cst_cofins,
-            cst_ipi: formData.cst_ipi,
-          },
-        },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      setFiscalAiResult(data);
-      if (data.ambiguous) {
-        toast({ variant: 'destructive', title: 'Produto ambíguo', description: data.warning || 'A IA não conseguiu interpretar o produto. Preencha manualmente.' });
-      } else {
-        toast({ title: 'Sugestão fiscal gerada!', description: 'Revise os valores e clique em "Aplicar" para preencher.' });
-      }
-    } catch (err: any) {
-      toast({ variant: 'destructive', title: 'Erro na validação fiscal', description: err.message });
-    } finally {
-      setValidatingFiscal(false);
-    }
+    toast({ variant: 'destructive', title: 'Recurso removido', description: 'Validação fiscal por IA foi desativada.' });
   };
 
-  const applyFiscalSuggestions = () => {
-    if (!fiscalAiResult?.suggestions) return;
-    const s = fiscalAiResult.suggestions;
-    setFormData(prev => ({
-      ...prev,
-      ncm: s.ncm || prev.ncm,
-      cest: s.cest ?? prev.cest,
-      cfop_default: s.cfop_default || prev.cfop_default,
-      origem_icms: s.origem_icms ?? prev.origem_icms,
-      cst_icms: s.cst_icms || prev.cst_icms,
-      csosn: s.csosn || prev.csosn,
-      cst_pis: s.cst_pis || prev.cst_pis,
-      cst_cofins: s.cst_cofins || prev.cst_cofins,
-      cst_ipi: s.cst_ipi || prev.cst_ipi,
-      aliq_icms: s.aliq_icms ?? prev.aliq_icms,
-      aliq_pis: s.aliq_pis ?? prev.aliq_pis,
-      aliq_cofins: s.aliq_cofins ?? prev.aliq_cofins,
-      aliq_ipi: s.aliq_ipi ?? prev.aliq_ipi,
-    }));
-    setFiscalAiResult(null);
-    toast({ title: 'Campos fiscais preenchidos pela IA!' });
-  };
+  const applyFiscalSuggestions = () => {};
 
   const bulkFiscalAi = async () => {
-    if (!currentAccount) return;
-    const targetProducts = selectedIds.size > 0
-      ? products.filter(p => selectedIds.has(p.id))
-      : products;
-
-    // Filter products missing key fiscal fields
-    const needsFiscal = targetProducts.filter(p => !p.ncm || !(p as any).cfop_default);
-    if (needsFiscal.length === 0) {
-      toast({ title: 'Todos os produtos já possuem campos fiscais preenchidos!' });
-      return;
-    }
-
-    setBulkFiscalRunning(true);
-    setBulkFiscalProgress({ done: 0, total: needsFiscal.length, updated: 0 });
-    setBulkFiscalAmbiguous([]);
-
-    const ambiguousList: { id: string; name: string; sku: string; warning: string }[] = [];
-    let updated = 0;
-    let errors = 0;
-
-    for (const p of needsFiscal) {
-      try {
-        const { data, error } = await supabase.functions.invoke('validate-fiscal-fields', {
-          body: {
-            product_name: p.name,
-            unit: p.unit,
-            current_fields: {
-              ncm: p.ncm,
-              cest: p.cest,
-              cfop_default: p.cfop_default,
-              csosn: (p as any).csosn,
-              cst_icms: (p as any).cst_icms,
-              cst_pis: (p as any).cst_pis,
-              cst_cofins: (p as any).cst_cofins,
-              cst_ipi: (p as any).cst_ipi,
-            },
-          },
-        });
-        if (error) throw error;
-        if (data?.error) throw new Error(data.error);
-
-        if (data?.ambiguous) {
-          ambiguousList.push({ id: p.id, name: p.name, sku: p.sku || '', warning: data.warning || 'Nome não interpretável' });
-        } else if (data?.suggestions) {
-          const s = data.suggestions;
-          await supabase.from('products').update({
-            ncm: s.ncm || null,
-            cest: s.cest || null,
-            cfop_default: s.cfop_default || null,
-            origem_icms: s.origem_icms || '0',
-            cst_icms: s.cst_icms || null,
-            csosn: s.csosn || null,
-            cst_pis: s.cst_pis || null,
-            cst_cofins: s.cst_cofins || null,
-            cst_ipi: s.cst_ipi || null,
-            aliq_icms: s.aliq_icms ?? 0,
-            aliq_pis: s.aliq_pis ?? 0,
-            aliq_cofins: s.aliq_cofins ?? 0,
-            aliq_ipi: s.aliq_ipi ?? 0,
-          }).eq('id', p.id);
-          updated++;
-        }
-      } catch (err) {
-        errors++;
-        console.error(`Fiscal AI error for ${p.name}:`, err);
-      }
-      setBulkFiscalProgress(prev => ({ ...prev, done: prev.done + 1, updated }));
-      // Delay to avoid rate limiting
-      await new Promise(r => setTimeout(r, 1500));
-    }
-
-    setBulkFiscalRunning(false);
-    setBulkFiscalAmbiguous(ambiguousList);
-    setShowBulkFiscalResult(true);
-    setSelectedIds(new Set());
-    toast({
-      title: 'Validação fiscal em massa concluída!',
-      description: `${updated} atualizados, ${ambiguousList.length} ambíguos, ${errors} erros.`,
-    });
-    loadProducts();
+    toast({ variant: 'destructive', title: 'Recurso removido', description: 'Validação fiscal por IA foi desativada.' });
   };
 
   const bulkGenerateImages = async () => {
-    if (!currentAccount) return;
-    const targetProducts = selectedIds.size > 0
-      ? products.filter(p => selectedIds.has(p.id))
-      : paginatedProducts;
-    if (targetProducts.length === 0) {
-      toast({ title: 'Nenhum produto para gerar imagem!' });
-      return;
-    }
-    // Aviso: cada imagem consome 1 crédito de IA
-    const ok = window.confirm(
-      `Esta ação vai gerar ${targetProducts.length} imagem(ns) com IA e consumir ${targetProducts.length} crédito(s) do seu saldo.\n\nSaldo atual: ${aiTotalCredits} crédito(s).\n\nDeseja continuar?`,
-    );
-    if (!ok) return;
-    if (aiTotalCredits < targetProducts.length) {
-      toast({
-        variant: 'destructive',
-        title: 'Saldo de IA insuficiente',
-        description: `Você tem ${aiTotalCredits} crédito(s) e precisa de ${targetProducts.length}. Compre um pacote para continuar.`,
-      });
-      setShowBuyCredits(true);
-      return;
-    }
-    setBulkGenerating(true);
-    setBulkGenProgress({ done: 0, total: targetProducts.length });
-    let success = 0, errors = 0, ranOut = false;
-    for (const p of targetProducts) {
-      try {
-        const { data, error } = await supabase.functions.invoke('generate-product-image', {
-          body: { product_id: p.id, product_name: p.name, account_id: currentAccount.id },
-        });
-        const errMsg = (error as any)?.message || data?.error;
-        const isInsufficient =
-          (data?.error === 'insufficient_credits') ||
-          (typeof errMsg === 'string' && /insufficient_credits|sem cr[eé]ditos/i.test(errMsg)) ||
-          ((error as any)?.context?.status === 402);
-        if (isInsufficient) { ranOut = true; break; }
-        if (error || data?.error) { errors++; } else { success++; }
-      } catch { errors++; }
-      setBulkGenProgress(prev => ({ ...prev, done: prev.done + 1 }));
-      await new Promise(r => setTimeout(r, 2000));
-    }
-    setBulkGenerating(false);
-    setSelectedIds(new Set());
-    refreshAiBalance();
-    if (ranOut) {
-      toast({
-        variant: 'destructive',
-        title: 'Créditos de IA esgotados',
-        description: `${success} imagens criadas antes do saldo acabar. Compre mais para continuar.`,
-      });
-      setShowBuyCredits(true);
-    } else {
-      toast({ title: `Geração concluída!`, description: `${success} imagens criadas, ${errors} erros. ${success} crédito(s) consumido(s).` });
-    }
-    loadProducts();
+    toast({ variant: 'destructive', title: 'Recurso removido', description: 'Geração de imagens por IA foi desativada.' });
   };
 
   useEffect(() => {
@@ -721,30 +506,10 @@ export default function Products() {
                 </span>
               </Badge>
             )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={bulkFiscalAi}
-              disabled={bulkFiscalRunning || bulkGenerating || aiBlocked}
-              title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-              className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-            >
-              <Settings2 className="mr-1 h-4 w-4" /> {selectedIds.size > 0 ? `Fiscal IA (${selectedIds.size})` : 'Fiscal IA (Todos)'}
-            </Button>
             {selectedIds.size > 0 && (
               <>
                 <Button variant="destructive" size="sm" onClick={() => setShowBulkDeleteConfirm(true)}>
                   <Trash2 className="mr-1 h-4 w-4" /> Excluir ({selectedIds.size})
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={bulkGenerateImages}
-                  disabled={bulkGenerating || aiBlocked}
-                  title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                  className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-                >
-                  <Sparkles className="mr-1 h-4 w-4" /> Gerar Imagens IA ({selectedIds.size})
                 </Button>
               </>
             )}
@@ -1010,54 +775,7 @@ export default function Products() {
 
             {/* TAB FISCAL */}
             <TabsContent value="fiscal" className="space-y-4 mt-4">
-              <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">Dados fiscais para emissão de NF-e / NFC-e</p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={validateFiscalWithAi}
-                  disabled={validatingFiscal || !formData.name || aiBlocked}
-                  title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                  className={`gap-2 text-xs ${aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}`}
-                >
-                  {validatingFiscal ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />}
-                  {validatingFiscal ? 'Analisando...' : 'Preencher com IA'}
-                </Button>
-              </div>
-
-              {/* AI Result Panel */}
-              {fiscalAiResult && (
-                <div className={`rounded-lg border p-3 text-sm space-y-2 ${fiscalAiResult.ambiguous ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/30' : 'border-green-300 bg-green-50 dark:bg-green-950/30'}`}>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1">
-                      {fiscalAiResult.ambiguous ? (
-                        <p className="font-medium text-amber-700 dark:text-amber-400">⚠️ {fiscalAiResult.warning || 'Produto não interpretável pela IA. Preencha manualmente.'}</p>
-                      ) : (
-                        <>
-                          <p className="font-medium text-green-700 dark:text-green-400">✅ Sugestão pronta</p>
-                          <p className="text-xs text-muted-foreground mt-1">{fiscalAiResult.explanation}</p>
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {Object.entries(fiscalAiResult.suggestions || {}).map(([k, v]) => (
-                              v ? <Badge key={k} variant="secondary" className="text-[10px]">{k}: {String(v)}</Badge> : null
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex gap-1 shrink-0">
-                      {!fiscalAiResult.ambiguous && (
-                        <Button type="button" size="sm" onClick={applyFiscalSuggestions} className="gap-1 text-xs h-7">
-                          <Sparkles className="h-3 w-3" /> Aplicar
-                        </Button>
-                      )}
-                      <Button type="button" variant="ghost" size="sm" onClick={() => setFiscalAiResult(null)} className="h-7 w-7 p-0">
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <p className="text-xs text-muted-foreground">Dados fiscais para emissão de NF-e / NFC-e</p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>NCM</Label>
@@ -1356,17 +1074,6 @@ export default function Products() {
                         }}
                       />
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => formData.name && (editingProduct ? generateAiImage(editingProduct.id, formData.name) : null)}
-                      disabled={generatingAiImage || !formData.name || aiBlocked}
-                      title={aiBlocked ? AI_BLOCKED_MESSAGE : undefined}
-                      className={aiBlocked ? 'opacity-60 cursor-not-allowed' : ''}
-                    >
-                      {generatingAiImage ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Sparkles className="h-4 w-4 mr-1" />}
-                      {generatingAiImage ? 'Gerando...' : 'Gerar com IA'}
-                    </Button>
                     {formData.image_url && (
                       <Button variant="ghost" size="sm" className="text-destructive text-xs" onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}>
                         Remover imagem
@@ -1375,11 +1082,6 @@ export default function Products() {
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">
-                💡 A IA gera uma foto realista baseada no nome do produto. Funciona melhor com nomes descritivos.
-                <br />
-                <span className="font-medium text-foreground">⚡ Será consumido 1 crédito de IA do seu saldo</span> (saldo atual: {aiTotalCredits}).
-              </p>
 
               {editingProduct && currentAccount ? (
                 <ProductImageGallery productId={editingProduct.id} accountId={currentAccount.id} maxImages={4} />
