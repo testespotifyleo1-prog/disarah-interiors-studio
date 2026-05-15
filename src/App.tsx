@@ -160,7 +160,7 @@ const App = () => (
               <Route path="sales-goals" element={<SalesGoals />} />
               <Route path="reactivation-campaigns" element={<ReactivationCampaigns />} />
               <Route path="developers" element={<Developers />} />
-              <Route path="api-connectors" element={<ApiConnectors />} />
+              <Route path="developers" element={<Developers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
