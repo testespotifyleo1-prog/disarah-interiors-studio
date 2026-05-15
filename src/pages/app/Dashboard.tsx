@@ -14,7 +14,7 @@ import { MonthFilter, getMonthRange } from '@/components/MonthFilter';
 import { isModuleEnabled } from '@/utils/accountModules';
 import PartyStoreDashboard from '@/components/dashboard/PartyStoreDashboard';
 import Last7DaysRevenueChart from '@/components/dashboard/Last7DaysRevenueChart';
-import WhatsNewCard from '@/components/dashboard/WhatsNewCard';
+
 
 interface DashboardStats {
   salesToday: number;
