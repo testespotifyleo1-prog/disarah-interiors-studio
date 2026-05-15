@@ -82,7 +82,6 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <PlanProvider>
         <Toaster />
         <Sonner position="top-right" richColors closeButton expand visibleToasts={4} toastOptions={{ duration: 5000 }} />
         <BrowserRouter>
@@ -91,7 +90,6 @@ const App = () => (
             
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/superadmin" element={<SuperAdmin />} />
             
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
