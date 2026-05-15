@@ -561,29 +561,44 @@ export type Database = {
       commission_tiers: {
         Row: {
           account_id: string
-          commission_percent: number
+          commission_percent: number | null
           created_at: string
           goal_percent_max: number | null
-          goal_percent_min: number
+          goal_percent_min: number | null
           id: string
+          is_active: boolean
+          max_value: number | null
+          min_value: number | null
+          percent: number | null
+          seller_id: string | null
           updated_at: string
         }
         Insert: {
           account_id: string
-          commission_percent: number
+          commission_percent?: number | null
           created_at?: string
           goal_percent_max?: number | null
-          goal_percent_min: number
+          goal_percent_min?: number | null
           id?: string
+          is_active?: boolean
+          max_value?: number | null
+          min_value?: number | null
+          percent?: number | null
+          seller_id?: string | null
           updated_at?: string
         }
         Update: {
           account_id?: string
-          commission_percent?: number
+          commission_percent?: number | null
           created_at?: string
           goal_percent_max?: number | null
-          goal_percent_min?: number
+          goal_percent_min?: number | null
           id?: string
+          is_active?: boolean
+          max_value?: number | null
+          min_value?: number | null
+          percent?: number | null
+          seller_id?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -599,7 +614,7 @@ export type Database = {
       commissions: {
         Row: {
           account_id: string
-          amount: number
+          amount: number | null
           base_amount: number
           commission_cycle_id: string | null
           created_at: string
@@ -609,11 +624,13 @@ export type Database = {
           percent: number
           sale_id: string
           seller_id: string | null
+          status: string | null
           updated_at: string
+          value: number | null
         }
         Insert: {
           account_id: string
-          amount: number
+          amount?: number | null
           base_amount: number
           commission_cycle_id?: string | null
           created_at?: string
@@ -623,11 +640,13 @@ export type Database = {
           percent: number
           sale_id: string
           seller_id?: string | null
+          status?: string | null
           updated_at?: string
+          value?: number | null
         }
         Update: {
           account_id?: string
-          amount?: number
+          amount?: number | null
           base_amount?: number
           commission_cycle_id?: string | null
           created_at?: string
@@ -637,7 +656,9 @@ export type Database = {
           percent?: number
           sale_id?: string
           seller_id?: string | null
+          status?: string | null
           updated_at?: string
+          value?: number | null
         }
         Relationships: [
           {
@@ -867,11 +888,13 @@ export type Database = {
       customers: {
         Row: {
           account_id: string
+          address_json: Json | null
           birthday: string | null
           created_at: string
           credit_limit: number
           doc: string | null
           doc_type: string | null
+          document: string | null
           email: string | null
           id: string
           is_active: boolean
@@ -882,11 +905,13 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          address_json?: Json | null
           birthday?: string | null
           created_at?: string
           credit_limit?: number
           doc?: string | null
           doc_type?: string | null
+          document?: string | null
           email?: string | null
           id?: string
           is_active?: boolean
@@ -897,11 +922,13 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          address_json?: Json | null
           birthday?: string | null
           created_at?: string
           credit_limit?: number
           doc?: string | null
           doc_type?: string | null
+          document?: string | null
           email?: string | null
           id?: string
           is_active?: boolean
@@ -923,6 +950,7 @@ export type Database = {
       deliveries: {
         Row: {
           account_id: string
+          address_json: Json | null
           city: string | null
           complement: string | null
           contact_name: string | null
@@ -949,6 +977,7 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          address_json?: Json | null
           city?: string | null
           complement?: string | null
           contact_name?: string | null
@@ -975,6 +1004,7 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          address_json?: Json | null
           city?: string | null
           complement?: string | null
           contact_name?: string | null
@@ -2181,40 +2211,58 @@ export type Database = {
       payments: {
         Row: {
           account_id: string
-          amount: number
+          amount: number | null
           authorization_code: string | null
+          brand: string | null
+          card_fee_percent: number
+          card_fee_value: number
+          card_type: string | null
           created_at: string
           id: string
           installments: number | null
           metadata: Json | null
           method: Database["public"]["Enums"]["payment_method"]
+          notes: string | null
           paid_at: string
+          paid_value: number | null
           receivable_id: string | null
           sale_id: string | null
         }
         Insert: {
           account_id: string
-          amount: number
+          amount?: number | null
           authorization_code?: string | null
+          brand?: string | null
+          card_fee_percent?: number
+          card_fee_value?: number
+          card_type?: string | null
           created_at?: string
           id?: string
           installments?: number | null
           metadata?: Json | null
           method: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
           paid_at?: string
+          paid_value?: number | null
           receivable_id?: string | null
           sale_id?: string | null
         }
         Update: {
           account_id?: string
-          amount?: number
+          amount?: number | null
           authorization_code?: string | null
+          brand?: string | null
+          card_fee_percent?: number
+          card_fee_value?: number
+          card_type?: string | null
           created_at?: string
           id?: string
           installments?: number | null
           metadata?: Json | null
           method?: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
           paid_at?: string
+          paid_value?: number | null
           receivable_id?: string | null
           sale_id?: string | null
         }
@@ -3031,9 +3079,11 @@ export type Database = {
       quotes: {
         Row: {
           account_id: string
+          assembly_fee: number
           converted_sale_id: string | null
           created_at: string
           customer_id: string | null
+          delivery_fee: number
           discount: number
           id: string
           notes: string | null
@@ -3048,9 +3098,11 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          assembly_fee?: number
           converted_sale_id?: string | null
           created_at?: string
           customer_id?: string | null
+          delivery_fee?: number
           discount?: number
           id?: string
           notes?: string | null
@@ -3065,9 +3117,11 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          assembly_fee?: number
           converted_sale_id?: string | null
           created_at?: string
           customer_id?: string | null
+          delivery_fee?: number
           discount?: number
           id?: string
           notes?: string | null
@@ -3260,17 +3314,23 @@ export type Database = {
       sales: {
         Row: {
           account_id: string
+          assembly_fee: number
           cancelled_at: string | null
           cancelled_reason: string | null
           created_at: string
           customer_id: string | null
+          delivery_fee: number
           discount: number
+          down_payment: number
           freight: number
           id: string
           notes: string | null
           paid_at: string | null
+          payment_on_delivery: boolean
+          remaining_balance: number
           sale_number: number | null
           seller_id: string | null
+          source: string
           status: Database["public"]["Enums"]["sale_status"]
           store_id: string
           subtotal: number
@@ -3279,17 +3339,23 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          assembly_fee?: number
           cancelled_at?: string | null
           cancelled_reason?: string | null
           created_at?: string
           customer_id?: string | null
+          delivery_fee?: number
           discount?: number
+          down_payment?: number
           freight?: number
           id?: string
           notes?: string | null
           paid_at?: string | null
+          payment_on_delivery?: boolean
+          remaining_balance?: number
           sale_number?: number | null
           seller_id?: string | null
+          source?: string
           status?: Database["public"]["Enums"]["sale_status"]
           store_id: string
           subtotal?: number
@@ -3298,17 +3364,23 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          assembly_fee?: number
           cancelled_at?: string | null
           cancelled_reason?: string | null
           created_at?: string
           customer_id?: string | null
+          delivery_fee?: number
           discount?: number
+          down_payment?: number
           freight?: number
           id?: string
           notes?: string | null
           paid_at?: string | null
+          payment_on_delivery?: boolean
+          remaining_balance?: number
           sale_number?: number | null
           seller_id?: string | null
+          source?: string
           status?: Database["public"]["Enums"]["sale_status"]
           store_id?: string
           subtotal?: number
@@ -3347,6 +3419,7 @@ export type Database = {
           notes: string | null
           period_end: string
           period_start: string
+          scope: string
           seller_id: string | null
           store_id: string | null
           target_amount: number
@@ -3359,6 +3432,7 @@ export type Database = {
           notes?: string | null
           period_end: string
           period_start: string
+          scope?: string
           seller_id?: string | null
           store_id?: string | null
           target_amount: number
@@ -3371,6 +3445,7 @@ export type Database = {
           notes?: string | null
           period_end?: string
           period_start?: string
+          scope?: string
           seller_id?: string | null
           store_id?: string | null
           target_amount?: number
@@ -3438,31 +3513,34 @@ export type Database = {
       seller_commission_rules: {
         Row: {
           account_id: string
-          base_percent: number
+          base_percent: number | null
           category: string | null
           created_at: string
           id: string
           is_active: boolean
+          percent_default: number | null
           seller_id: string | null
           updated_at: string
         }
         Insert: {
           account_id: string
-          base_percent?: number
+          base_percent?: number | null
           category?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
+          percent_default?: number | null
           seller_id?: string | null
           updated_at?: string
         }
         Update: {
           account_id?: string
-          base_percent?: number
+          base_percent?: number | null
           category?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
+          percent_default?: number | null
           seller_id?: string | null
           updated_at?: string
         }
@@ -3720,6 +3798,7 @@ export type Database = {
       stores: {
         Row: {
           account_id: string
+          address_json: Json | null
           city: string | null
           cnae: string | null
           cnpj: string | null
@@ -3733,6 +3812,8 @@ export type Database = {
           im: string | null
           is_active: boolean
           legal_name: string | null
+          logo_path: string | null
+          logo_updated_at: string | null
           logo_url: string | null
           name: string
           number: string | null
@@ -3745,6 +3826,7 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          address_json?: Json | null
           city?: string | null
           cnae?: string | null
           cnpj?: string | null
@@ -3758,6 +3840,8 @@ export type Database = {
           im?: string | null
           is_active?: boolean
           legal_name?: string | null
+          logo_path?: string | null
+          logo_updated_at?: string | null
           logo_url?: string | null
           name: string
           number?: string | null
@@ -3770,6 +3854,7 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          address_json?: Json | null
           city?: string | null
           cnae?: string | null
           cnpj?: string | null
@@ -3783,6 +3868,8 @@ export type Database = {
           im?: string | null
           is_active?: boolean
           legal_name?: string | null
+          logo_path?: string | null
+          logo_updated_at?: string | null
           logo_url?: string | null
           name?: string
           number?: string | null
