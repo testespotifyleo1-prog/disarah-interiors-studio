@@ -22,7 +22,7 @@ const statusColors: Record<SaleStatus, string> = {
   draft: 'bg-status-draft',
   open: 'bg-status-open',
   paid: 'bg-status-paid',
-  canceled: 'bg-status-canceled',
+  cancelled: 'bg-status-canceled',
   crediario: 'bg-orange-500',
 };
 
@@ -30,7 +30,7 @@ const statusLabels: Record<SaleStatus, string> = {
   draft: 'Rascunho',
   open: 'Aberta',
   paid: 'Paga',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
   crediario: 'Crediário',
 };
 

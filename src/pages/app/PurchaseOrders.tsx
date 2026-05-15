@@ -19,7 +19,7 @@ const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondar
   ordered: { label: 'Pedido ao Fornecedor', variant: 'default' },
   partial_received: { label: 'Recebido Parcial', variant: 'outline' },
   received: { label: 'Recebido', variant: 'default' },
-  canceled: { label: 'Cancelado', variant: 'destructive' },
+  cancelled: { label: 'Cancelado', variant: 'destructive' },
 };
 
 export default function PurchaseOrders() {

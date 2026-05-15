@@ -48,7 +48,7 @@ const statusColors: Record<SaleStatus, string> = {
   draft: 'bg-status-draft',
   open: 'bg-status-open',
   paid: 'bg-status-paid',
-  canceled: 'bg-status-canceled',
+  cancelled: 'bg-status-canceled',
   crediario: 'bg-orange-500',
 };
 
@@ -56,7 +56,7 @@ const statusLabels: Record<SaleStatus, string> = {
   draft: 'Rascunho',
   open: 'Aberta',
   paid: 'Paga',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
   crediario: 'Crediário',
 };
 
@@ -65,7 +65,7 @@ const deliveryStatusLabels: Record<DeliveryStatus, string> = {
   assigned: 'Atribuído',
   out_for_delivery: 'Em Entrega',
   delivered: 'Entregue',
-  canceled: 'Cancelado',
+  cancelled: 'Cancelado',
 };
 
 const cardBrands = [

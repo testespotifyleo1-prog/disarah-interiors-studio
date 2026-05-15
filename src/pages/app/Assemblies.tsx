@@ -43,7 +43,7 @@ const STATUS_LABELS: Record<AssemblyStatus, string> = {
   scheduled: 'Agendada',
   in_progress: 'Em Andamento',
   completed: 'Concluída',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
 };
 
 const STATUS_ICONS: Record<AssemblyStatus, React.ReactNode> = {
@@ -51,7 +51,7 @@ const STATUS_ICONS: Record<AssemblyStatus, React.ReactNode> = {
   scheduled: <CalendarDays className="h-4 w-4" />,
   in_progress: <Wrench className="h-4 w-4" />,
   completed: <CheckCircle className="h-4 w-4" />,
-  canceled: <XCircle className="h-4 w-4" />,
+  cancelled: <XCircle className="h-4 w-4" />,
 };
 
 const STATUS_COLORS: Record<AssemblyStatus, string> = {
@@ -59,7 +59,7 @@ const STATUS_COLORS: Record<AssemblyStatus, string> = {
   scheduled: 'bg-blue-500',
   in_progress: 'bg-purple-500',
   completed: 'bg-green-500',
-  canceled: 'bg-red-500',
+  cancelled: 'bg-red-500',
 };
 
 export default function Assemblies() {

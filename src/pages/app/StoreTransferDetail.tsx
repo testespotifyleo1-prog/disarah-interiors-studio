@@ -21,7 +21,7 @@ const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondar
   separated: { label: 'Separada', variant: 'default' },
   shipped: { label: 'Enviada', variant: 'default' },
   received: { label: 'Recebida', variant: 'default' },
-  canceled: { label: 'Cancelada', variant: 'destructive' },
+  cancelled: { label: 'Cancelada', variant: 'destructive' },
 };
 
 export default function StoreTransferDetail() {

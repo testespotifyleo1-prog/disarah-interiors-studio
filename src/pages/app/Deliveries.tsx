@@ -22,7 +22,7 @@ const STATUS_LABELS: Record<DeliveryStatus, string> = {
   assigned: 'Atribuída',
   out_for_delivery: 'Em Rota',
   delivered: 'Entregue',
-  canceled: 'Cancelada',
+  cancelled: 'Cancelada',
 };
 
 const STATUS_COLORS: Record<DeliveryStatus, string> = {
@@ -30,7 +30,7 @@ const STATUS_COLORS: Record<DeliveryStatus, string> = {
   assigned: 'bg-blue-500',
   out_for_delivery: 'bg-purple-500',
   delivered: 'bg-green-500',
-  canceled: 'bg-red-500',
+  cancelled: 'bg-red-500',
 };
 
 export default function Deliveries() {
