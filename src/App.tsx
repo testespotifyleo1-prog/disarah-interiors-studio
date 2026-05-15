@@ -135,24 +135,14 @@ const App = () => (
               <Route path="fiscal-entries/new" element={<NewFiscalEntry />} />
               <Route path="fiscal-entries/:id" element={<FiscalEntryDetail />} />
               <Route path="supplier-returns" element={<SupplierReturns />} />
-              <Route path="chatbot-settings" element={<ChatbotSettings />} />
-              <Route path="chat" element={<ChatConversations />} />
               <Route path="commission-tiers" element={<CommissionTiers />} />
               <Route path="fiscal-counter" element={<FiscalCounter />} />
               <Route path="fiscal-dashboard" element={<FiscalDashboard />} />
               <Route path="fiscal-extras" element={<FiscalExtras />} />
-              <Route path="ecommerce" element={<EcommerceSettings />} />
               <Route path="caixa" element={<CashRegisterSummary />} />
               <Route path="labels" element={<Labels />} />
               <Route path="expiration-report" element={<ExpirationReport />} />
-              <Route path="integrations" element={<Integrations />} />
-              <Route path="integrations/shopee" element={<ShopeeIntegration />} />
-              <Route path="integrations/mercado-livre" element={<MercadoLivreIntegration />} />
               <Route path="integrations/mercado-pago" element={<MercadoPagoIntegration />} />
-              <Route path="integrations/amazon" element={<AmazonIntegration />} />
-              <Route path="integrations/magalu" element={<MagaluIntegration />} />
-              <Route path="integrations/melhor-envio" element={<MelhorEnvioIntegration />} />
-              <Route path="integrations/uber-direct" element={<UberDirectIntegration />} />
               <Route path="transfers" element={<StoreTransfers />} />
               <Route path="transfers/new" element={<NewStoreTransfer />} />
               <Route path="transfers/:id" element={<StoreTransferDetail />} />
