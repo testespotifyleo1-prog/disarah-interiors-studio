@@ -135,14 +135,17 @@ export type Database = {
           amount: number
           created_at: string
           customer_id: string | null
+          description: string | null
           due_date: string
           id: string
           installment_no: number | null
+          installment_number: number | null
           notes: string | null
           paid_amount: number
           paid_at: string | null
           sale_id: string | null
           status: Database["public"]["Enums"]["receivable_status"]
+          store_id: string | null
           total_installments: number | null
           updated_at: string
         }
@@ -151,14 +154,17 @@ export type Database = {
           amount: number
           created_at?: string
           customer_id?: string | null
+          description?: string | null
           due_date: string
           id?: string
           installment_no?: number | null
+          installment_number?: number | null
           notes?: string | null
           paid_amount?: number
           paid_at?: string | null
           sale_id?: string | null
           status?: Database["public"]["Enums"]["receivable_status"]
+          store_id?: string | null
           total_installments?: number | null
           updated_at?: string
         }
@@ -167,14 +173,17 @@ export type Database = {
           amount?: number
           created_at?: string
           customer_id?: string | null
+          description?: string | null
           due_date?: string
           id?: string
           installment_no?: number | null
+          installment_number?: number | null
           notes?: string | null
           paid_amount?: number
           paid_at?: string | null
           sale_id?: string | null
           status?: Database["public"]["Enums"]["receivable_status"]
+          store_id?: string | null
           total_installments?: number | null
           updated_at?: string
         }
@@ -300,6 +309,8 @@ export type Database = {
           proof_photo_url: string | null
           sale_id: string | null
           scheduled_at: string | null
+          scheduled_date: string | null
+          scheduled_time: string | null
           status: Database["public"]["Enums"]["assembly_status"]
           store_id: string
           updated_at: string
@@ -316,6 +327,8 @@ export type Database = {
           proof_photo_url?: string | null
           sale_id?: string | null
           scheduled_at?: string | null
+          scheduled_date?: string | null
+          scheduled_time?: string | null
           status?: Database["public"]["Enums"]["assembly_status"]
           store_id: string
           updated_at?: string
@@ -332,6 +345,8 @@ export type Database = {
           proof_photo_url?: string | null
           sale_id?: string | null
           scheduled_at?: string | null
+          scheduled_date?: string | null
+          scheduled_time?: string | null
           status?: Database["public"]["Enums"]["assembly_status"]
           store_id?: string
           updated_at?: string
@@ -432,8 +447,9 @@ export type Database = {
           id: string
           notes: string | null
           opened_at: string
+          opened_by: string | null
           opening_amount: number
-          operator_id: string
+          operator_id: string | null
           status: Database["public"]["Enums"]["cash_register_status"]
           store_id: string
         }
@@ -446,8 +462,9 @@ export type Database = {
           id?: string
           notes?: string | null
           opened_at?: string
+          opened_by?: string | null
           opening_amount?: number
-          operator_id: string
+          operator_id?: string | null
           status?: Database["public"]["Enums"]["cash_register_status"]
           store_id: string
         }
@@ -460,8 +477,9 @@ export type Database = {
           id?: string
           notes?: string | null
           opened_at?: string
+          opened_by?: string | null
           opening_amount?: number
-          operator_id?: string
+          operator_id?: string | null
           status?: Database["public"]["Enums"]["cash_register_status"]
           store_id?: string
         }
@@ -593,6 +611,7 @@ export type Database = {
           min_value: number | null
           percent: number | null
           seller_id: string | null
+          tier_type: string | null
           updated_at: string
         }
         Insert: {
@@ -607,6 +626,7 @@ export type Database = {
           min_value?: number | null
           percent?: number | null
           seller_id?: string | null
+          tier_type?: string | null
           updated_at?: string
         }
         Update: {
@@ -621,6 +641,7 @@ export type Database = {
           min_value?: number | null
           percent?: number | null
           seller_id?: string | null
+          tier_type?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -911,6 +932,7 @@ export type Database = {
         Row: {
           account_id: string
           address_json: Json | null
+          birth_date: string | null
           birthday: string | null
           created_at: string
           credit_authorized: boolean
@@ -929,6 +951,7 @@ export type Database = {
         Insert: {
           account_id?: string
           address_json?: Json | null
+          birth_date?: string | null
           birthday?: string | null
           created_at?: string
           credit_authorized?: boolean
@@ -947,6 +970,7 @@ export type Database = {
         Update: {
           account_id?: string
           address_json?: Json | null
+          birth_date?: string | null
           birthday?: string | null
           created_at?: string
           credit_authorized?: boolean
@@ -3329,7 +3353,7 @@ export type Database = {
           product_id: string
           qty: number
           sale_id: string
-          total: number
+          total: number | null
           total_line: number | null
           unit_cost: number | null
           unit_price: number
@@ -3344,7 +3368,7 @@ export type Database = {
           product_id: string
           qty: number
           sale_id: string
-          total: number
+          total?: number | null
           total_line?: number | null
           unit_cost?: number | null
           unit_price: number
@@ -3359,7 +3383,7 @@ export type Database = {
           product_id?: string
           qty?: number
           sale_id?: string
-          total?: number
+          total?: number | null
           total_line?: number | null
           unit_cost?: number | null
           unit_price?: number
@@ -4217,11 +4241,13 @@ export type Database = {
       is_account_member: { Args: { _user_id: string }; Returns: boolean }
       receive_crediario_installment: {
         Args: {
-          amount: number
-          method?: Database["public"]["Enums"]["payment_method"]
-          receivable_id: string
+          _amount?: number
+          _notes?: string
+          _payment_method?: Database["public"]["Enums"]["payment_method"]
+          _receivable_id: string
+          _store_id?: string
         }
-        Returns: undefined
+        Returns: Json
       }
       reset_account_data: { Args: { pin: string }; Returns: undefined }
       restore_inventory_for_item: {
