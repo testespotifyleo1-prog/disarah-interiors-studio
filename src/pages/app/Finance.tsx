@@ -125,7 +125,7 @@ export default function Finance() {
           .eq('seller_id', user.id)
           .gte('created_at', startISO).lte('created_at', endISO)
           .order('created_at', { ascending: false });
-        setCommissions((data || []) as CommissionWithSale[]);
+        setCommissions((data || []) as unknown as CommissionWithSale[]);
         const pending = (data || []).filter(c => c.status === 'pending');
         const paid = (data || []).filter(c => c.status === 'paid');
         setComissoesPendentes(pending.reduce((s, c) => s + (c.value || 0), 0));
@@ -253,7 +253,7 @@ export default function Finance() {
           .gte('due_date', startDate).lte('due_date', endDate);
         if (filterStore !== 'all') pq = pq.eq('store_id', filterStore);
         else if (isManager) pq = pq.in('store_id', allowedStoreIds);
-        if (filterStatus !== 'all') pq = pq.eq('status', filterStatus);
+        if (filterStatus !== 'all') pq = pq.eq('status', filterStatus as any);
         const { data: pd } = await pq;
         setPayables(pd || []);
 

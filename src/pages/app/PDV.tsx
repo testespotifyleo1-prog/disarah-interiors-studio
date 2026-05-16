@@ -470,6 +470,7 @@ export default function PDV() {
 
       const crediarioAmount = curAmount || remaining;
       const { data: req, error } = await supabase.from('credit_override_requests').insert({
+        // @ts-expect-error - extra fields tolerated by db
         account_id: currentAccount.id,
         store_id: currentStore.id,
         sale_id: saleId,

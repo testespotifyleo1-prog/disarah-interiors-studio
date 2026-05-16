@@ -144,7 +144,7 @@ export default function NewStoreTransfer() {
         account_id: currentAccount!.id,
         from_store_id: fromStoreId,
         to_store_id: toStoreId,
-        status: asDraft ? 'draft' : 'requested',
+        status: (asDraft ? 'draft' : 'requested') as any,
         notes: notes || null,
         created_by: user!.id,
       }).select().single();

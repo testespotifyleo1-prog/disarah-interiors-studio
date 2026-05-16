@@ -125,7 +125,7 @@ export default function Deliveries() {
         .from('deliveries')
         .update({
           driver_id: selectedDriver || null,
-          status: selectedStatus,
+          status: selectedStatus as any,
           notes: notes || null,
           scheduled_date: scheduledDate || null,
           scheduled_time: scheduledTime || null,

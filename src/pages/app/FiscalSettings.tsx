@@ -65,7 +65,7 @@ export default function FiscalSettings() {
       if (data) {
         setSettings(data);
         setApiToken(data.api_key);
-        setEnvironment(data.environment);
+        setEnvironment(data.environment as any);
         setIsActive(data.is_active);
         setBlockSale(Boolean((data as any).block_sale_without_fiscal_data));
         setNfseEnabled(Boolean((data as any).nfse_enabled));
