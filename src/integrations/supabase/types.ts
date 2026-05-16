@@ -4790,6 +4790,7 @@ export type Database = {
         | "cancelled"
         | "returned"
         | "crediario"
+        | "open"
       transfer_status: "draft" | "sent" | "received" | "cancelled"
     }
     CompositeTypes: {
@@ -4999,6 +5000,7 @@ export const Constants = {
         "cancelled",
         "returned",
         "crediario",
+        "open",
       ],
       transfer_status: ["draft", "sent", "received", "cancelled"],
     },
