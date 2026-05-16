@@ -150,9 +150,9 @@ export default function Sales() {
     }
 
     // Load fiscal documents with type info
-    const { data: fiscalDocs } = await supabase
+    const { data: fiscalDocs } = await (supabase as any)
       .from('fiscal_documents')
-      .select('sale_id, type')
+      .select('sale_id, doc_type, status')
       .eq('store_id', currentStore.id)
       .in('status', ['processing', 'issued', 'completed', 'authorized']);
 
@@ -161,18 +161,19 @@ export default function Sales() {
       let nfeC = 0, nfeT = 0, nfceC = 0, nfceT = 0;
       const counted = new Set<string>();
       const bySale: Record<string, { nfe: boolean; nfce: boolean }> = {};
-      for (const fd of fiscalDocs) {
+      for (const fd of fiscalDocs as any[]) {
         const sale = salesMap.get(fd.sale_id);
         if (!sale) continue;
+        const t = fd.doc_type;
         if (!bySale[fd.sale_id]) bySale[fd.sale_id] = { nfe: false, nfce: false };
-        if (fd.type === 'nfe') bySale[fd.sale_id].nfe = true;
-        else if (fd.type === 'nfce' || fd.type === 'cupom') bySale[fd.sale_id].nfce = true;
+        if (t === 'nfe') bySale[fd.sale_id].nfe = true;
+        else if (t === 'nfce' || t === 'cupom') bySale[fd.sale_id].nfce = true;
 
-        if (counted.has(`${fd.sale_id}_${fd.type}`)) continue;
-        counted.add(`${fd.sale_id}_${fd.type}`);
+        if (counted.has(`${fd.sale_id}_${t}`)) continue;
+        counted.add(`${fd.sale_id}_${t}`);
         if (sale.status === 'cancelled') continue;
-        if (fd.type === 'nfe') { nfeC++; nfeT += sale.total || 0; }
-        else if (fd.type === 'nfce' || fd.type === 'cupom') { nfceC++; nfceT += sale.total || 0; }
+        if (t === 'nfe') { nfeC++; nfeT += sale.total || 0; }
+        else if (t === 'nfce' || t === 'cupom') { nfceC++; nfceT += sale.total || 0; }
       }
       setNfeCount(nfeC); setNfeTotal(nfeT);
       setNfceCount(nfceC); setNfceTotal(nfceT);
