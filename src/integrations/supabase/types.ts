@@ -4243,6 +4243,8 @@ export type Database = {
           pdv_auto_print_receipt: boolean
           pdv_receipt_format: string
           phone: string | null
+          pix_key: string | null
+          pix_key_type: string | null
           state: string | null
           street: string | null
           tax_regime: string | null
@@ -4274,6 +4276,8 @@ export type Database = {
           pdv_auto_print_receipt?: boolean
           pdv_receipt_format?: string
           phone?: string | null
+          pix_key?: string | null
+          pix_key_type?: string | null
           state?: string | null
           street?: string | null
           tax_regime?: string | null
@@ -4305,6 +4309,8 @@ export type Database = {
           pdv_auto_print_receipt?: boolean
           pdv_receipt_format?: string
           phone?: string | null
+          pix_key?: string | null
+          pix_key_type?: string | null
           state?: string | null
           street?: string | null
           tax_regime?: string | null
