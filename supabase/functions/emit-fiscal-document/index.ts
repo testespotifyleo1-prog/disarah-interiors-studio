@@ -106,7 +106,30 @@ serve(async (req) => {
         ? focusData.erros.map((e: any) => e.mensagem).join('; ')
         : '';
       const rawMsg = errosDetail || focusData.mensagem || focusData.codigo || JSON.stringify(focusData);
-      throw new Error(`Erro ao emitir nota fiscal. Detalhe: ${rawMsg}`);
+
+      // If already authorized for this ref, fetch the existing document instead of failing
+      const alreadyAuthorized = /já foi autorizada/i.test(rawMsg)
+        || focusData.codigo === 'nota_fiscal_ja_autorizada'
+        || /duplicad/i.test(rawMsg);
+
+      if (alreadyAuthorized) {
+        console.log('Nota já autorizada, consultando via GET para sincronizar.');
+        const getResp = await fetch(`${baseUrl}${endpoint}/${encodeURIComponent(ref)}`, {
+          headers: { 'Authorization': 'Basic ' + btoa(focusToken + ':') },
+        });
+        const getText = await getResp.text();
+        try {
+          focusData = JSON.parse(getText);
+        } catch {
+          throw new Error(`Nota já autorizada, mas falha ao consultar: ${getText.substring(0, 200)}`);
+        }
+        if (!getResp.ok) {
+          throw new Error(`Nota já autorizada, mas consulta falhou: ${JSON.stringify(focusData)}`);
+        }
+        // fall through to status handling below
+      } else {
+        throw new Error(`Erro ao emitir nota fiscal. Detalhe: ${rawMsg}`);
+      }
     }
 
     // Focus NFe returns different statuses:
