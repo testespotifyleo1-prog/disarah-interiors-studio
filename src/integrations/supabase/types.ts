@@ -3035,7 +3035,10 @@ export type Database = {
           supplier_id: string | null
           unit: string | null
           updated_at: string
+          variant_options: string[] | null
+          weight: number | null
           weight_kg: number | null
+          weight_unit: string | null
           width_cm: number | null
         }
         Insert: {
@@ -3087,7 +3090,10 @@ export type Database = {
           supplier_id?: string | null
           unit?: string | null
           updated_at?: string
+          variant_options?: string[] | null
+          weight?: number | null
           weight_kg?: number | null
+          weight_unit?: string | null
           width_cm?: number | null
         }
         Update: {
@@ -3139,7 +3145,10 @@ export type Database = {
           supplier_id?: string | null
           unit?: string | null
           updated_at?: string
+          variant_options?: string[] | null
+          weight?: number | null
           weight_kg?: number | null
+          weight_unit?: string | null
           width_cm?: number | null
         }
         Relationships: [
