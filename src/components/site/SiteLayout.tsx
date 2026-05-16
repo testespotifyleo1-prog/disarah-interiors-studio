@@ -28,7 +28,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <img src={s?.logo_url || disarahLogo} alt={s?.brand_name || 'Disarah Interiores'} className="h-12 w-auto object-contain" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
             {nav.map((n) => {
               const active = loc.pathname === n.to || (n.to !== '/site' && loc.pathname.startsWith(n.to));
               return (
@@ -45,7 +45,36 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 </Link>
               );
             })}
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-2 bg-[#7a1818] hover:bg-[#5a1010] text-white px-5 py-2.5 text-xs uppercase tracking-[0.2em] font-semibold transition-all hover:gap-3 shadow-sm shadow-[#7a1818]/30"
+            >
+              <LogIn size={14} /> Entrar no Sistema
+            </Link>
           </nav>
+
+          <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-[#7a1818]" aria-label="Menu">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+        {open && (
+          <div className="md:hidden border-t border-[#7a1818]/10 bg-[#fbf8f4]">
+            <div className="px-6 py-4 flex flex-col gap-3">
+              {nav.map((n) => (
+                <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-2 text-sm uppercase tracking-[0.18em] text-[#1a0808]/80">
+                  {n.label}
+                </Link>
+              ))}
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="mt-2 inline-flex items-center justify-center gap-2 bg-[#7a1818] text-white px-5 py-3 text-xs uppercase tracking-[0.2em] font-semibold"
+              >
+                <LogIn size={14} /> Entrar no Sistema
+              </Link>
+            </div>
+          </div>
+        )}
 
           <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-[#7a1818]" aria-label="Menu">
             {open ? <X size={24} /> : <Menu size={24} />}
