@@ -3026,6 +3026,7 @@ export type Database = {
           origin: string | null
           pis_cst: string | null
           price_default: number
+          product_group: string | null
           promo_ends_at: string | null
           promo_price: number | null
           promo_starts_at: string | null
@@ -3077,6 +3078,7 @@ export type Database = {
           origin?: string | null
           pis_cst?: string | null
           price_default?: number
+          product_group?: string | null
           promo_ends_at?: string | null
           promo_price?: number | null
           promo_starts_at?: string | null
@@ -3128,6 +3130,7 @@ export type Database = {
           origin?: string | null
           pis_cst?: string | null
           price_default?: number
+          product_group?: string | null
           promo_ends_at?: string | null
           promo_price?: number | null
           promo_starts_at?: string | null
