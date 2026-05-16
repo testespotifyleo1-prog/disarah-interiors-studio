@@ -144,7 +144,7 @@ serve(async (req) => {
       .select()
       .single();
 
-    if (docError) throw new Error('Failed to create fiscal document record');
+    if (docError) { console.error('Insert fiscal_documents error:', docError); throw new Error('Failed to create fiscal document record: ' + docError.message); }
 
     return new Response(
       JSON.stringify({ success: true, document: fiscalDoc, message: 'Documento fiscal enviado para processamento.' }),
