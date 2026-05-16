@@ -276,17 +276,6 @@ export default function Customers() {
         </div>
         {canManageCustomers && (
           <div className="flex gap-2 flex-wrap">
-            {isOwnerOrAdmin && (
-              isModuleDisabled(currentAccount, 'email_marketing') ? (
-                <Button variant="outline" size="sm" disabled title={MODULE_BLOCKED_MESSAGE} onClick={(e) => e.preventDefault()}>
-                  <Cake className="mr-1 h-4 w-4" /> Aniversário 🔒
-                </Button>
-              ) : (
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/app/customers/birthday-campaign"><Cake className="mr-1 h-4 w-4" /> Aniversário</Link>
-                </Button>
-              )
-            )}
             <Button variant="outline" size="sm" asChild><Link to="/app/customers/import"><Upload className="mr-1 h-4 w-4" /> CSV</Link></Button>
             <Button size="sm" onClick={openCreateModal}><Plus className="mr-1 h-4 w-4" /> Novo</Button>
           </div>
