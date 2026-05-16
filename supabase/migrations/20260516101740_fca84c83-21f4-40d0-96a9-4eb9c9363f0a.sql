@@ -1,0 +1,5 @@
+ALTER TABLE public.products
+  ADD COLUMN IF NOT EXISTS aliq_icms numeric NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS aliq_pis numeric NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS aliq_cofins numeric NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS aliq_ipi numeric NOT NULL DEFAULT 0;

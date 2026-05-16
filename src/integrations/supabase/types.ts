@@ -2989,6 +2989,10 @@ export type Database = {
         Row: {
           account_id: string
           ai_training: string | null
+          aliq_cofins: number
+          aliq_icms: number
+          aliq_ipi: number
+          aliq_pis: number
           barcode: string | null
           brand: string | null
           category: string | null
@@ -3030,6 +3034,10 @@ export type Database = {
         Insert: {
           account_id?: string
           ai_training?: string | null
+          aliq_cofins?: number
+          aliq_icms?: number
+          aliq_ipi?: number
+          aliq_pis?: number
           barcode?: string | null
           brand?: string | null
           category?: string | null
@@ -3071,6 +3079,10 @@ export type Database = {
         Update: {
           account_id?: string
           ai_training?: string | null
+          aliq_cofins?: number
+          aliq_icms?: number
+          aliq_ipi?: number
+          aliq_pis?: number
           barcode?: string | null
           brand?: string | null
           category?: string | null
