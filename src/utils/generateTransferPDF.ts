@@ -85,5 +85,6 @@ export async function generateTransferPDF(transfer: any, items: any[], stores: a
   doc.text('Responsável Envio', m + 30, sigY + 4);
   doc.text('Responsável Recebimento', pw / 2 + 15, sigY + 4);
 
+  await applyTyposBranding(doc);
   doc.save(`transferencia_${transfer.transfer_number}.pdf`);
 }
