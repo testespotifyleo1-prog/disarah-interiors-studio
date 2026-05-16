@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { TyposLogo } from '@/components/brand/TyposLogo';
-import { LogOut, ChevronDown, Search, X, type LucideIcon } from 'lucide-react';
+import { LogOut, ChevronDown, Search, X, UserCircle, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { isModuleDisabled, isAiBlocked, AI_BLOCKED_MESSAGE, MODULE_BLOCKED_MESSAGE, type ModuleType } from '@/utils/accountModules';
@@ -382,6 +382,13 @@ export function AppSidebar() {
 
       {/* Footer */}
       <SidebarFooter className="border-t border-sidebar-border p-3">
+        <Link
+          to="/app/profile"
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-sidebar-foreground/70 hover:text-sidebar-primary hover:bg-sidebar-accent/40 transition-all duration-200"
+        >
+          <UserCircle style={{ width: 16, height: 16 }} />
+          <span className="font-medium">Meu Perfil</span>
+        </Link>
         <button
           onClick={signOut}
           className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-sidebar-foreground/50 hover:text-destructive hover:bg-destructive/10 transition-all duration-200"

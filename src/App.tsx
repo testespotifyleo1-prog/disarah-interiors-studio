@@ -74,6 +74,7 @@ import QuoteDetail from "./pages/app/QuoteDetail";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
+import MyProfile from "./pages/app/MyProfile";
 
 // Site institucional (público)
 import Site from "./pages/site/Site";
@@ -115,6 +116,7 @@ const App = () => (
               <Route path="pdv" element={<PDV />} />
               <Route path="pdv-rapido" element={<PDVRapido />} />
               <Route path="sales" element={<Sales />} />
+              <Route path="profile" element={<MyProfile />} />
               <Route path="sales/:id" element={<SaleDetail />} />
               <Route path="products" element={<Products />} />
               <Route path="categories" element={<Categories />} />
