@@ -3900,6 +3900,158 @@ export type Database = {
           },
         ]
       }
+      site_categories: {
+        Row: {
+          cover_path: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_photos: {
+        Row: {
+          caption: string | null
+          category_id: string | null
+          created_at: string
+          id: string
+          image_path: string
+          is_active: boolean
+          sort_order: number
+          title: string | null
+        }
+        Insert: {
+          caption?: string | null
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          image_path: string
+          is_active?: boolean
+          sort_order?: number
+          title?: string | null
+        }
+        Update: {
+          caption?: string | null
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          image_path?: string
+          is_active?: boolean
+          sort_order?: number
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "site_photos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "site_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      site_settings: {
+        Row: {
+          about_text: string | null
+          about_title: string | null
+          address: string | null
+          brand_name: string
+          created_at: string
+          email: string | null
+          facebook_url: string | null
+          hero_subtitle: string | null
+          hero_title: string | null
+          hours_saturday: string | null
+          hours_sunday: string | null
+          hours_weekdays: string | null
+          id: string
+          instagram_url: string | null
+          phone: string | null
+          primary_color: string | null
+          show_facebook: boolean
+          show_instagram: boolean
+          tagline: string | null
+          updated_at: string
+          whatsapp_message: string | null
+          whatsapp_number: string | null
+        }
+        Insert: {
+          about_text?: string | null
+          about_title?: string | null
+          address?: string | null
+          brand_name?: string
+          created_at?: string
+          email?: string | null
+          facebook_url?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          hours_saturday?: string | null
+          hours_sunday?: string | null
+          hours_weekdays?: string | null
+          id?: string
+          instagram_url?: string | null
+          phone?: string | null
+          primary_color?: string | null
+          show_facebook?: boolean
+          show_instagram?: boolean
+          tagline?: string | null
+          updated_at?: string
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Update: {
+          about_text?: string | null
+          about_title?: string | null
+          address?: string | null
+          brand_name?: string
+          created_at?: string
+          email?: string | null
+          facebook_url?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          hours_saturday?: string | null
+          hours_sunday?: string | null
+          hours_weekdays?: string | null
+          id?: string
+          instagram_url?: string | null
+          phone?: string | null
+          primary_color?: string | null
+          show_facebook?: boolean
+          show_instagram?: boolean
+          tagline?: string | null
+          updated_at?: string
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
       store_credits: {
         Row: {
           account_id: string

@@ -75,6 +75,13 @@ import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
 
+// Site institucional (público)
+import Site from "./pages/site/Site";
+import SiteGaleria from "./pages/site/SiteGaleria";
+import SiteSobre from "./pages/site/SiteSobre";
+import SiteContato from "./pages/site/SiteContato";
+import SiteSettingsAdmin from "./pages/app/SiteSettingsAdmin";
+import SiteGalleryAdmin from "./pages/app/SiteGalleryAdmin";
 
 const queryClient = new QueryClient();
 
@@ -93,6 +100,13 @@ const App = () => (
             
             <Route path="/rastreio/:token" element={<TrackOrder />} />
             <Route path="/track/:token" element={<TrackOrder />} />
+
+            {/* Site institucional Disarah Interiores */}
+            <Route path="/site" element={<Site />} />
+            <Route path="/site/galeria" element={<SiteGaleria />} />
+            <Route path="/site/galeria/:slug" element={<SiteGaleria />} />
+            <Route path="/site/sobre" element={<SiteSobre />} />
+            <Route path="/site/contato" element={<SiteContato />} />
 
             {/* App Routes */}
             <Route path="/app" element={<AppLayout />}>
@@ -153,6 +167,8 @@ const App = () => (
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
               <Route path="sales-goals" element={<SalesGoals />} />
+              <Route path="site/settings" element={<SiteSettingsAdmin />} />
+              <Route path="site/galeria" element={<SiteGalleryAdmin />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

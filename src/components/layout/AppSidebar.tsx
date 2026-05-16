@@ -113,6 +113,8 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'businessType', label: 'Tipo de Negócio', href: '/app/settings/business-type', roles: ['owner', 'admin'] },
       { iconKey: 'pin', label: 'PIN de Autorização', href: '/app/settings/pin', roles: ['owner', 'manager'] },
       { iconKey: 'activityLogs', label: 'Log de Atividades', href: '/app/activity-logs', roles: ['owner', 'admin'] },
+      { iconKey: 'ecommerce', label: 'Personalizar Site', href: '/app/site/settings', roles: ['owner', 'admin'] },
+      { iconKey: 'categories', label: 'Galeria do Site', href: '/app/site/galeria', roles: ['owner', 'admin'] },
       { iconKey: 'reset', label: 'Resetar Dados', href: '/app/settings/reset', roles: ['owner'] },
     ],
   },
