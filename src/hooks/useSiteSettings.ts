@@ -22,6 +22,8 @@ export type SiteSettings = {
   show_facebook: boolean;
   show_instagram: boolean;
   primary_color: string | null;
+  logo_url: string | null;
+  hero_image_url: string | null;
 };
 
 export function useSiteSettings() {
