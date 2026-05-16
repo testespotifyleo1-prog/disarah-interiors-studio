@@ -4168,8 +4168,22 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "store_transfers_from_store_id_fkey"
+            columns: ["from_store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "store_transfers_origin_store_id_fkey"
             columns: ["origin_store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "store_transfers_to_store_id_fkey"
+            columns: ["to_store_id"]
             isOneToOne: false
             referencedRelation: "stores"
             referencedColumns: ["id"]
