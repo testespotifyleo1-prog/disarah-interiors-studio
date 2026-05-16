@@ -1321,7 +1321,7 @@ export default function SaleDetail() {
                     <div key={doc.id} className="rounded-lg border p-2 sm:p-3 space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-sm">{doc.type.toUpperCase()}</p>
+                          <p className="font-medium text-sm">{(doc.doc_type ?? doc.type ?? '').toString().toUpperCase()}</p>
                           <Badge className={`${docStatusColors[doc.status] || 'bg-muted'} text-white text-xs`}>
                             {docStatusLabels[doc.status] || doc.status}
                           </Badge>
