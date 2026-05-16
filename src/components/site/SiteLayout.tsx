@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Mail, MapPin, Phone, Instagram, Facebook, Clock } from 'lucide-react';
+import { Menu, X, Mail, MapPin, Phone, Instagram, Facebook, Clock, LogIn } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { WhatsAppFloat } from './WhatsAppFloat';
 import disarahLogo from '@/assets/disarah/logo.png';
