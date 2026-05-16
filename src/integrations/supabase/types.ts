@@ -4906,6 +4906,15 @@ export type Database = {
         }
         Returns: Json
       }
+      reconcile_inventory: {
+        Args: { _store_id?: string }
+        Returns: {
+          out_new_qty: number
+          out_product_id: string
+          out_store_id: string
+          out_variant_id: string
+        }[]
+      }
       reset_account_data: { Args: { pin: string }; Returns: undefined }
       restore_inventory_for_item: {
         Args: { item_id: string }
