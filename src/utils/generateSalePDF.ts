@@ -585,6 +585,7 @@ async function buildDeliveryPDF({ sale, sellerName }: GeneratePDFOptions): Promi
   // Declaration and signature
   drawDeclarationFooter(doc, y, sale.customers?.name);
 
+  await applyTyposBranding(doc);
   return doc;
 }
 
