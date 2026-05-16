@@ -220,7 +220,7 @@ function DefaultDashboard() {
             .select('*, customers(name)')
             .eq('account_id', currentAccount.id)
             .eq('status', 'pending')
-            .order('requested_at', { ascending: false });
+            .order('created_at', { ascending: false });
           setCreditRequests((crData || []) as any);
           pendingCreditRequests = (crData || []).length;
         }

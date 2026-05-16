@@ -42,7 +42,7 @@ export default function CustomerReturns() {
     setLoading(true);
     const { data } = await supabase
       .from('customer_returns')
-      .select('*, sales(sequential_number, total), customers(name, phone)')
+      .select('*, sales(sale_number, total), customers(name, phone)')
       .eq('account_id', currentAccount.id)
       .eq('store_id', currentStore.id)
       .order('requested_at', { ascending: false })
@@ -90,7 +90,7 @@ export default function CustomerReturns() {
                       </p>
                       <p className="text-xs text-muted-foreground line-clamp-1">{r.reason}</p>
                       <p className="text-xs text-muted-foreground flex items-center gap-2">
-                        Venda #{r.sales?.sequential_number ?? '—'} · {new Date(r.requested_at).toLocaleDateString('pt-BR')}
+                        Venda #{r.sales?.sale_number ?? '—'} · {new Date(r.requested_at).toLocaleDateString('pt-BR')}
                         {(r.attachments?.length || 0) > 0 && <span className="inline-flex items-center gap-1"><Paperclip className="h-3 w-3" />{r.attachments.length}</span>}
                         {r.stock_refunded && <span className="inline-flex items-center gap-1 text-green-600"><PackageCheck className="h-3 w-3" />estoque retornado</span>}
                       </p>
@@ -144,7 +144,7 @@ function ReturnFormDialog({ open, existing, onClose, onSaved, accountId, storeId
       setResolutionNotes(''); setStatus('requested'); setAttachments([]); setStockRefunded(false);
     }
     if (accountId && storeId) {
-      supabase.from('sales').select('id, sequential_number, customer_id, customer_name')
+      supabase.from('sales').select('id, sale_number, customer_id')
         .eq('account_id', accountId).eq('store_id', storeId).eq('status', 'paid')
         .order('created_at', { ascending: false }).limit(50)
         .then(({ data }) => setSalesOptions(data || []));
