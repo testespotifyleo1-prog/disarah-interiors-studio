@@ -24,6 +24,7 @@ export type SiteSettings = {
   primary_color: string | null;
   logo_url: string | null;
   hero_image_url: string | null;
+  logo_size: number | null;
 };
 
 export function useSiteSettings() {
