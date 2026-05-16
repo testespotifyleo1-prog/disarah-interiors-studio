@@ -4533,7 +4533,120 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      nfeio_settings: {
+        Row: {
+          account_id: string | null
+          api_key: string | null
+          api_key_secret_id: string | null
+          block_sale_without_fiscal_data: boolean | null
+          certificate_expires_at: string | null
+          certificate_uploaded: boolean | null
+          company_id: string | null
+          created_at: string | null
+          csc_id: string | null
+          csc_token: string | null
+          email_default: string | null
+          environment: string | null
+          id: string | null
+          is_active: boolean | null
+          is_enabled: boolean | null
+          nfce_next_number: number | null
+          nfce_series: number | null
+          nfe_next_number: number | null
+          nfe_series: number | null
+          nfse_aliquota: number | null
+          nfse_cnae: string | null
+          nfse_enabled: boolean | null
+          nfse_iss_retido: boolean | null
+          nfse_item_description: string | null
+          nfse_next_number: number | null
+          nfse_series: number | null
+          nfse_service_code: string | null
+          store_id: string | null
+          updated_at: string | null
+          webhook_secret: string | null
+        }
+        Insert: {
+          account_id?: string | null
+          api_key?: string | null
+          api_key_secret_id?: string | null
+          block_sale_without_fiscal_data?: boolean | null
+          certificate_expires_at?: string | null
+          certificate_uploaded?: boolean | null
+          company_id?: string | null
+          created_at?: string | null
+          csc_id?: string | null
+          csc_token?: string | null
+          email_default?: string | null
+          environment?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          is_enabled?: boolean | null
+          nfce_next_number?: number | null
+          nfce_series?: number | null
+          nfe_next_number?: number | null
+          nfe_series?: number | null
+          nfse_aliquota?: number | null
+          nfse_cnae?: string | null
+          nfse_enabled?: boolean | null
+          nfse_iss_retido?: boolean | null
+          nfse_item_description?: string | null
+          nfse_next_number?: number | null
+          nfse_series?: number | null
+          nfse_service_code?: string | null
+          store_id?: string | null
+          updated_at?: string | null
+          webhook_secret?: string | null
+        }
+        Update: {
+          account_id?: string | null
+          api_key?: string | null
+          api_key_secret_id?: string | null
+          block_sale_without_fiscal_data?: boolean | null
+          certificate_expires_at?: string | null
+          certificate_uploaded?: boolean | null
+          company_id?: string | null
+          created_at?: string | null
+          csc_id?: string | null
+          csc_token?: string | null
+          email_default?: string | null
+          environment?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          is_enabled?: boolean | null
+          nfce_next_number?: number | null
+          nfce_series?: number | null
+          nfe_next_number?: number | null
+          nfe_series?: number | null
+          nfse_aliquota?: number | null
+          nfse_cnae?: string | null
+          nfse_enabled?: boolean | null
+          nfse_iss_retido?: boolean | null
+          nfse_item_description?: string | null
+          nfse_next_number?: number | null
+          nfse_series?: number | null
+          nfse_service_code?: string | null
+          store_id?: string | null
+          updated_at?: string | null
+          webhook_secret?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "focus_nfe_settings_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "focus_nfe_settings_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: true
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       approve_credit_override_with_pin: {

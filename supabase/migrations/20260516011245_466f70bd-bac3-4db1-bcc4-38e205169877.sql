@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW public.nfeio_settings WITH (security_invoker=on) AS SELECT * FROM public.focus_nfe_settings;
