@@ -35,7 +35,24 @@ serve(async (req) => {
       .single();
 
     if (docError || !doc) throw new Error('Documento fiscal não encontrado');
-    if (!doc.provider_id) throw new Error('Documento sem referência do provedor.');
+    if (!doc.provider_id) {
+      // Emissão não chegou a registrar referência no provedor (provavelmente erro antes do envio).
+      // Retorna status atual sem 400 para o frontend parar de polar.
+      return new Response(
+        JSON.stringify({
+          success: true,
+          status: doc.status || 'error',
+          status_label: 'Sem referência do provedor (emissão não iniciada ou falhou antes do envio)',
+          pdf_url: doc.pdf_url || null,
+          xml_url: doc.xml_url || null,
+          access_key: doc.access_key || null,
+          nfe_number: doc.nfe_number || null,
+          focus_status: null,
+          error_message: 'Documento sem referência do provedor. Reemita o documento.',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+      );
+    }
 
     // Get fiscal settings
     const { data: nfSettings, error: nfError } = await supabase
