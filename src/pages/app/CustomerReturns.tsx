@@ -252,7 +252,7 @@ function ReturnFormDialog({ open, existing, onClose, onSaved, accountId, storeId
             <Select value={saleId} onValueChange={onSelectSale}>
               <SelectTrigger><SelectValue placeholder="(opcional)" /></SelectTrigger>
               <SelectContent>
-                {salesOptions.map(s => <SelectItem key={s.id} value={s.id}>#{s.sequential_number} · {s.customer_name || 'Consumidor'}</SelectItem>)}
+                {salesOptions.map(s => <SelectItem key={s.id} value={s.id}>#{s.sale_number ?? '—'}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
