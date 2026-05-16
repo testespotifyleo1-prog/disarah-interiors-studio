@@ -97,7 +97,7 @@ export default function Picking() {
       .select().single();
     if (error || !po) { toast.error('Erro ao criar separação'); return; }
     if (items && items.length) {
-      await supabase.from('picking_items').insert(items.map((it: any) => ({
+      await (supabase as any).from('picking_items').insert(items.map((it: any) => ({
         picking_order_id: po.id,
         product_id: it.product_id,
         product_name: it.products?.name || 'Produto',
@@ -223,9 +223,9 @@ function PickingDetail({ order, onClose, onChanged, userId, isManager, accountId
     const updated = [...items];
     updated[idx] = { ...item, qty_picked: newQty, picked_at: new Date().toISOString() };
     setItems(updated);
-    await supabase.from('picking_items').update({ qty_picked: newQty, picked_at: new Date().toISOString() }).eq('id', item.id);
+    await (supabase as any).from('picking_items').update({ qty_picked: newQty, picked_at: new Date().toISOString() }).eq('id', item.id);
     if (order.status === 'pending') {
-      await supabase.from('picking_orders').update({ status: 'picking', started_at: new Date().toISOString(), picker_user_id: userId }).eq('id', order.id);
+      await (supabase as any).from('picking_orders').update({ status: 'picking', started_at: new Date().toISOString(), picker_user_id: userId }).eq('id', order.id);
     }
     toast.success(`Bipado: ${item.product_name} (${newQty}/${item.qty_required})`);
   };
@@ -363,7 +363,7 @@ function ShippingLabelDialog({ open, onClose, order, accountId, onGenerated }: a
       });
       if (error || !data?.success) throw new Error(data?.error?.message || 'Falha ao comprar etiqueta');
 
-      await supabase.from('picking_orders').update({
+      await (supabase as any).from('picking_orders').update({
         shipping_provider: 'melhor_envio',
         shipping_label_url: data.label_url,
         tracking_code: data.tracking,
@@ -380,7 +380,7 @@ function ShippingLabelDialog({ open, onClose, order, accountId, onGenerated }: a
   const saveManual = async () => {
     if (!tracking.trim()) { toast.error('Informe o código de rastreio'); return; }
     setBusy(true);
-    await supabase.from('picking_orders').update({
+    await (supabase as any).from('picking_orders').update({
       shipping_provider: provider, tracking_code: tracking.trim(), shipping_label_url: labelUrl.trim() || null,
     }).eq('id', order.id);
     setBusy(false);
