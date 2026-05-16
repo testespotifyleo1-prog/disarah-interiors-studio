@@ -19,9 +19,7 @@ export async function generateQuotePDF(quote: any, items: any[]) {
   let y = 10;
 
   // Branding
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); doc.text('Disarah Interiores', pw - m, y + 3, { align: 'right' });
-  doc.setTextColor(0, 0, 0);
+  await drawDisarahHeaderLogo(doc, pw - m, y + 3, 7);
   doc.setFontSize(13); doc.text('ORÇAMENTO', pw / 2, y + 4, { align: 'center' });
   y += 8;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(100); doc.text(`Gerado em ${new Date().toLocaleString('pt-BR')}`, pw - m, y, { align: 'right' });
