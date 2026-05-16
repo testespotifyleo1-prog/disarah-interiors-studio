@@ -75,22 +75,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
         )}
-
-          <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-[#7a1818]" aria-label="Menu">
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-        {open && (
-          <div className="md:hidden border-t border-[#7a1818]/10 bg-[#fbf8f4]">
-            <div className="px-6 py-4 flex flex-col gap-3">
-              {nav.map((n) => (
-                <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-2 text-sm uppercase tracking-[0.18em] text-[#1a0808]/80">
-                  {n.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </header>
 
       <main className="flex-1">{children}</main>
