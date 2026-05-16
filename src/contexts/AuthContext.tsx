@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Load memberships and accounts
       const { data: memberships, error: membershipError } = await supabase
         .from('memberships')
-        .select('*, accounts(*, plan_id)')
+        .select('*, accounts(*)')
         .eq('user_id', userId)
         .eq('is_active', true);
 
