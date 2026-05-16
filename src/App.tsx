@@ -74,6 +74,7 @@ import QuoteDetail from "./pages/app/QuoteDetail";
 import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
+import MyProfile from "./pages/app/MyProfile";
 
 // Site institucional (público)
 import Site from "./pages/site/Site";
