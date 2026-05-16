@@ -40,12 +40,15 @@ serve(async (req) => {
       .single();
 
     if (docError || !doc) throw new Error('Documento fiscal não encontrado');
-    if (!doc.provider_id) throw new Error('Documento sem referência do provedor.');
-    if (doc.status !== 'issued') throw new Error('Somente notas autorizadas podem ser canceladas.');
+    const ref = doc.external_id || doc.provider_id;
+    if (!ref) throw new Error('Documento sem referência do provedor.');
+    if (!['issued', 'authorized', 'autorizado'].includes(doc.status)) {
+      throw new Error('Somente notas autorizadas podem ser canceladas.');
+    }
 
     // Get fiscal settings
     const { data: nfSettings, error: nfError } = await supabase
-      .from('nfeio_settings')
+      .from('focus_nfe_settings')
       .select('*')
       .eq('store_id', doc.store_id)
       .eq('is_active', true)
@@ -54,12 +57,11 @@ serve(async (req) => {
     if (nfError || !nfSettings) throw new Error('Configurações fiscais não encontradas.');
 
     const focusToken = nfSettings.api_key;
-    const baseUrl = nfSettings.environment === 'prod'
+    const baseUrl = (nfSettings.environment === 'prod' || nfSettings.environment === 'production')
       ? 'https://api.focusnfe.com.br'
       : 'https://homologacao.focusnfe.com.br';
 
-    const docType = doc.type === 'nfce' ? 'nfce' : 'nfe';
-    const ref = doc.provider_id;
+    const docType = (doc.doc_type || doc.type) === 'nfce' ? 'nfce' : 'nfe';
 
     console.log(`Cancelling ${docType} ref: ${ref} via Focus NFe`);
 
