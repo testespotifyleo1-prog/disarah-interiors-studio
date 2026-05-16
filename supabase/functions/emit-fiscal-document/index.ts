@@ -132,14 +132,14 @@ serve(async (req) => {
       .insert({
         sale_id,
         store_id: sale.store_id,
-        type,
-        provider: 'focusnfe',
-        provider_id: ref,
+        doc_type: type,
+        external_id: ref,
         status: fiscalDocStatus,
         pdf_url: pdfUrl,
         xml_url: xmlUrl,
         access_key: accessKey,
-        nfe_number: nfeNumber,
+        number: nfeNumber ? Number(nfeNumber) : null,
+        raw_response: focusData,
       })
       .select()
       .single();
