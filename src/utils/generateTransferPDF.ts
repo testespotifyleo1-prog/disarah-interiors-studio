@@ -11,16 +11,14 @@ function hLine(doc: jsPDF, y: number, m: number, pw: number) {
   doc.setDrawColor(0, 0, 0); doc.setLineWidth(0.3); doc.line(m, y, pw - m, y);
 }
 
-export function generateTransferPDF(transfer: any, items: any[], stores: any[]) {
+export async function generateTransferPDF(transfer: any, items: any[], stores: any[]) {
   const doc = new jsPDF('p', 'mm', 'a4');
   const pw = doc.internal.pageSize.getWidth();
   const m = 12;
   let y = 10;
 
-  // Branding
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); doc.text('Disarah Interiores', pw - m, y + 3, { align: 'right' });
-  doc.setTextColor(0, 0, 0);
+  // Logo Disarah no topo direito
+  await drawDisarahHeaderLogo(doc, pw - m, y + 3, 7);
 
   // Title
   doc.setFontSize(13); doc.text('TRANSFERÊNCIA ENTRE LOJAS', pw / 2, y + 4, { align: 'center' });
