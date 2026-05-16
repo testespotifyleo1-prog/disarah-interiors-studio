@@ -4,6 +4,7 @@ import type { SaleWithDetails } from '@/types/database';
 import { fetchStoreLogoDataUrl } from '@/utils/storeLogo';
 import { buildThermalReceiptHtml } from '@/utils/thermalReceipt';
 import { isMirandaGroupStore, getStoreDisplayName } from '@/utils/mirandaBranding';
+import { applyTyposBranding, drawDisarahHeaderLogo } from '@/utils/typosBranding';
 
 interface GeneratePDFOptions {
   sale: SaleWithDetails;
