@@ -463,6 +463,14 @@ export default function Login() {
           <div className="flex flex-col items-center lg:items-start gap-1">
             <TyposLogo size="md" showCredit />
             <p className="text-sm text-muted-foreground">Sistema de Gestão Comercial</p>
+            <a
+              href="https://typoserp.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              Visite typoserp.com.br →
+            </a>
           </div>
 
           <div className="space-y-6">
