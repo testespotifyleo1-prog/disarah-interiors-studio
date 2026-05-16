@@ -4871,10 +4871,12 @@ export type Database = {
         Args: { pin: string; request_id: string }
         Returns: boolean
       }
-      cancel_sale: {
-        Args: { reason?: string; sale_id: string }
-        Returns: undefined
-      }
+      cancel_sale:
+        | {
+            Args: { _reason?: string; _sale_id: string; _user_id?: string }
+            Returns: undefined
+          }
+        | { Args: { reason?: string; sale_id: string }; Returns: undefined }
       current_account_id: { Args: never; Returns: string }
       current_store_id: { Args: never; Returns: string }
       generate_next_sku:
