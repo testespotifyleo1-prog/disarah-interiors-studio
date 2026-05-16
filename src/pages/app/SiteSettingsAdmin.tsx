@@ -76,6 +76,56 @@ export default function SiteSettingsAdmin() {
       </div>
 
       <Card>
+        <CardHeader><CardTitle>Identidade Visual</CardTitle></CardHeader>
+        <CardContent className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <Label>Logo</Label>
+            <div className="h-32 bg-muted/40 border rounded flex items-center justify-center overflow-hidden">
+              {form.logo_url ? (
+                <img src={form.logo_url} alt="Logo" className="max-h-28 max-w-full object-contain" />
+              ) : (
+                <span className="text-xs text-muted-foreground">Sem logo personalizada</span>
+              )}
+            </div>
+            <label className="inline-flex">
+              <input type="file" accept="image/*" hidden disabled={uploading === 'logo'}
+                onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'logo')} />
+              <Button asChild size="sm" variant="outline" disabled={uploading === 'logo'}>
+                <span>{uploading === 'logo' ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Enviando...</> : <><Upload className="h-4 w-4 mr-2" />Trocar Logo</>}</span>
+              </Button>
+            </label>
+            {form.logo_url && (
+              <Button size="sm" variant="ghost" onClick={() => { set('logo_url', null); (supabase as any).from('site_settings').update({ logo_url: null }).eq('id', form.id).then(() => qc.invalidateQueries({ queryKey: ['site_settings'] })); }}>
+                Remover
+              </Button>
+            )}
+          </div>
+          <div className="space-y-3">
+            <Label>Imagem do Hero (capa)</Label>
+            <div className="h-32 bg-muted/40 border rounded overflow-hidden flex items-center justify-center">
+              {form.hero_image_url ? (
+                <img src={form.hero_image_url} alt="Hero" className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs text-muted-foreground">Sem imagem personalizada</span>
+              )}
+            </div>
+            <label className="inline-flex">
+              <input type="file" accept="image/*" hidden disabled={uploading === 'hero'}
+                onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'hero')} />
+              <Button asChild size="sm" variant="outline" disabled={uploading === 'hero'}>
+                <span>{uploading === 'hero' ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Enviando...</> : <><Upload className="h-4 w-4 mr-2" />Trocar Imagem</>}</span>
+              </Button>
+            </label>
+            {form.hero_image_url && (
+              <Button size="sm" variant="ghost" onClick={() => { set('hero_image_url', null); (supabase as any).from('site_settings').update({ hero_image_url: null }).eq('id', form.id).then(() => qc.invalidateQueries({ queryKey: ['site_settings'] })); }}>
+                Remover
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardHeader><CardTitle>Hero (Capa)</CardTitle></CardHeader>
         <CardContent className="space-y-4">
           <div><Label>Tagline</Label><Input value={form.tagline || ''} onChange={(e) => set('tagline', e.target.value)} /></div>
