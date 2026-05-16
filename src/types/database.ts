@@ -201,9 +201,12 @@ export interface FiscalDocument {
   id: string;
   sale_id: string;
   store_id: string;
-  type: FiscalDocType;
-  provider: string;
+  doc_type: FiscalDocType;
+  type?: FiscalDocType;
+  provider?: string;
   provider_id?: string;
+  external_id?: string;
+  number?: string;
   status: string;
   pdf_url?: string;
   xml_url?: string;

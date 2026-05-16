@@ -617,7 +617,7 @@ export default function SaleDetail() {
         {(() => {
           const issuedDoc = fiscalDocs.find((d) => d.status === 'issued');
           if (!issuedDoc) return null;
-          const label = (issuedDoc.type as string)?.toUpperCase() === 'NFCE' ? 'NFC-e' : 'NFe';
+          const label = ((issuedDoc.doc_type ?? issuedDoc.type) as string)?.toUpperCase() === 'NFCE' ? 'NFC-e' : 'NFe';
           const isSending = sendingEmailDocId === issuedDoc.id;
           return (
             <Button
@@ -1321,7 +1321,7 @@ export default function SaleDetail() {
                     <div key={doc.id} className="rounded-lg border p-2 sm:p-3 space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-sm">{doc.type.toUpperCase()}</p>
+                          <p className="font-medium text-sm">{(doc.doc_type ?? doc.type ?? '').toString().toUpperCase()}</p>
                           <Badge className={`${docStatusColors[doc.status] || 'bg-muted'} text-white text-xs`}>
                             {docStatusLabels[doc.status] || doc.status}
                           </Badge>
@@ -1351,12 +1351,12 @@ export default function SaleDetail() {
                             {cancellingDoc === doc.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <XCircle className="mr-1 h-3 w-3" />} Cancelar
                           </Button>
                         )}
-                        {doc.status === 'issued' && doc.type === 'nfe' && (
+                        {doc.status === 'issued' && (doc.doc_type ?? doc.type) === 'nfe' && (
                           <Button size="sm" variant="outline" className="h-7 text-xs px-2" onClick={() => { setCceDocId(doc.id); setCceText(''); }}>
                             <Pencil className="mr-1 h-3 w-3" /> Carta de Correção
                           </Button>
                         )}
-                        {doc.status === 'issued' && doc.type === 'nfe' && (
+                        {doc.status === 'issued' && (doc.doc_type ?? doc.type) === 'nfe' && (
                           <Button size="sm" variant="outline" className="h-7 text-xs px-2" onClick={() => { setComplRefDocId(doc.id); setComplValor(''); setComplMotivo(''); }}>
                             <FileText className="mr-1 h-3 w-3" /> NF-e Complementar
                           </Button>
