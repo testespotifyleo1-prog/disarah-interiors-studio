@@ -4916,7 +4916,9 @@ export type Database = {
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       unaccent: { Args: { "": string }; Returns: string }
-      verify_account_pin: { Args: { pin: string }; Returns: boolean }
+      verify_account_pin:
+        | { Args: { _account_id: string; _pin: string }; Returns: string }
+        | { Args: { pin: string }; Returns: boolean }
     }
     Enums: {
       app_role: "owner" | "admin" | "manager" | "seller"
