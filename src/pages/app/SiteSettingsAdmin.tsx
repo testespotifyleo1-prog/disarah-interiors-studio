@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Save, ExternalLink } from 'lucide-react';
+import { Save, ExternalLink, Upload, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function SiteSettingsAdmin() {
