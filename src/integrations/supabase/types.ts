@@ -3004,6 +3004,11 @@ export type Database = {
           cost_default: number
           cover_image_url: string | null
           created_at: string
+          csosn: string | null
+          cst_cofins: string | null
+          cst_icms: string | null
+          cst_ipi: string | null
+          cst_pis: string | null
           depth_cm: number | null
           description: string | null
           fiscal_unit: string | null
@@ -3017,6 +3022,7 @@ export type Database = {
           is_active: boolean
           name: string
           ncm: string | null
+          origem_icms: string | null
           origin: string | null
           pis_cst: string | null
           price_default: number
@@ -3049,6 +3055,11 @@ export type Database = {
           cost_default?: number
           cover_image_url?: string | null
           created_at?: string
+          csosn?: string | null
+          cst_cofins?: string | null
+          cst_icms?: string | null
+          cst_ipi?: string | null
+          cst_pis?: string | null
           depth_cm?: number | null
           description?: string | null
           fiscal_unit?: string | null
@@ -3062,6 +3073,7 @@ export type Database = {
           is_active?: boolean
           name: string
           ncm?: string | null
+          origem_icms?: string | null
           origin?: string | null
           pis_cst?: string | null
           price_default?: number
@@ -3094,6 +3106,11 @@ export type Database = {
           cost_default?: number
           cover_image_url?: string | null
           created_at?: string
+          csosn?: string | null
+          cst_cofins?: string | null
+          cst_icms?: string | null
+          cst_ipi?: string | null
+          cst_pis?: string | null
           depth_cm?: number | null
           description?: string | null
           fiscal_unit?: string | null
@@ -3107,6 +3124,7 @@ export type Database = {
           is_active?: boolean
           name?: string
           ncm?: string | null
+          origem_icms?: string | null
           origin?: string | null
           pis_cst?: string | null
           price_default?: number
