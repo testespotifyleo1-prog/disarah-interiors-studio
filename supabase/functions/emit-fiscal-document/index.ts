@@ -150,24 +150,33 @@ serve(async (req) => {
       nfeNumber = focusData.numero ? String(focusData.numero) : null;
     }
 
-    const { data: fiscalDoc, error: docError } = await supabase
+    // Upsert by external_id to avoid duplicates when re-syncing an already authorized note
+    const { data: existing } = await supabase
       .from('fiscal_documents')
-      .insert({
-        sale_id,
-        store_id: sale.store_id,
-        doc_type: type,
-        external_id: ref,
-        status: fiscalDocStatus,
-        pdf_url: pdfUrl,
-        xml_url: xmlUrl,
-        access_key: accessKey,
-        number: nfeNumber ? Number(nfeNumber) : null,
-        raw_response: focusData,
-      })
-      .select()
-      .single();
+      .select('id')
+      .eq('external_id', ref)
+      .maybeSingle();
 
-    if (docError) { console.error('Insert fiscal_documents error:', docError); throw new Error('Failed to create fiscal document record: ' + docError.message); }
+    const docPayload = {
+      sale_id,
+      store_id: sale.store_id,
+      doc_type: type,
+      external_id: ref,
+      status: fiscalDocStatus,
+      pdf_url: pdfUrl,
+      xml_url: xmlUrl,
+      access_key: accessKey,
+      number: nfeNumber ? Number(nfeNumber) : null,
+      raw_response: focusData,
+    };
+
+    const query = existing
+      ? supabase.from('fiscal_documents').update(docPayload).eq('id', existing.id).select().single()
+      : supabase.from('fiscal_documents').insert(docPayload).select().single();
+
+    const { data: fiscalDoc, error: docError } = await query;
+
+    if (docError) { console.error('Upsert fiscal_documents error:', docError); throw new Error('Failed to save fiscal document record: ' + docError.message); }
 
     return new Response(
       JSON.stringify({ success: true, document: fiscalDoc, message: 'Documento fiscal enviado para processamento.' }),
