@@ -1803,6 +1803,7 @@ export type Database = {
           nfse_service_code: string | null
           store_id: string
           updated_at: string
+          webhook_secret: string | null
         }
         Insert: {
           account_id?: string
@@ -1834,6 +1835,7 @@ export type Database = {
           nfse_service_code?: string | null
           store_id: string
           updated_at?: string
+          webhook_secret?: string | null
         }
         Update: {
           account_id?: string
@@ -1865,6 +1867,7 @@ export type Database = {
           nfse_service_code?: string | null
           store_id?: string
           updated_at?: string
+          webhook_secret?: string | null
         }
         Relationships: [
           {
