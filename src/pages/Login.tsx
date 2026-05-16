@@ -465,13 +465,8 @@ export default function Login() {
             <p className="text-sm text-muted-foreground">Sistema de Gestão Comercial</p>
           </div>
 
-          <Tabs defaultValue="login" className="space-y-6">
-            <TabsList className="grid h-12 w-full grid-cols-2 rounded-2xl bg-secondary/60 p-1.5 backdrop-blur-sm">
-              <TabsTrigger value="login" className="rounded-xl text-sm font-semibold data-[state=active]:bg-card data-[state=active]:shadow-md transition-all duration-300">Entrar</TabsTrigger>
-              <TabsTrigger value="signup" className="rounded-xl text-sm font-semibold data-[state=active]:bg-card data-[state=active]:shadow-md transition-all duration-300">Cadastrar</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="login" className="space-y-5 animate-fade-in">
+          <div className="space-y-6">
+            <div className="space-y-5 animate-fade-in">
               <form onSubmit={handleLogin} className="space-y-4">
                 <FloatingInput id="login-email" label="Email" type="email" icon={Mail} value={loginEmail} onChange={setLoginEmail} required />
                 <FloatingInput id="login-password" label="Senha" type="password" icon={Lock} value={loginPassword} onChange={setLoginPassword} required />
@@ -492,42 +487,8 @@ export default function Login() {
                   <button type="button" onClick={() => setShowForgot(false)} className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors">Voltar ao login</button>
                 </form>
               )}
-            </TabsContent>
-
-            <TabsContent value="signup" className="space-y-5 animate-fade-in">
-              <form onSubmit={handleSignup} className="space-y-4">
-                <FloatingInput id="signup-name" label="Nome completo" type="text" icon={User} value={signupName} onChange={setSignupName} required />
-                <FloatingInput id="signup-email" label="Email" type="email" icon={Mail} value={signupEmail} onChange={setSignupEmail} required />
-                <FloatingInput id="signup-phone" label="Telefone com DDD" type="tel" icon={Phone} value={signupPhone} onChange={(v) => setSignupPhone(formatPhoneBR(v))} required />
-                <FloatingInput id="signup-password" label="Senha" type="password" icon={Lock} value={signupPassword} onChange={setSignupPassword} required />
-                <FloatingInput id="signup-password-confirm" label="Confirmar senha" type="password" icon={Lock} value={signupPasswordConfirm} onChange={setSignupPasswordConfirm} required />
-                {signupPasswordConfirm.length > 0 && (
-                  signupPassword === signupPasswordConfirm ? (
-                    <p className="text-[11px] text-green-600 -mt-2 px-2 flex items-center gap-1.5 animate-fade-in">
-                      <CheckCircle2 className="h-3.5 w-3.5" /> As senhas coincidem.
-                    </p>
-                  ) : (
-                    <p className="text-[11px] text-destructive -mt-2 px-2 flex items-center gap-1.5 animate-fade-in">
-                      <AlertCircle className="h-3.5 w-3.5" /> As senhas não coincidem.
-                    </p>
-                  )
-                )}
-                <p className="text-[11px] text-muted-foreground -mt-1 px-2 leading-relaxed">
-                  Mínimo 8 caracteres, com 1 letra maiúscula, 1 número e 1 caractere especial.
-                </p>
-                <SubmitButton
-                  loading={isSubmitting}
-                  disabled={!signupPassword || !signupPasswordConfirm || signupPassword !== signupPasswordConfirm}
-                >Criar conta</SubmitButton>
-                <p className="text-[11px] text-muted-foreground text-center leading-relaxed px-2">
-                  Ao se cadastrar, você concorda com nossos{' '}
-                  <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">Termos de Uso</a>
-                  {' '}e{' '}
-                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">Política de Privacidade</a>.
-                </p>
-              </form>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </div>
     </div>
