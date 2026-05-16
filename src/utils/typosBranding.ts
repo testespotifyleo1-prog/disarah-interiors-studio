@@ -111,7 +111,7 @@ export function getTyposLogoImage(): { dataUrl: string; w: number; h: number } |
  */
 export async function applyTyposBranding(doc: jsPDF): Promise<void> {
   const disarah = await getDisarahLogoDataUrl();
-  const typos = await getTyposLogoDataUrl();
+  const typos = getTyposLogoImage();
 
   const pageCount = doc.getNumberOfPages();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -146,29 +146,24 @@ export async function applyTyposBranding(doc: jsPDF): Promise<void> {
     doc.setLineWidth(0.2);
     doc.line(margin, footerY - 4, pageWidth - margin, footerY - 4);
 
-    // Logo Typos ERP à esquerda
+    // Logo Typos ERP à esquerda (mesma logo do login)
     if (typos) {
       try {
-        (doc as any).addImage(typos, 'PNG', margin, footerY - 3.5, 14, 4.5, undefined, 'FAST');
+        const h = 5.5;
+        const w = h * (typos.w / typos.h);
+        (doc as any).addImage(typos.dataUrl, 'PNG', margin, footerY - h + 1, w, h, undefined, 'FAST');
       } catch {
-        // fallback texto
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(7);
         doc.setTextColor(196, 94, 26);
-        doc.text('Typos ERP', margin, footerY);
+        doc.text('Typos! ERP', margin, footerY);
       }
     } else {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7);
       doc.setTextColor(196, 94, 26);
-      doc.text('Typos ERP', margin, footerY);
+      doc.text('Typos! ERP', margin, footerY);
     }
-
-    // Texto central
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6.5);
-    doc.setTextColor(120, 120, 120);
-    doc.text('Sistema de gestão Typos ERP', pageWidth / 2, footerY, { align: 'center' });
 
     // Site à direita
     doc.setFont('helvetica', 'bold');
@@ -187,33 +182,37 @@ export async function applyTyposBranding(doc: jsPDF): Promise<void> {
 }
 
 /**
- * Desenha pequena logo Disarah no topo direito do cabeçalho (substitui o texto).
- * Retorna a largura ocupada (mm) para o caller posicionar o restante.
+ * Desenha a logo Typos! ERP (a mesma da tela de login) no topo direito do cabeçalho.
+ * Renderizada via canvas em alta densidade → nítida em qualquer zoom do PDF.
  */
-export async function drawDisarahHeaderLogo(
+export async function drawTyposHeaderLogo(
   doc: jsPDF,
   xRight: number,
   y: number,
-  height = 7
+  height = 9
 ): Promise<number> {
-  const disarah = await getDisarahLogoDataUrl();
-  if (!disarah) {
+  const typos = getTyposLogoImage();
+  if (!typos) {
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
+    doc.setFontSize(11);
     doc.setTextColor(196, 94, 26);
-    doc.text('Disarah Interiores', xRight, y + 3, { align: 'right' });
+    doc.text('Typos! ERP', xRight, y + 3, { align: 'right' });
     doc.setTextColor(0, 0, 0);
-    return 30;
+    return 35;
   }
-  const w = height * 3.2;
+  const w = height * (typos.w / typos.h);
   try {
-    (doc as any).addImage(disarah, 'PNG', xRight - w, y - 2, w, height, undefined, 'FAST');
+    (doc as any).addImage(typos.dataUrl, 'PNG', xRight - w, y - 2, w, height, undefined, 'FAST');
   } catch {
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
+    doc.setFontSize(11);
     doc.setTextColor(196, 94, 26);
-    doc.text('Disarah Interiores', xRight, y + 3, { align: 'right' });
+    doc.text('Typos! ERP', xRight, y + 3, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   }
   return w;
 }
+
+// Alias para retrocompatibilidade com callers existentes
+export const drawDisarahHeaderLogo = drawTyposHeaderLogo;
+
