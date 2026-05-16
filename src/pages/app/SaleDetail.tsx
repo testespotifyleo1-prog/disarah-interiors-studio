@@ -617,7 +617,7 @@ export default function SaleDetail() {
         {(() => {
           const issuedDoc = fiscalDocs.find((d) => d.status === 'issued');
           if (!issuedDoc) return null;
-          const label = (issuedDoc.type as string)?.toUpperCase() === 'NFCE' ? 'NFC-e' : 'NFe';
+          const label = ((issuedDoc.doc_type ?? issuedDoc.type) as string)?.toUpperCase() === 'NFCE' ? 'NFC-e' : 'NFe';
           const isSending = sendingEmailDocId === issuedDoc.id;
           return (
             <Button
