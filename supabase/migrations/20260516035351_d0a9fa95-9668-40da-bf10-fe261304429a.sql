@@ -1,0 +1,1 @@
+ALTER TABLE public.site_settings ADD COLUMN IF NOT EXISTS logo_size INTEGER NOT NULL DEFAULT 48;
