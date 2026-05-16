@@ -28,7 +28,7 @@ export default function Site() {
       {/* HERO */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={hero1} alt="" className="w-full h-full object-cover" />
+          <img src={s?.hero_image_url || hero1} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#1a0303]/85 via-[#3a0a0a]/60 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 py-24 w-full">

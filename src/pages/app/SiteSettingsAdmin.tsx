@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Save, ExternalLink } from 'lucide-react';
+import { Save, ExternalLink, Upload, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function SiteSettingsAdmin() {
@@ -35,6 +35,30 @@ export default function SiteSettingsAdmin() {
     qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
   };
 
+  const [uploading, setUploading] = useState<'logo' | 'hero' | null>(null);
+  const uploadImage = async (file: File, kind: 'logo' | 'hero') => {
+    try {
+      setUploading(kind);
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `site/${kind}-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from('site-photos').upload(path, file, { upsert: true, contentType: file.type });
+      if (upErr) throw upErr;
+      const { data: pub } = supabase.storage.from('site-photos').getPublicUrl(path);
+      const url = pub.publicUrl;
+      const field = kind === 'logo' ? 'logo_url' : 'hero_image_url';
+      set(field, url);
+      const { error } = await (supabase as any).from('site_settings').update({ [field]: url }).eq('id', form.id);
+      if (error) throw error;
+      toast.success(kind === 'logo' ? 'Logo atualizada!' : 'Imagem hero atualizada!');
+      qc.invalidateQueries({ queryKey: ['site_settings'] });
+      qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
+    } catch (e: any) {
+      toast.error(e.message || 'Erro ao enviar imagem');
+    } finally {
+      setUploading(null);
+    }
+  };
+
   if (!data) return <div className="p-8">Carregando...</div>;
 
   return (
@@ -50,6 +74,56 @@ export default function SiteSettingsAdmin() {
           <Button onClick={save}><Save className="h-4 w-4 mr-2" />Salvar</Button>
         </div>
       </div>
+
+      <Card>
+        <CardHeader><CardTitle>Identidade Visual</CardTitle></CardHeader>
+        <CardContent className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <Label>Logo</Label>
+            <div className="h-32 bg-muted/40 border rounded flex items-center justify-center overflow-hidden">
+              {form.logo_url ? (
+                <img src={form.logo_url} alt="Logo" className="max-h-28 max-w-full object-contain" />
+              ) : (
+                <span className="text-xs text-muted-foreground">Sem logo personalizada</span>
+              )}
+            </div>
+            <label className="inline-flex">
+              <input type="file" accept="image/*" hidden disabled={uploading === 'logo'}
+                onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'logo')} />
+              <Button asChild size="sm" variant="outline" disabled={uploading === 'logo'}>
+                <span>{uploading === 'logo' ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Enviando...</> : <><Upload className="h-4 w-4 mr-2" />Trocar Logo</>}</span>
+              </Button>
+            </label>
+            {form.logo_url && (
+              <Button size="sm" variant="ghost" onClick={() => { set('logo_url', null); (supabase as any).from('site_settings').update({ logo_url: null }).eq('id', form.id).then(() => qc.invalidateQueries({ queryKey: ['site_settings'] })); }}>
+                Remover
+              </Button>
+            )}
+          </div>
+          <div className="space-y-3">
+            <Label>Imagem do Hero (capa)</Label>
+            <div className="h-32 bg-muted/40 border rounded overflow-hidden flex items-center justify-center">
+              {form.hero_image_url ? (
+                <img src={form.hero_image_url} alt="Hero" className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs text-muted-foreground">Sem imagem personalizada</span>
+              )}
+            </div>
+            <label className="inline-flex">
+              <input type="file" accept="image/*" hidden disabled={uploading === 'hero'}
+                onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'hero')} />
+              <Button asChild size="sm" variant="outline" disabled={uploading === 'hero'}>
+                <span>{uploading === 'hero' ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Enviando...</> : <><Upload className="h-4 w-4 mr-2" />Trocar Imagem</>}</span>
+              </Button>
+            </label>
+            {form.hero_image_url && (
+              <Button size="sm" variant="ghost" onClick={() => { set('hero_image_url', null); (supabase as any).from('site_settings').update({ hero_image_url: null }).eq('id', form.id).then(() => qc.invalidateQueries({ queryKey: ['site_settings'] })); }}>
+                Remover
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader><CardTitle>Hero (Capa)</CardTitle></CardHeader>
