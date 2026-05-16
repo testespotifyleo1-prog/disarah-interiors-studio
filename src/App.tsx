@@ -93,7 +93,8 @@ const App = () => (
         <Sonner position="top-right" richColors closeButton expand visibleToasts={4} toastOptions={{ duration: 5000 }} />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Navigate to="/site" replace />} />
+            <Route path="/inicio" element={<Index />} />
             
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
