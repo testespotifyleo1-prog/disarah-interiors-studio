@@ -90,7 +90,7 @@ export default function SiteSettingsAdmin() {
           <div className="rounded-lg overflow-hidden border bg-[#fbf8f4]">
             <div className="h-14 px-5 flex items-center justify-between border-b border-[#7a1818]/10 bg-[#fbf8f4]/85 backdrop-blur">
               {previewLogo ? (
-                <img src={previewLogo} alt="Logo" className="h-9 w-auto object-contain" />
+                <img src={previewLogo} alt="Logo" style={{ height: `${Math.min((form.logo_size || 48) * 0.75, 56)}px` }} className="w-auto object-contain" />
               ) : (
                 <span className="text-sm text-muted-foreground italic">Logo padrão</span>
               )}
