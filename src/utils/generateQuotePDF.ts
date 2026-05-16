@@ -112,5 +112,6 @@ export async function generateQuotePDF(quote: any, items: any[]) {
     doc.text(doc.splitTextToSize(quote.notes, pw - 2 * m), m, y);
   }
 
+  await applyTyposBranding(doc);
   doc.save(`orcamento_${quote.quote_number}.pdf`);
 }
