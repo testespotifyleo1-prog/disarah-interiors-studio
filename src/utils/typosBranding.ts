@@ -1,10 +1,8 @@
 import type jsPDF from 'jspdf';
 import disarahLogoUrl from '@/assets/disarah/logo.png';
 
-const typosLogoUrl = '/typos-logo-email.png';
-
 let disarahCache: string | null = null;
-let typosCache: string | null = null;
+let typosLogoCache: { dataUrl: string; w: number; h: number } | null = null;
 
 async function urlToDataUrl(url: string): Promise<string> {
   const res = await fetch(url);
@@ -27,14 +25,81 @@ export async function getDisarahLogoDataUrl(): Promise<string | null> {
   }
 }
 
-export async function getTyposLogoDataUrl(): Promise<string | null> {
-  if (typosCache) return typosCache;
-  try {
-    typosCache = await urlToDataUrl(typosLogoUrl);
-    return typosCache;
-  } catch {
-    return null;
-  }
+/**
+ * Gera a logo "Typos! ERP" via canvas em alta resolução (sharp),
+ * fiel ao design da tela de login: gradiente laranja + selo ERP.
+ */
+export function getTyposLogoImage(): { dataUrl: string; w: number; h: number } | null {
+  if (typosLogoCache) return typosLogoCache;
+  if (typeof document === 'undefined') return null;
+
+  // Dimensões base (px) — proporção do logo (~ "Typos!" + selo ERP)
+  const baseW = 520;
+  const baseH = 130;
+  const scale = 4; // alta densidade para nitidez no PDF
+  const canvas = document.createElement('canvas');
+  canvas.width = baseW * scale;
+  canvas.height = baseH * scale;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.scale(scale, scale);
+
+  // Fundo transparente (default). Texto "Typos!"
+  const fontStack = `900 96px Outfit, 'Outfit', Inter, Arial, sans-serif`;
+  ctx.font = fontStack;
+  ctx.textBaseline = 'alphabetic';
+
+  // Gradiente laranja
+  const grad = ctx.createLinearGradient(0, 0, baseW, 0);
+  grad.addColorStop(0, '#C45E1A');
+  grad.addColorStop(0.5, '#D4722E');
+  grad.addColorStop(1, '#C45E1A');
+  ctx.fillStyle = grad;
+
+  const text = 'Typos!';
+  const textY = 92;
+  ctx.fillText(text, 0, textY);
+  const textW = ctx.measureText(text).width;
+
+  // Selo "ERP"
+  const badgeX = textW + 14;
+  const badgeH = 36;
+  const badgeY = textY - 56;
+  ctx.font = `800 22px Outfit, 'Outfit', Inter, Arial, sans-serif`;
+  const badgeLabel = 'ERP';
+  const badgeTextW = ctx.measureText(badgeLabel).width;
+  const badgeW = badgeTextW + 22;
+
+  // Fundo do selo (laranja 12% + borda)
+  ctx.fillStyle = 'rgba(196, 94, 26, 0.12)';
+  const r = 7;
+  // roundRect fallback
+  ctx.beginPath();
+  ctx.moveTo(badgeX + r, badgeY);
+  ctx.lineTo(badgeX + badgeW - r, badgeY);
+  ctx.quadraticCurveTo(badgeX + badgeW, badgeY, badgeX + badgeW, badgeY + r);
+  ctx.lineTo(badgeX + badgeW, badgeY + badgeH - r);
+  ctx.quadraticCurveTo(badgeX + badgeW, badgeY + badgeH, badgeX + badgeW - r, badgeY + badgeH);
+  ctx.lineTo(badgeX + r, badgeY + badgeH);
+  ctx.quadraticCurveTo(badgeX, badgeY + badgeH, badgeX, badgeY + badgeH - r);
+  ctx.lineTo(badgeX, badgeY + r);
+  ctx.quadraticCurveTo(badgeX, badgeY, badgeX + r, badgeY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(196, 94, 26, 0.35)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+
+  // Texto ERP
+  ctx.fillStyle = '#C45E1A';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(badgeLabel, badgeX + (badgeW - badgeTextW) / 2, badgeY + badgeH / 2 + 1);
+
+  const dataUrl = canvas.toDataURL('image/png');
+  // Largura útil do logo (texto + selo)
+  const usedW = badgeX + badgeW + 4;
+  typosLogoCache = { dataUrl, w: usedW, h: baseH };
+  return typosLogoCache;
 }
 
 /**
