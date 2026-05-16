@@ -35,6 +35,30 @@ export default function SiteSettingsAdmin() {
     qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
   };
 
+  const [uploading, setUploading] = useState<'logo' | 'hero' | null>(null);
+  const uploadImage = async (file: File, kind: 'logo' | 'hero') => {
+    try {
+      setUploading(kind);
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `site/${kind}-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from('site-photos').upload(path, file, { upsert: true, contentType: file.type });
+      if (upErr) throw upErr;
+      const { data: pub } = supabase.storage.from('site-photos').getPublicUrl(path);
+      const url = pub.publicUrl;
+      const field = kind === 'logo' ? 'logo_url' : 'hero_image_url';
+      set(field, url);
+      const { error } = await (supabase as any).from('site_settings').update({ [field]: url }).eq('id', form.id);
+      if (error) throw error;
+      toast.success(kind === 'logo' ? 'Logo atualizada!' : 'Imagem hero atualizada!');
+      qc.invalidateQueries({ queryKey: ['site_settings'] });
+      qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
+    } catch (e: any) {
+      toast.error(e.message || 'Erro ao enviar imagem');
+    } finally {
+      setUploading(null);
+    }
+  };
+
   if (!data) return <div className="p-8">Carregando...</div>;
 
   return (
