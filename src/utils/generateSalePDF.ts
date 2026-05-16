@@ -539,12 +539,7 @@ function drawDeclarationFooter(doc: jsPDF, y: number, customerName?: string) {
   // Date field on the right
   doc.text(`Data: ____/____/________ de ${new Date().getFullYear()}`, pageWidth - margin - 60, y);
 
-  // System credit at bottom
-  const footerY = pageHeight - 8;
-  doc.setFontSize(6);
-  doc.setTextColor(160, 160, 160);
-  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
+  // Rodapé Typos é aplicado em applyTyposBranding
 
   return y;
 }
