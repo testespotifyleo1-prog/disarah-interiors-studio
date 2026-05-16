@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { TyposLogo } from '@/components/brand/TyposLogo';
-import { LogOut, ChevronDown, Search, X, UserCircle, type LucideIcon } from 'lucide-react';
+import { LogOut, ChevronDown, Search, X, UserCircle, GraduationCap, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { isModuleDisabled, isAiBlocked, AI_BLOCKED_MESSAGE, MODULE_BLOCKED_MESSAGE, type ModuleType } from '@/utils/accountModules';
@@ -116,6 +116,7 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'ecommerce', label: 'Personalizar Site', href: '/app/site/settings', roles: ['owner', 'admin'] },
       { iconKey: 'categories', label: 'Galeria do Site', href: '/app/site/galeria', roles: ['owner', 'admin'] },
       { iconKey: 'reset', label: 'Resetar Dados', href: '/app/settings/reset', roles: ['owner'] },
+      { iconKey: 'training', label: 'Treinamento', href: '/app/training' },
     ],
   },
 ];

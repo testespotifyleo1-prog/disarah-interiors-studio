@@ -46,6 +46,7 @@ import {
   Sparkles,
   Code2,
   Puzzle,
+  GraduationCap,
   type LucideIcon,
 } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
@@ -125,6 +126,7 @@ const ICONS: Record<MenuTheme, Record<string, LucideIcon>> = {
     reactivation: MessageSquare,
     developers: Code2,
     apiConnectors: Puzzle,
+    training: GraduationCap,
   },
   furniture: {
     dashboard: Home,
@@ -193,6 +195,7 @@ const ICONS: Record<MenuTheme, Record<string, LucideIcon>> = {
     reactivation: MessageSquare,
     developers: Code2,
     apiConnectors: Puzzle,
+    training: GraduationCap,
     // unique decorative slot (furniture vibes)
     bedExample: Bed,
     lampExample: Lamp,
