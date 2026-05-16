@@ -148,8 +148,8 @@ export default function SiteSettingsAdmin() {
           <div className="space-y-3">
             <Label>Imagem do Hero (capa)</Label>
             <div className="h-32 bg-muted/40 border rounded overflow-hidden flex items-center justify-center">
-              {form.hero_image_url ? (
-                <img src={form.hero_image_url} alt="Hero" className="h-full w-full object-cover" />
+              {previewHero ? (
+                <img src={previewHero} alt="Hero" className="h-full w-full object-cover" />
               ) : (
                 <span className="text-xs text-muted-foreground">Sem imagem personalizada</span>
               )}
