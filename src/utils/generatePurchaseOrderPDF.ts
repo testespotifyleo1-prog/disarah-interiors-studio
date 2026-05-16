@@ -12,15 +12,13 @@ function hLine(doc: jsPDF, y: number, m: number, pw: number) {
   doc.setDrawColor(0, 0, 0); doc.setLineWidth(0.3); doc.line(m, y, pw - m, y);
 }
 
-export function generatePurchaseOrderPDF(order: any, items: any[]) {
+export async function generatePurchaseOrderPDF(order: any, items: any[]) {
   const doc = new jsPDF('p', 'mm', 'a4');
   const pw = doc.internal.pageSize.getWidth();
   const m = 12;
   let y = 10;
 
-  doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); doc.text('Disarah Interiores', pw - m, y + 3, { align: 'right' });
-  doc.setTextColor(0, 0, 0);
+  await drawDisarahHeaderLogo(doc, pw - m, y + 3, 7);
 
   doc.setFontSize(13); doc.text('PEDIDO DE COMPRA', pw / 2, y + 4, { align: 'center' });
   y += 8;
