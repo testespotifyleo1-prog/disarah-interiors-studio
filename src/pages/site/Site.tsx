@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Award, Heart, MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { ArrowRight, Sparkles, Award, Heart } from 'lucide-react';
 import { SiteLayout } from '@/components/site/SiteLayout';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { supabase } from '@/integrations/supabase/client';
@@ -140,21 +140,22 @@ export default function Site() {
         </div>
       </section>
 
-      {/* CONTATO RÁPIDO */}
-      <section className="py-24 bg-gradient-to-br from-[#3a0a0a] to-[#1a0303] text-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-center md:text-left">
-          {[
-            { icon: MapPin, t: 'Endereço', v: s?.address },
-            { icon: Phone, t: 'Telefone', v: s?.phone },
-            { icon: Mail, t: 'E-mail', v: s?.email },
-            { icon: Clock, t: 'Horário', v: `${s?.hours_weekdays || ''}\n${s?.hours_saturday || ''}` },
-          ].map((c) => (
-            <div key={c.t}>
-              <c.icon size={22} className="text-[#d4a574] mx-auto md:mx-0 mb-3" />
-              <h4 className="text-xs uppercase tracking-[0.2em] text-[#d4a574] mb-2">{c.t}</h4>
-              <p className="text-white/85 whitespace-pre-line text-sm leading-relaxed">{c.v}</p>
-            </div>
-          ))}
+      {/* CTA — Visite a loja */}
+      <section className="py-20 bg-[#f3ece2] border-t border-[#7a1818]/10">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#7a1818] font-semibold">Venha nos visitar</span>
+          <h2 className="text-3xl md:text-4xl mt-4 mb-4 font-light text-[#1a0303]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            Conheça nosso showroom
+          </h2>
+          <p className="text-[#1a0808]/70 mb-8 max-w-xl mx-auto">
+            Experimente cada peça pessoalmente. Nossa equipe está pronta para te receber.
+          </p>
+          <Link
+            to="/site/contato"
+            className="inline-flex items-center gap-2 bg-[#7a1818] hover:bg-[#5a1010] text-white px-8 py-4 text-sm uppercase tracking-[0.18em] font-medium transition-all hover:gap-3"
+          >
+            Ver endereço e horários <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
     </SiteLayout>
