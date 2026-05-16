@@ -3986,6 +3986,7 @@ export type Database = {
           created_at: string
           email: string | null
           facebook_url: string | null
+          hero_image_url: string | null
           hero_subtitle: string | null
           hero_title: string | null
           hours_saturday: string | null
@@ -3993,6 +3994,7 @@ export type Database = {
           hours_weekdays: string | null
           id: string
           instagram_url: string | null
+          logo_url: string | null
           phone: string | null
           primary_color: string | null
           show_facebook: boolean
@@ -4010,6 +4012,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           facebook_url?: string | null
+          hero_image_url?: string | null
           hero_subtitle?: string | null
           hero_title?: string | null
           hours_saturday?: string | null
@@ -4017,6 +4020,7 @@ export type Database = {
           hours_weekdays?: string | null
           id?: string
           instagram_url?: string | null
+          logo_url?: string | null
           phone?: string | null
           primary_color?: string | null
           show_facebook?: boolean
@@ -4034,6 +4038,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           facebook_url?: string | null
+          hero_image_url?: string | null
           hero_subtitle?: string | null
           hero_title?: string | null
           hours_saturday?: string | null
@@ -4041,6 +4046,7 @@ export type Database = {
           hours_weekdays?: string | null
           id?: string
           instagram_url?: string | null
+          logo_url?: string | null
           phone?: string | null
           primary_color?: string | null
           show_facebook?: boolean
