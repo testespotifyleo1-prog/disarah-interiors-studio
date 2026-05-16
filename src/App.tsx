@@ -116,6 +116,7 @@ const App = () => (
               <Route path="pdv" element={<PDV />} />
               <Route path="pdv-rapido" element={<PDVRapido />} />
               <Route path="sales" element={<Sales />} />
+              <Route path="profile" element={<MyProfile />} />
               <Route path="sales/:id" element={<SaleDetail />} />
               <Route path="products" element={<Products />} />
               <Route path="categories" element={<Categories />} />
