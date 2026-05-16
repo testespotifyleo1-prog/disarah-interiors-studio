@@ -25,7 +25,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 backdrop-blur-md bg-[#fbf8f4]/85 border-b border-[#7a1818]/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <Link to="/site" className="flex items-center gap-3">
-            <img src={s?.logo_url || disarahLogo} alt={s?.brand_name || 'Disarah Interiores'} className="h-12 w-auto object-contain" />
+            <img src={s?.logo_url || disarahLogo} alt={s?.brand_name || 'Disarah Interiores'} style={{ height: `${s?.logo_size || 48}px` }} className="w-auto object-contain" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
