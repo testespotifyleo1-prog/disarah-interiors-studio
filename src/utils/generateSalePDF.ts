@@ -84,12 +84,8 @@ async function drawProfessionalHeader(doc: jsPDF, sale: SaleWithDetails, title: 
   const margin = 12;
   let y = 10;
 
-  // ── "Disarah Interiores" branding top-right
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); // #C45E1A
-  doc.text('Disarah Interiores', pageWidth - margin, y + 3, { align: 'right' });
-  doc.setTextColor(0, 0, 0);
+  // ── Logo "Disarah Interiores" no topo direito
+  await drawDisarahHeaderLogo(doc, pageWidth - margin, y + 3, 7);
 
   // ── Title centered
   doc.setFont('helvetica', 'bold');
