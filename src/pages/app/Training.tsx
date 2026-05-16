@@ -48,6 +48,7 @@ interface TutorialMenu {
   label: string;
   icon: any;
   description: string;
+  image?: string;
   steps: TutorialStep[];
 }
 
@@ -57,11 +58,13 @@ const tutorials: TutorialMenu[] = [
     label: 'Dashboard',
     icon: LayoutDashboard,
     description: 'Visão geral do seu negócio em tempo real.',
+    image: '/screenshots/dashboard.png',
     steps: [
-      { title: 'Resumo de Vendas', description: 'Veja o faturamento do dia, mês e ticket médio no topo da página.' },
-      { title: 'Gráficos de Desempenho', description: 'Acompanhe a evolução das vendas diárias e mensais através dos gráficos interativos.' },
-      { title: 'Ranking de Vendedores', description: 'Identifique quais vendedores estão performando melhor no período selecionado.' },
-      { title: 'Produtos Mais Vendidos', description: 'Veja a lista dos itens que mais saem para planejar melhor seu estoque.' },
+      { title: 'Resumo de Vendas', description: 'Veja o faturamento do dia, mês e ticket médio no topo da página. Os cards mostram o total bruto e líquido.' },
+      { title: 'Gráficos de Desempenho', description: 'Acompanhe a evolução das vendas diárias e mensais através dos gráficos interativos de faturamento dos últimos 7 dias.' },
+      { title: 'Alertas de Estoque', description: 'O sistema destaca automaticamente produtos que estão com estoque baixo (abaixo de 10 unidades).' },
+      { title: 'Entregas e Montagens', description: 'Visualize rapidamente quantas entregas e montagens estão pendentes ou agendadas para hoje.' },
+      { title: 'Ranking e Metas', description: 'Acompanhe o desempenho da equipe com o ranking de vendedores e o progresso em relação às metas mensais.' },
     ]
   },
   {
@@ -69,12 +72,13 @@ const tutorials: TutorialMenu[] = [
     label: 'PDV (Ponto de Venda)',
     icon: ShoppingCart,
     description: 'Realize vendas de forma rápida e eficiente.',
+    image: '/screenshots/pdv.png',
     steps: [
-      { title: 'Seleção de Produtos', description: 'Bip o código de barras ou pesquise pelo nome do produto na lateral.' },
-      { title: 'Carrinho de Vendas', description: 'Ajuste quantidades e aplique descontos diretamente nos itens do carrinho.' },
-      { title: 'Identificação do Cliente', description: 'Vincule a venda a um cliente cadastrado para gerar histórico e pontos.' },
-      { title: 'Finalização', description: 'Escolha a forma de pagamento (Dinheiro, Cartão, PIX ou Crediário) e conclua a venda.' },
-      { title: 'Emissão de Nota', description: 'Ao finalizar, você pode optar por emitir o cupom fiscal (NFC-e) instantaneamente.' },
+      { title: 'Seleção de Produtos', description: 'Pesquise produtos pelo nome ou bipe o código de barras. O sistema carrega os preços padrão ou promocionais automaticamente.' },
+      { title: 'Identificação do Cliente', description: 'Vincule a venda a um cliente para gerenciar histórico, crediário ou aplicar descontos personalizados.' },
+      { title: 'Taxas e Observações', description: 'Adicione taxas de entrega, montagem ou observações específicas que sairão no comprovante da venda.' },
+      { title: 'Pagamento Múltiplo', description: 'O sistema permite dividir o pagamento em várias formas (ex: parte em dinheiro, parte no cartão).' },
+      { title: 'Finalização e Documentos', description: 'Ao finalizar, escolha entre salvar como rascunho ou concluir a venda para emissão de NFC-e ou Recibo.' },
     ]
   },
   {
@@ -82,12 +86,27 @@ const tutorials: TutorialMenu[] = [
     label: 'Produtos & Estoque',
     icon: Package,
     description: 'Gestão completa do seu catálogo e estoque.',
+    image: '/screenshots/products.png',
     steps: [
-      { title: 'Cadastro de Produtos', description: 'Insira fotos, descrições, preços de custo/venda e fornecedores.' },
-      { title: 'Controle de Estoque', description: 'Visualize o saldo atual, estoque mínimo e movimentações de cada item.' },
-      { title: 'Categorias', description: 'Organize seus produtos por categorias para facilitar a busca e relatórios.' },
-      { title: 'Transferências', description: 'Mova produtos entre lojas de forma documentada e segura.' },
-      { title: 'Etiquetas', description: 'Gere e imprima etiquetas com código de barras para seus produtos.' },
+      { title: 'Cadastro Detalhado', description: 'Cadastre SKU, nome, unidade, preços de custo e venda, além de informações fiscais (NCM, CEST, CFOP).' },
+      { title: 'Gestão de Categorias', description: 'Organize seus produtos por categorias e grupos para facilitar a navegação no PDV e relatórios.' },
+      { title: 'Controle de Validades', description: 'Registre lotes e datas de validade para receber alertas de produtos próximos ao vencimento.' },
+      { title: 'Transferências entre Lojas', description: 'Mova seu estoque entre diferentes unidades de forma controlada, gerando um histórico de movimentação.' },
+      { title: 'Impressão de Etiquetas', description: 'Gere etiquetas personalizadas com código de barras para seus produtos diretamente pelo sistema.' },
+    ]
+  },
+  {
+    id: 'sales',
+    label: 'Vendas & Relatórios',
+    icon: Receipt,
+    description: 'Acompanhamento de todas as transações realizadas.',
+    image: '/screenshots/sales.png',
+    steps: [
+      { title: 'Listagem de Vendas', description: 'Visualize todas as vendas realizadas com filtros por período, status, vendedor e loja.' },
+      { title: 'Status da Venda', description: 'Acompanhe se a venda está Aberta, Paga, Cancelada ou se é um Rascunho.' },
+      { title: 'Recebimento de Crediário', description: 'O sistema lista separadamente os recebimentos de parcelas de crediário que entraram no caixa.' },
+      { title: 'Exportação de Dados', description: 'Exporte suas vendas para planilhas CSV para análises externas ou contabilidade.' },
+      { title: 'Visualização Detalhada', description: 'Clique no ícone de olho para ver os itens da venda, pagamentos, histórico e documentos fiscais vinculados.' },
     ]
   },
   {
@@ -96,10 +115,10 @@ const tutorials: TutorialMenu[] = [
     icon: Users,
     description: 'Gerencie o relacionamento com seus clientes.',
     steps: [
-      { title: 'Cadastro de Clientes', description: 'Mantenha dados de contato, endereço e CPF atualizados.' },
-      { title: 'Histórico de Compras', description: 'Veja tudo o que o cliente já comprou para oferecer um atendimento personalizado.' },
-      { title: 'Crediário', description: 'Gerencie as contas a receber, limites de crédito e parcelas em aberto.' },
-      { title: 'Créditos de Loja', description: 'Controle saldos de devoluções que o cliente pode usar como pagamento.' },
+      { title: 'Cadastro Completo', description: 'Armazene dados de contato, CPF/CNPJ, endereços de entrega e limites de crédito.' },
+      { title: 'Gestão de Crediário', description: 'Autorize ou bloqueie o uso de crediário para clientes específicos e defina limites de valor.' },
+      { title: 'Créditos de Loja', description: 'Gerencie saldos provenientes de devoluções que podem ser usados como forma de pagamento.' },
+      { title: 'Histórico e Pontuação', description: 'Acompanhe a fidelidade do cliente através do histórico de compras e comportamento.' },
     ]
   },
   {
@@ -108,10 +127,10 @@ const tutorials: TutorialMenu[] = [
     icon: ScrollText,
     description: 'Gestão de pedidos, orçamentos e fornecedores.',
     steps: [
-      { title: 'Orçamentos', description: 'Crie propostas para clientes e converta-as em vendas com um clique.' },
-      { title: 'Fornecedores', description: 'Cadastre seus parceiros de negócio e gerencie os contatos.' },
-      { title: 'Pedidos de Compra', description: 'Organize suas reposições de estoque enviando pedidos formais aos fornecedores.' },
-      { title: 'Sugestão de Reposição', description: 'O sistema analisa as vendas e sugere o que você precisa comprar.' },
+      { title: 'Orçamentos (Cotações)', description: 'Crie orçamentos profissionais e envie para seus clientes. Converta em venda com um clique.' },
+      { title: 'Gestão de Fornecedores', description: 'Mantenha um banco de dados de fornecedores vinculados aos seus respectivos produtos.' },
+      { title: 'Pedidos de Compra', description: 'Gere pedidos de reposição e controle a entrada de mercadorias no estoque.' },
+      { title: 'Sugestões de Reposição', description: 'Deixe o sistema sugerir o que comprar com base no giro de estoque e estoque mínimo.' },
     ]
   },
   {
@@ -120,43 +139,46 @@ const tutorials: TutorialMenu[] = [
     icon: DollarSign,
     description: 'Saúde financeira da sua empresa.',
     steps: [
-      { title: 'Controle de Caixa', description: 'Acompanhe aberturas, fechamentos e sangrias de todos os caixas.' },
-      { title: 'Contas a Pagar/Receber', description: 'Gerencie seus compromissos financeiros e entradas previstas.' },
-      { title: 'Comissões', description: 'Cálculo automático de comissões para sua equipe de vendas.' },
-      { title: 'Metas', description: 'Defina e acompanhe metas de faturamento para a loja e vendedores.' },
+      { title: 'Controle de Fluxo de Caixa', description: 'Monitore as entradas e saídas diárias de todos os caixas da loja.' },
+      { title: 'Contas a Pagar e Receber', description: 'Agende seus compromissos financeiros e não perca prazos de recebimento.' },
+      { title: 'Gestão de Comissões', description: 'Cálculo automático de comissões por vendedor ou metas atingidas.' },
+      { title: 'Extratos de Pagamentos', description: 'Veja detalhadamente cada pagamento recebido, incluindo taxas de cartão e prazos de repasse.' },
     ]
   },
   {
     id: 'logistics',
-    label: 'Logística',
+    label: 'Logística & Montagem',
     icon: Truck,
     description: 'Entrega e montagem de produtos.',
     steps: [
-      { title: 'Expedição (Picking)', description: 'Prepare os produtos vendidos para entrega ou retirada.' },
-      { title: 'Gestão de Entregas', description: 'Roteirize e acompanhe o status das entregas com motoristas.' },
-      { title: 'Montagem', description: 'Para lojas de móveis: gerencie a agenda de montadores e status dos serviços.' },
+      { title: 'Expedição (Picking)', description: 'Separe e confira os itens vendidos antes de saírem para entrega ou retirada.' },
+      { title: 'Roteirização de Entregas', description: 'Organize as entregas por motorista, veículo e região para otimizar o tempo.' },
+      { title: 'Agenda de Montagem', description: 'Gerencie o cronograma dos montadores e o status de cada serviço realizado.' },
+      { title: 'Status em Tempo Real', description: 'Acompanhe se o pedido está "Em Rota", "Entregue" ou se houve alguma ocorrência.' },
     ]
   },
   {
     id: 'fiscal',
-    label: 'Fiscal',
+    label: 'Fiscal & Documentos',
     icon: FileText,
     description: 'Emissão de documentos e obrigações fiscais.',
     steps: [
-      { title: 'Emissão de NF-e', description: 'Gere notas fiscais de venda, devolução ou remessa.' },
-      { title: 'Entrada via XML', description: 'Importe produtos automaticamente ao subir o XML do fornecedor.' },
-      { title: 'Painel do Contador', description: 'Exporte todos os documentos do mês de uma vez para sua contabilidade.' },
+      { title: 'Emissão de NF-e e NFC-e', description: 'Emita notas de venda, devolução, remessa e cupons fiscais eletrônicos com um clique.' },
+      { title: 'Importação de XML', description: 'Agilize a entrada de estoque e cadastro de produtos importando o XML do fornecedor.' },
+      { title: 'Painel do Contador', description: 'Área dedicada para exportação de XMLs e PDFs de todos os documentos do mês.' },
+      { title: 'Configurações Fiscais', description: 'Mantenha os certificados digitais e regras tributárias atualizados por loja.' },
     ]
   },
   {
     id: 'settings',
-    label: 'Configurações',
+    label: 'Configurações & Admin',
     icon: Settings,
     description: 'Personalize o sistema para sua empresa.',
     steps: [
-      { title: 'Dados da Empresa', description: 'Configure CNPJ, endereço e informações que saem nos comprovantes.' },
-      { title: 'Gerenciamento de Lojas', description: 'Adicione ou edite as filiais do seu negócio.' },
-      { title: 'Personalização do Site', description: 'Altere cores, banners e fotos do seu catálogo online.' },
+      { title: 'Gestão de Lojas e Usuários', description: 'Adicione novas filiais e gerencie as permissões de acesso de cada colaborador.' },
+      { title: 'Configurações da Empresa', description: 'Ajuste logotipos, dados fiscais e informações de contato da matriz.' },
+      { title: 'Integrações Externas', description: 'Configure Mercado Pago, WooCommerce e outras ferramentas de terceiros.' },
+      { title: 'Segurança e Logs', description: 'Acompanhe o registro de atividades para saber quem fez o quê no sistema.' },
     ]
   }
 ];
@@ -226,21 +248,34 @@ export default function Training() {
         {/* Content Area */}
         <Card className="md:col-span-8 lg:col-span-9">
           <CardHeader>
-            <div className="flex items-center gap-4 mb-2">
-              <div className="p-3 rounded-full bg-primary/10">
-                <activeTutorial.icon className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <CardTitle className="text-2xl">{activeTutorial.label}</CardTitle>
-                <CardDescription>{activeTutorial.description}</CardDescription>
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-2">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <activeTutorial.icon className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl">{activeTutorial.label}</CardTitle>
+                  <CardDescription>{activeTutorial.description}</CardDescription>
+                </div>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
+              {activeTutorial.image && (
+                <div className="relative rounded-xl overflow-hidden border shadow-sm group">
+                  <img 
+                    src={activeTutorial.image} 
+                    alt={activeTutorial.label}
+                    className="w-full h-auto object-cover max-h-[400px] transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                </div>
+              )}
+
               <div className="grid gap-4">
                 {activeTutorial.steps.map((step, index) => (
-                  <div key={index} className="flex gap-4 p-4 rounded-lg border bg-card hover:bg-accent/10 transition-colors">
+                  <div key={index} className="flex gap-4 p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-sm">
                       {index + 1}
                     </div>
