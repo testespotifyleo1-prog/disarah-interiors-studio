@@ -1,0 +1,1 @@
+ALTER TYPE sale_status ADD VALUE IF NOT EXISTS 'open';
