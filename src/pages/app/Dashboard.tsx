@@ -147,8 +147,9 @@ function DefaultDashboard() {
       const computeFromPayments = async (fromISO: string, toISO: string) => {
         let q = supabase
           .from('payments')
-          .select('method, paid_value, card_fee_value, sale_id, sales!inner(store_id, seller_id)')
+          .select('method, paid_value, card_fee_value, sale_id, sales!inner(store_id, seller_id, status)')
           .eq('sales.store_id', currentStore.id)
+          .neq('sales.status', 'cancelled')
           .gte('created_at', fromISO).lte('created_at', toISO);
         if (isSeller) q = q.eq('sales.seller_id', user.id);
         const { data } = await q;
