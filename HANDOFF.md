@@ -10,7 +10,6 @@ A partir da entrega, o desenvolvedor anterior **não presta mais suporte**.
 - **Frontend**: React 19 + TanStack Start v1 + Vite 7 + Tailwind CSS v4
 - **UI**: shadcn/ui (Radix) + Tailwind
 - **Backend**: Supabase (Postgres + Auth + Storage + Edge Functions)
-- **Hospedagem atual**: Lovable (preview em `*.lovable.app`)
 - **Gerenciador de pacotes**: `bun` (também funciona com `npm`/`pnpm`)
 
 O código é 100% padrão React/Supabase — qualquer dev front/full-stack consegue rodar e fazer deploy sem dependência da plataforma Lovable.
@@ -37,11 +36,13 @@ VITE_SUPABASE_PROJECT_ID=...
 ## 3. Migração do banco de dados (Supabase → Supabase)
 
 ### 3.1. Criar projeto novo
+
 1. Criar conta em [supabase.com](https://supabase.com).
 2. Criar um novo projeto (anotar a senha do banco).
 3. Pegar do painel: `Project URL`, `anon key`, `service_role key`, e a connection string do Postgres (Settings → Database → Connection string → URI).
 
 ### 3.2. Exportar dados do projeto atual
+
 Com a connection string do projeto **antigo**:
 
 ```bash
@@ -56,6 +57,7 @@ pg_dump "postgresql://postgres:[SENHA]@[HOST]:5432/postgres" \
 ```
 
 ### 3.3. Importar no projeto novo
+
 ```bash
 psql "postgresql://postgres:[NOVA_SENHA]@[NOVO_HOST]:5432/postgres" < dump.sql
 ```
@@ -63,7 +65,9 @@ psql "postgresql://postgres:[NOVA_SENHA]@[NOVO_HOST]:5432/postgres" < dump.sql
 > Alternativamente, aplicar as migrações em `supabase/migrations/` em ordem (via Supabase CLI: `supabase db push`).
 
 ### 3.4. Storage (arquivos)
+
 Recriar os buckets no projeto novo (mesmos nomes e configs públicas):
+
 - `store-logos` (público)
 - `product-images` (público)
 - `customer-avatars` (público)
@@ -75,6 +79,7 @@ Recriar os buckets no projeto novo (mesmos nomes e configs públicas):
 Migrar arquivos com o script oficial: https://supabase.com/docs/guides/storage/migrate ou via `rclone`/SDK.
 
 ### 3.5. Edge Functions
+
 Todas as functions em `supabase/functions/` precisam ser deployadas no projeto novo:
 
 ```bash
@@ -84,12 +89,14 @@ supabase functions deploy
 ```
 
 ### 3.6. Secrets das Edge Functions
+
 Configurar via Supabase Dashboard → Edge Functions → Secrets (ou `supabase secrets set`):
 
 - `LOVABLE_API_KEY` — pode remover se não usar IA via Lovable
 - Credenciais de produção que a cliente já usa: Mercado Pago, Focus NFe / NFe.io, etc.
 
 ### 3.7. Atualizar o `.env` do frontend
+
 Trocar `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY` pelos do projeto novo.
 Atualizar `supabase/config.toml` → `project_id` com o novo ref.
 
@@ -136,6 +143,7 @@ Verificar com a cliente quais estão ativas e migrar as credenciais:
 
 Entrega final. Não há contrato de suporte pós-entrega.
 Dúvidas técnicas: stack 100% open-source, documentação oficial:
+
 - React: https://react.dev
 - TanStack Start: https://tanstack.com/start
 - Supabase: https://supabase.com/docs
