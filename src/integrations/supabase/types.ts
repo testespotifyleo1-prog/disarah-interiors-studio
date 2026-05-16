@@ -1793,6 +1793,14 @@ export type Database = {
           nfce_series: number | null
           nfe_next_number: number | null
           nfe_series: number | null
+          nfse_aliquota: number
+          nfse_cnae: string | null
+          nfse_enabled: boolean
+          nfse_iss_retido: boolean
+          nfse_item_description: string | null
+          nfse_next_number: number | null
+          nfse_series: number | null
+          nfse_service_code: string | null
           store_id: string
           updated_at: string
         }
@@ -1816,6 +1824,14 @@ export type Database = {
           nfce_series?: number | null
           nfe_next_number?: number | null
           nfe_series?: number | null
+          nfse_aliquota?: number
+          nfse_cnae?: string | null
+          nfse_enabled?: boolean
+          nfse_iss_retido?: boolean
+          nfse_item_description?: string | null
+          nfse_next_number?: number | null
+          nfse_series?: number | null
+          nfse_service_code?: string | null
           store_id: string
           updated_at?: string
         }
@@ -1839,6 +1855,14 @@ export type Database = {
           nfce_series?: number | null
           nfe_next_number?: number | null
           nfe_series?: number | null
+          nfse_aliquota?: number
+          nfse_cnae?: string | null
+          nfse_enabled?: boolean
+          nfse_iss_retido?: boolean
+          nfse_item_description?: string | null
+          nfse_next_number?: number | null
+          nfse_series?: number | null
+          nfse_service_code?: string | null
           store_id?: string
           updated_at?: string
         }
