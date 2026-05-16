@@ -4,6 +4,7 @@ import type { SaleWithDetails } from '@/types/database';
 import { fetchStoreLogoDataUrl } from '@/utils/storeLogo';
 import { buildThermalReceiptHtml } from '@/utils/thermalReceipt';
 import { isMirandaGroupStore, getStoreDisplayName } from '@/utils/mirandaBranding';
+import { applyTyposBranding, drawDisarahHeaderLogo } from '@/utils/typosBranding';
 
 interface GeneratePDFOptions {
   sale: SaleWithDetails;
@@ -83,12 +84,8 @@ async function drawProfessionalHeader(doc: jsPDF, sale: SaleWithDetails, title: 
   const margin = 12;
   let y = 10;
 
-  // ── "Disarah Interiores" branding top-right
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(196, 94, 26); // #C45E1A
-  doc.text('Disarah Interiores', pageWidth - margin, y + 3, { align: 'right' });
-  doc.setTextColor(0, 0, 0);
+  // ── Logo "Disarah Interiores" no topo direito
+  await drawDisarahHeaderLogo(doc, pageWidth - margin, y + 3, 7);
 
   // ── Title centered
   doc.setFont('helvetica', 'bold');
@@ -542,12 +539,7 @@ function drawDeclarationFooter(doc: jsPDF, y: number, customerName?: string) {
   // Date field on the right
   doc.text(`Data: ____/____/________ de ${new Date().getFullYear()}`, pageWidth - margin - 60, y);
 
-  // System credit at bottom
-  const footerY = pageHeight - 8;
-  doc.setFontSize(6);
-  doc.setTextColor(160, 160, 160);
-  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
+  // Rodapé Typos é aplicado em applyTyposBranding
 
   return y;
 }
@@ -593,6 +585,7 @@ async function buildDeliveryPDF({ sale, sellerName }: GeneratePDFOptions): Promi
   // Declaration and signature
   drawDeclarationFooter(doc, y, sale.customers?.name);
 
+  await applyTyposBranding(doc);
   return doc;
 }
 
@@ -905,13 +898,8 @@ async function buildPDF(opts: GeneratePDFOptions): Promise<jsPDF> {
     });
     y = (doc as any).lastAutoTable.finalY;
   }
-  // Simple footer (no declaration for pedido/orçamento)
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const footerY = pageHeight - 8;
-  doc.setFontSize(6);
-  doc.setTextColor(160, 160, 160);
-  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
+  // Rodapé Typos ERP (logo + site) aplicado em todas as páginas
+  await applyTyposBranding(doc);
 
   return doc;
 }
