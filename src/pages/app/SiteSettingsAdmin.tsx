@@ -90,7 +90,7 @@ export default function SiteSettingsAdmin() {
           <div className="rounded-lg overflow-hidden border bg-[#fbf8f4]">
             <div className="h-14 px-5 flex items-center justify-between border-b border-[#7a1818]/10 bg-[#fbf8f4]/85 backdrop-blur">
               {previewLogo ? (
-                <img src={previewLogo} alt="Logo" className="h-9 w-auto object-contain" />
+                <img src={previewLogo} alt="Logo" style={{ height: `${Math.min((form.logo_size || 48) * 0.75, 56)}px` }} className="w-auto object-contain" />
               ) : (
                 <span className="text-sm text-muted-foreground italic">Logo padrão</span>
               )}
@@ -144,6 +144,22 @@ export default function SiteSettingsAdmin() {
                 Remover
               </Button>
             )}
+            <div className="pt-2 space-y-2">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs">Tamanho da logo (cabeçalho)</Label>
+                <span className="text-xs text-muted-foreground tabular-nums">{form.logo_size || 48}px</span>
+              </div>
+              <input
+                type="range"
+                min={24}
+                max={120}
+                step={2}
+                value={form.logo_size || 48}
+                onChange={(e) => set('logo_size', Number(e.target.value))}
+                className="w-full accent-[#7a1818]"
+              />
+              <p className="text-[11px] text-muted-foreground">Ajuste a altura da logo. O tamanho no rodapé acompanha proporcionalmente.</p>
+            </div>
           </div>
           <div className="space-y-3">
             <Label>Imagem do Hero (capa)</Label>

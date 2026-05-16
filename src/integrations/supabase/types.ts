@@ -3994,6 +3994,7 @@ export type Database = {
           hours_weekdays: string | null
           id: string
           instagram_url: string | null
+          logo_size: number
           logo_url: string | null
           phone: string | null
           primary_color: string | null
@@ -4020,6 +4021,7 @@ export type Database = {
           hours_weekdays?: string | null
           id?: string
           instagram_url?: string | null
+          logo_size?: number
           logo_url?: string | null
           phone?: string | null
           primary_color?: string | null
@@ -4046,6 +4048,7 @@ export type Database = {
           hours_weekdays?: string | null
           id?: string
           instagram_url?: string | null
+          logo_size?: number
           logo_url?: string | null
           phone?: string | null
           primary_color?: string | null

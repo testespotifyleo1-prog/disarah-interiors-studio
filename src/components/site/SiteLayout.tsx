@@ -23,9 +23,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col bg-[#fbf8f4] text-[#1a0808]" style={{ fontFamily: "'Figtree', system-ui, sans-serif" }}>
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-[#fbf8f4]/85 border-b border-[#7a1818]/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-3 min-h-20 flex items-center justify-between">
           <Link to="/site" className="flex items-center gap-3">
-            <img src={s?.logo_url || disarahLogo} alt={s?.brand_name || 'Disarah Interiores'} className="h-12 w-auto object-contain" />
+            <img src={s?.logo_url || disarahLogo} alt={s?.brand_name || 'Disarah Interiores'} style={{ height: `${s?.logo_size || 48}px` }} className="w-auto object-contain" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -83,7 +83,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <footer className="bg-gradient-to-b from-[#3a0a0a] to-[#1a0303] text-[#f5ece0] mt-24">
         <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <img src={s?.logo_url || disarahLogoWhite} alt={s?.brand_name || 'Disarah Interiores'} className="h-14 mb-4 object-contain" />
+            <img src={s?.logo_url || disarahLogoWhite} alt={s?.brand_name || 'Disarah Interiores'} style={{ height: `${Math.round((s?.logo_size || 48) * 1.15)}px` }} className="mb-4 w-auto object-contain" />
             <p className="text-[#f5ece0]/70 text-sm leading-relaxed max-w-md">
               {s?.tagline || 'Móveis que transformam ambientes. Curadoria refinada para a sua casa.'}
             </p>
