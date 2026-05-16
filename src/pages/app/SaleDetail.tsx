@@ -140,7 +140,7 @@ export default function SaleDetail() {
       .select(`
         *,
         customers(name, document, email, phone, address_json, credit_authorized, credit_limit),
-        stores(name, cnpj, ie, phone, address_json, pix_key, pix_key_type, logo_path, logo_updated_at),
+        stores(name, cnpj, ie, phone, address_json, logo_path, logo_updated_at),
         sale_items(*, products(name, sku, unit)),
         payments(*),
         deliveries(*, drivers(name, phone))
