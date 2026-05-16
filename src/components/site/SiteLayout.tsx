@@ -83,7 +83,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <footer className="bg-gradient-to-b from-[#3a0a0a] to-[#1a0303] text-[#f5ece0] mt-24">
         <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <img src={s?.logo_url || disarahLogoWhite} alt={s?.brand_name || 'Disarah Interiores'} className="h-14 mb-4 object-contain" />
+            <img src={s?.logo_url || disarahLogoWhite} alt={s?.brand_name || 'Disarah Interiores'} style={{ height: `${Math.round((s?.logo_size || 48) * 1.15)}px` }} className="mb-4 w-auto object-contain" />
             <p className="text-[#f5ece0]/70 text-sm leading-relaxed max-w-md">
               {s?.tagline || 'Móveis que transformam ambientes. Curadoria refinada para a sua casa.'}
             </p>
