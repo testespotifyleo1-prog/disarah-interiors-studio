@@ -4239,6 +4239,9 @@ export type Database = {
           logo_url: string | null
           name: string
           number: string | null
+          pdv_auto_print_fiscal: boolean
+          pdv_auto_print_receipt: boolean
+          pdv_receipt_format: string
           phone: string | null
           state: string | null
           street: string | null
@@ -4267,6 +4270,9 @@ export type Database = {
           logo_url?: string | null
           name: string
           number?: string | null
+          pdv_auto_print_fiscal?: boolean
+          pdv_auto_print_receipt?: boolean
+          pdv_receipt_format?: string
           phone?: string | null
           state?: string | null
           street?: string | null
@@ -4295,6 +4301,9 @@ export type Database = {
           logo_url?: string | null
           name?: string
           number?: string | null
+          pdv_auto_print_fiscal?: boolean
+          pdv_auto_print_receipt?: boolean
+          pdv_receipt_format?: string
           phone?: string | null
           state?: string | null
           street?: string | null
