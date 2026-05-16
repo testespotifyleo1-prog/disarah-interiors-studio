@@ -898,13 +898,8 @@ async function buildPDF(opts: GeneratePDFOptions): Promise<jsPDF> {
     });
     y = (doc as any).lastAutoTable.finalY;
   }
-  // Simple footer (no declaration for pedido/orçamento)
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const footerY = pageHeight - 8;
-  doc.setFontSize(6);
-  doc.setTextColor(160, 160, 160);
-  doc.text('Disarah Interiores', pageWidth / 2, footerY, { align: 'center' });
-  doc.setTextColor(0, 0, 0);
+  // Rodapé Typos ERP (logo + site) aplicado em todas as páginas
+  await applyTyposBranding(doc);
 
   return doc;
 }
