@@ -3889,6 +3889,7 @@ export type Database = {
           remaining_amount: number | null
           sale_id: string | null
           status: string | null
+          store_id: string | null
           updated_at: string
           used_amount: number
           used_at: string | null
@@ -3909,6 +3910,7 @@ export type Database = {
           remaining_amount?: number | null
           sale_id?: string | null
           status?: string | null
+          store_id?: string | null
           updated_at?: string
           used_amount?: number
           used_at?: string | null
@@ -3929,6 +3931,7 @@ export type Database = {
           remaining_amount?: number | null
           sale_id?: string | null
           status?: string | null
+          store_id?: string | null
           updated_at?: string
           used_amount?: number
           used_at?: string | null
@@ -3961,6 +3964,13 @@ export type Database = {
             columns: ["sale_id"]
             isOneToOne: false
             referencedRelation: "sales"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "store_credits_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
         ]
