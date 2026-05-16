@@ -75,6 +75,7 @@ import Picking from "./pages/app/Picking";
 import CustomerReturns from "./pages/app/CustomerReturns";
 import SalesGoals from "./pages/app/SalesGoals";
 import MyProfile from "./pages/app/MyProfile";
+import Training from "./pages/app/Training";
 
 // Site institucional (público)
 import Site from "./pages/site/Site";
@@ -170,6 +171,7 @@ const App = () => (
               <Route path="picking" element={<Picking />} />
               <Route path="customer-returns" element={<CustomerReturns />} />
               <Route path="sales-goals" element={<SalesGoals />} />
+              <Route path="training" element={<Training />} />
               <Route path="site/settings" element={<SiteSettingsAdmin />} />
               <Route path="site/galeria" element={<SiteGalleryAdmin />} />
             </Route>
