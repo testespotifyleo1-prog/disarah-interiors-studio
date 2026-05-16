@@ -36,7 +36,11 @@ export default function SiteSettingsAdmin() {
   };
 
   const [uploading, setUploading] = useState<'logo' | 'hero' | null>(null);
+  const [tempPreview, setTempPreview] = useState<{ logo?: string; hero?: string }>({});
+
   const uploadImage = async (file: File, kind: 'logo' | 'hero') => {
+    const localUrl = URL.createObjectURL(file);
+    setTempPreview((p) => ({ ...p, [kind]: localUrl }));
     try {
       setUploading(kind);
       const ext = file.name.split('.').pop() || 'jpg';
@@ -52,12 +56,17 @@ export default function SiteSettingsAdmin() {
       toast.success(kind === 'logo' ? 'Logo atualizada!' : 'Imagem hero atualizada!');
       qc.invalidateQueries({ queryKey: ['site_settings'] });
       qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
+      setTimeout(() => { URL.revokeObjectURL(localUrl); setTempPreview((p) => ({ ...p, [kind]: undefined })); }, 1000);
     } catch (e: any) {
       toast.error(e.message || 'Erro ao enviar imagem');
+      setTempPreview((p) => ({ ...p, [kind]: undefined }));
     } finally {
       setUploading(null);
     }
   };
+
+  const previewLogo = tempPreview.logo || form.logo_url;
+  const previewHero = tempPreview.hero || form.hero_image_url;
 
   if (!data) return <div className="p-8">Carregando...</div>;
 
@@ -76,13 +85,49 @@ export default function SiteSettingsAdmin() {
       </div>
 
       <Card>
+        <CardHeader><CardTitle>Pré-visualização ao vivo</CardTitle></CardHeader>
+        <CardContent>
+          <div className="rounded-lg overflow-hidden border bg-[#fbf8f4]">
+            <div className="h-14 px-5 flex items-center justify-between border-b border-[#7a1818]/10 bg-[#fbf8f4]/85 backdrop-blur">
+              {previewLogo ? (
+                <img src={previewLogo} alt="Logo" className="h-9 w-auto object-contain" />
+              ) : (
+                <span className="text-sm text-muted-foreground italic">Logo padrão</span>
+              )}
+              <div className="hidden sm:flex gap-6 text-[10px] uppercase tracking-[0.18em] text-[#1a0808]/60">
+                <span>Início</span><span>Galeria</span><span>Sobre</span><span>Contato</span>
+              </div>
+            </div>
+            <div className="relative h-[260px] overflow-hidden">
+              {previewHero ? (
+                <img src={previewHero} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3a0a0a] to-[#7a1818]" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1a0303]/85 via-[#3a0a0a]/60 to-transparent" />
+              <div className="relative h-full flex items-center px-8">
+                <div className="max-w-md text-white">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#d4a574]">{form.tagline || 'Tagline'}</span>
+                  <h1 className="text-3xl md:text-4xl font-light mt-2 leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    {form.hero_title || 'Título Principal'}
+                  </h1>
+                  <p className="text-xs text-white/85 mt-3 line-clamp-2">{form.hero_subtitle || 'Subtítulo'}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">Atualiza em tempo real conforme você envia/edita os campos abaixo.</p>
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardHeader><CardTitle>Identidade Visual</CardTitle></CardHeader>
         <CardContent className="grid md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <Label>Logo</Label>
             <div className="h-32 bg-muted/40 border rounded flex items-center justify-center overflow-hidden">
-              {form.logo_url ? (
-                <img src={form.logo_url} alt="Logo" className="max-h-28 max-w-full object-contain" />
+              {previewLogo ? (
+                <img src={previewLogo} alt="Logo" className="max-h-28 max-w-full object-contain" />
               ) : (
                 <span className="text-xs text-muted-foreground">Sem logo personalizada</span>
               )}
@@ -103,8 +148,8 @@ export default function SiteSettingsAdmin() {
           <div className="space-y-3">
             <Label>Imagem do Hero (capa)</Label>
             <div className="h-32 bg-muted/40 border rounded overflow-hidden flex items-center justify-center">
-              {form.hero_image_url ? (
-                <img src={form.hero_image_url} alt="Hero" className="h-full w-full object-cover" />
+              {previewHero ? (
+                <img src={previewHero} alt="Hero" className="h-full w-full object-cover" />
               ) : (
                 <span className="text-xs text-muted-foreground">Sem imagem personalizada</span>
               )}
