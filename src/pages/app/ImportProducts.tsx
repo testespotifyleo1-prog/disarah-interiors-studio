@@ -145,7 +145,7 @@ export default function ImportProducts() {
         for (const lookup of skuLookups) {
           const existingId = existingMap.get(lookup.sku);
           if (existingId) {
-            batchUpdates.push({ id: existingId, data: lookup.product, rowIdx: lookup.rowIdx });
+            batchUpdates.push({ id: existingId as string, data: lookup.product, rowIdx: lookup.rowIdx });
           } else {
             batchInserts.push({ ...lookup.product, _rowIdx: lookup.rowIdx });
           }

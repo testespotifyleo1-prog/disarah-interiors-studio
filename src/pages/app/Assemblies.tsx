@@ -104,7 +104,7 @@ export default function Assemblies() {
         .eq('is_active', true)
         .order('name');
 
-      setAssemblies(asmData || []);
+      setAssemblies((asmData || []) as any);
       setAssemblers(assemblersData || []);
     } catch (error: any) {
       toast({ variant: 'destructive', title: 'Erro', description: error.message });

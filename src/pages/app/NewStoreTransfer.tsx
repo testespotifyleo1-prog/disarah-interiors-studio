@@ -140,11 +140,11 @@ export default function NewStoreTransfer() {
 
     setSaving(true);
     try {
-      const { data: transfer, error } = await supabase.from('store_transfers').insert({
+      const { data: transfer, error } = await (supabase as any).from('store_transfers').insert({
         account_id: currentAccount!.id,
         from_store_id: fromStoreId,
         to_store_id: toStoreId,
-        status: asDraft ? 'draft' : 'requested',
+        status: (asDraft ? 'draft' : 'requested') as any,
         notes: notes || null,
         created_by: user!.id,
       }).select().single();

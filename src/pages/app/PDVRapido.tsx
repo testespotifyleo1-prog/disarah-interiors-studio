@@ -191,7 +191,7 @@ export default function PDVRapido() {
   useEffect(() => {
     if (!currentAccount?.id) return;
     const loadCredits = async () => {
-      const { data } = await supabase
+      const { data } = await (supabase as any)
         .from('store_credits')
         .select('id, customer_id, customer_name_manual, remaining_amount')
         .eq('account_id', currentAccount.id)
@@ -200,7 +200,7 @@ export default function PDVRapido() {
       if (data) {
         const map: Record<string, number> = {};
         const manuals: { id: string; name: string; amount: number }[] = [];
-        data.forEach(c => {
+        (data as any[]).forEach((c: any) => {
           if (c.customer_id) {
             map[c.customer_id] = (map[c.customer_id] || 0) + c.remaining_amount;
           } else if (c.customer_name_manual) {
@@ -310,7 +310,7 @@ export default function PDVRapido() {
   // Load customer used credit
   const loadCustomerUsedCredit = useCallback(async (customerId: string) => {
     if (!currentAccount?.id) return;
-    const { data } = await supabase.rpc('get_customer_used_credit', { _customer_id: customerId, _account_id: currentAccount.id });
+    const { data } = await (supabase as any).rpc('get_customer_used_credit', { _customer_id: customerId, _account_id: currentAccount.id });
     setCustomerUsedCredit(Number(data) || 0);
   }, [currentAccount?.id]);
 
@@ -385,7 +385,7 @@ export default function PDVRapido() {
     if (cart.length === 0) { toast({ variant: 'destructive', title: 'Carrinho vazio' }); return; }
     if (!currentAccount?.id || !currentStore?.id || !user?.id) return;
     const customerName = quickCustomerName.trim() || (selectedCustomer ? (customers.find(c => c.id === selectedCustomer)?.name || '') : '');
-    const { error } = await supabase.from('held_sales').insert({
+    const { error } = await (supabase as any).from('held_sales').insert({
       account_id: currentAccount.id,
       store_id: currentStore.id,
       seller_id: user.id,
@@ -407,7 +407,7 @@ export default function PDVRapido() {
     // If current cart has items, save it as a new held sale first
     if (cart.length > 0) {
       const swapName = quickCustomerName.trim() || (selectedCustomer ? (customers.find(c => c.id === selectedCustomer)?.name || '') : '');
-      await supabase.from('held_sales').insert({
+      await (supabase as any).from('held_sales').insert({
         account_id: currentAccount.id,
         store_id: currentStore.id,
         seller_id: user.id,
@@ -1149,7 +1149,7 @@ export default function PDVRapido() {
         refreshCustomers();
       }
 
-      const { data: sale, error } = await supabase.from('sales').insert({
+      const { data: sale, error } = await (supabase as any).from('sales').insert({
         account_id: currentAccount.id, store_id: currentStore.id, seller_id: user.id,
         customer_id: finalCustomerId || null, status: 'open', discount, delivery_fee: 0, assembly_fee: assemblyFee, subtotal, total, notes: buildNotesForSave(),
       }).select().single();
@@ -1184,7 +1184,7 @@ export default function PDVRapido() {
           presentation_id: null, presentation_name: null, sold_qty: null, base_qty: null,
         };
       });
-      await supabase.from('sale_items').insert(items);
+      await (supabase as any).from('sale_items').insert(items);
 
       // Skip crediário entries — they are represented by parcels in accounts_receivable
       // and only generate payment rows when each installment is actually received.

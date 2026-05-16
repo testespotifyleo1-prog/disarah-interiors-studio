@@ -24,6 +24,8 @@ const statusColors: Record<SaleStatus, string> = {
   paid: 'bg-status-paid',
   cancelled: 'bg-status-canceled',
   crediario: 'bg-orange-500',
+  held: 'bg-yellow-500',
+  returned: 'bg-gray-500',
 };
 
 const statusLabels: Record<SaleStatus, string> = {
@@ -32,6 +34,8 @@ const statusLabels: Record<SaleStatus, string> = {
   paid: 'Paga',
   cancelled: 'Cancelada',
   crediario: 'Crediário',
+  held: 'Em espera',
+  returned: 'Devolvida',
 };
 
 const isWooCommerceSale = (sale: SaleWithDetails) => {

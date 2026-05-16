@@ -61,7 +61,7 @@ export default function MyCommissions() {
       if (error) throw error;
 
       const commissionsData = data || [];
-      setCommissions(commissionsData as CommissionWithSale[]);
+      setCommissions(commissionsData as unknown as CommissionWithSale[]);
 
       const pending = commissionsData.filter(c => c.status === 'pending');
       const paid = commissionsData.filter(c => c.status === 'paid');

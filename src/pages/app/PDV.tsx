@@ -469,7 +469,7 @@ export default function PDV() {
       }
 
       const crediarioAmount = curAmount || remaining;
-      const { data: req, error } = await supabase.from('credit_override_requests').insert({
+      const { data: req, error } = await (supabase as any).from('credit_override_requests').insert({
         account_id: currentAccount.id,
         store_id: currentStore.id,
         sale_id: saleId,
