@@ -40,7 +40,7 @@ const menuGroups: MenuGroup[] = [
       { iconKey: 'transfers', label: 'Transferências', href: '/app/transfers', roles: ['owner', 'admin', 'manager'] },
       { iconKey: 'labels', label: 'Etiquetas', href: '/app/labels' },
       { iconKey: 'expiration', label: 'Validades', href: '/app/expiration-report' },
-      { iconKey: 'aiSimulation', label: 'Simulações IA ✨', href: '/app/ai-simulations', roles: ['owner', 'admin', 'manager', 'seller'] },
+      
     ],
   },
   {
