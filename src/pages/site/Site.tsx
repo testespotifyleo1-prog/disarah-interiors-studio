@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Award, Heart, MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { ArrowRight, Sparkles, Award, Heart } from 'lucide-react';
 import { SiteLayout } from '@/components/site/SiteLayout';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { supabase } from '@/integrations/supabase/client';
