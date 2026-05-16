@@ -1351,12 +1351,12 @@ export default function SaleDetail() {
                             {cancellingDoc === doc.id ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : <XCircle className="mr-1 h-3 w-3" />} Cancelar
                           </Button>
                         )}
-                        {doc.status === 'issued' && doc.type === 'nfe' && (
+                        {doc.status === 'issued' && (doc.doc_type ?? doc.type) === 'nfe' && (
                           <Button size="sm" variant="outline" className="h-7 text-xs px-2" onClick={() => { setCceDocId(doc.id); setCceText(''); }}>
                             <Pencil className="mr-1 h-3 w-3" /> Carta de Correção
                           </Button>
                         )}
-                        {doc.status === 'issued' && doc.type === 'nfe' && (
+                        {doc.status === 'issued' && (doc.doc_type ?? doc.type) === 'nfe' && (
                           <Button size="sm" variant="outline" className="h-7 text-xs px-2" onClick={() => { setComplRefDocId(doc.id); setComplValor(''); setComplMotivo(''); }}>
                             <FileText className="mr-1 h-3 w-3" /> NF-e Complementar
                           </Button>
