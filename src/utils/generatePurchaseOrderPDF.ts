@@ -80,5 +80,6 @@ export async function generatePurchaseOrderPDF(order: any, items: any[]) {
     doc.text(doc.splitTextToSize(order.notes, pw - 2 * m), m, y);
   }
 
+  await applyTyposBranding(doc);
   doc.save(`pedido_compra_${order.order_number}.pdf`);
 }
