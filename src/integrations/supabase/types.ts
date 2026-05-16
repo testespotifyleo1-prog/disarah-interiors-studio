@@ -4929,6 +4929,18 @@ export type Database = {
         Args: { item_id: string }
         Returns: undefined
       }
+      run_inventory_tests: {
+        Args: never
+        Returns: {
+          details: string
+          passed: boolean
+          test_name: string
+        }[]
+      }
+      sales_status_inventory_apply: {
+        Args: { _sale_id: string }
+        Returns: undefined
+      }
       set_focus_nfe_api_key: {
         Args: { p_api_key: string; p_pin: string; p_store_id: string }
         Returns: undefined
