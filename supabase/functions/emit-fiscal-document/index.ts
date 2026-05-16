@@ -71,6 +71,20 @@ serve(async (req) => {
     // Generate unique ref from sale_id
     const ref = `${type}-${sale_id}`;
 
+    const { data: existingIssuedDoc } = await supabase
+      .from('fiscal_documents')
+      .select('*')
+      .eq('external_id', ref)
+      .in('status', ['issued', 'authorized', 'completed'])
+      .maybeSingle();
+
+    if (existingIssuedDoc) {
+      return new Response(
+        JSON.stringify({ success: true, document: existingIssuedDoc, message: 'Documento fiscal já autorizado.' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+      );
+    }
+
     console.log(`Emitting ${type} for sale ${sale_id} via Focus NFe, ref: ${ref}`);
 
     const endpoint = type === 'nfe' ? '/v2/nfe' : '/v2/nfce';
@@ -108,9 +122,15 @@ serve(async (req) => {
       const rawMsg = errosDetail || focusData.mensagem || focusData.codigo || JSON.stringify(focusData);
 
       // If already authorized for this ref, fetch the existing document instead of failing
-      const alreadyAuthorized = /já foi autorizada/i.test(rawMsg)
+      const normalizedMsg = String(rawMsg)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+      const alreadyAuthorized = focusData.codigo === 'already_processed'
         || focusData.codigo === 'nota_fiscal_ja_autorizada'
-        || /duplicad/i.test(rawMsg);
+        || normalizedMsg.includes('ja foi autorizada')
+        || normalizedMsg.includes('already processed')
+        || normalizedMsg.includes('duplicad');
 
       if (alreadyAuthorized) {
         console.log('Nota já autorizada, consultando via GET para sincronizar.');
@@ -124,7 +144,13 @@ serve(async (req) => {
           throw new Error(`Nota já autorizada, mas falha ao consultar: ${getText.substring(0, 200)}`);
         }
         if (!getResp.ok) {
-          throw new Error(`Nota já autorizada, mas consulta falhou: ${JSON.stringify(focusData)}`);
+          console.warn('Nota já autorizada, mas consulta falhou. Salvando como autorizada com a resposta original.', focusData);
+          focusData = {
+            ...focusData,
+            status: 'autorizado',
+            codigo: focusData.codigo || 'already_processed',
+            mensagem: focusData.mensagem || 'A nota fiscal já foi autorizada',
+          };
         }
         // fall through to status handling below
       } else {
