@@ -36,7 +36,13 @@ export function TyposLogo({ size = 'md', showCredit = false, className }: TyposL
           )}
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
-          Disarah
+          Typos
+          <span
+            aria-hidden="true"
+            className="inline-block animate-typos-bounce bg-gradient-to-r from-[#C45E1A] via-[#D4722E] to-[#C45E1A] bg-clip-text text-transparent"
+          >
+            !
+          </span>
         </span>
         <span
           className={cn(
@@ -45,7 +51,7 @@ export function TyposLogo({ size = 'md', showCredit = false, className }: TyposL
           )}
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
-          Interiores
+          ERP
         </span>
       </span>
       {showCredit && (
@@ -53,7 +59,7 @@ export function TyposLogo({ size = 'md', showCredit = false, className }: TyposL
           className={cn(creditSizes[size], 'text-muted-foreground/60 font-medium tracking-wide')}
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
-          Móveis & Decoração
+          By Leonardo Andrade
         </span>
       )}
     </span>

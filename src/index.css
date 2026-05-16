@@ -290,3 +290,22 @@
 }
 .wa-typing-dot:nth-child(2) { animation-delay: 0.15s; }
 .wa-typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* Typos logo animations */
+@keyframes logo-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-logo-shimmer { animation: logo-shimmer 4s ease-in-out infinite; }
+
+@keyframes typos-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-4deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-3px) rotate(4deg); }
+}
+.animate-typos-bounce {
+  display: inline-block;
+  animation: typos-bounce 1.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
