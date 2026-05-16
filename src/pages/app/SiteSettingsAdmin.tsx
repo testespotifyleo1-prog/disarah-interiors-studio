@@ -36,7 +36,11 @@ export default function SiteSettingsAdmin() {
   };
 
   const [uploading, setUploading] = useState<'logo' | 'hero' | null>(null);
+  const [tempPreview, setTempPreview] = useState<{ logo?: string; hero?: string }>({});
+
   const uploadImage = async (file: File, kind: 'logo' | 'hero') => {
+    const localUrl = URL.createObjectURL(file);
+    setTempPreview((p) => ({ ...p, [kind]: localUrl }));
     try {
       setUploading(kind);
       const ext = file.name.split('.').pop() || 'jpg';
@@ -52,12 +56,17 @@ export default function SiteSettingsAdmin() {
       toast.success(kind === 'logo' ? 'Logo atualizada!' : 'Imagem hero atualizada!');
       qc.invalidateQueries({ queryKey: ['site_settings'] });
       qc.invalidateQueries({ queryKey: ['site_settings_admin'] });
+      setTimeout(() => { URL.revokeObjectURL(localUrl); setTempPreview((p) => ({ ...p, [kind]: undefined })); }, 1000);
     } catch (e: any) {
       toast.error(e.message || 'Erro ao enviar imagem');
+      setTempPreview((p) => ({ ...p, [kind]: undefined }));
     } finally {
       setUploading(null);
     }
   };
+
+  const previewLogo = tempPreview.logo || form.logo_url;
+  const previewHero = tempPreview.hero || form.hero_image_url;
 
   if (!data) return <div className="p-8">Carregando...</div>;
 
